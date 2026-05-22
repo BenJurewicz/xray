@@ -23,16 +23,36 @@ Usage:
 Keys:
   ↑/k ↓/j      move
   ←/h →/l      collapse / expand
-  ctrl-d/u     half-page down / up
-  ctrl-f/b     page down / up
-  ctrl-e/y     scroll down / up
-  gg / G       top / bottom
+  d/u          half-page down / up
+  f/b          page down / up
+  e/y          scroll down / up
+  g / G        top / bottom
+  o / i        jump back / forward
   enter        toggle expand
   /            search
   c            clear search filter
   n / N        next / previous match
   ?            toggle help
   q            quit
+
+Search:
+  Bare text searches tags, attribute names, attribute values, and text.
+    invoice
+    paid
+
+  Prefix filters narrow the search:
+    tag:item        match element names
+    attr:id         match attribute names
+    attr:id=42      match attribute name + value
+    text:paid       match text content
+    value:paid      alias for text:paid
+
+  Filters compose with spaces, so every token must match:
+    tag:item attr:status=paid
+
+  enter applies the search. esc cancels while typing. After a search is
+  active, esc or c clears it. n/N move between matches. o/i move backward
+  and forward through the jump list, including search jumps.
 `
 
 func main() {
@@ -93,27 +113,38 @@ const (
 	modeSearch
 )
 
-type model struct {
-	doc       *xmltree.Document
-	expanded  map[int]bool
-	matches   map[int]bool
-	matchIDs  []int
+type location struct {
 	selected  int
 	offset    int
-	width     int
-	height    int
 	query     string
-	mode      mode
-	showHelp  bool
+	matches   map[int]bool
+	matchIDs  []int
 	lastError string
-	filePath  string
-	pendingG  bool
+}
+
+type model struct {
+	doc          *xmltree.Document
+	expanded     map[int]bool
+	matches      map[int]bool
+	matchIDs     []int
+	selected     int
+	offset       int
+	width        int
+	height       int
+	query        string
+	mode         mode
+	showHelp     bool
+	lastError    string
+	filePath     string
+	jumps        []location
+	jumpIndex    int
+	searchOrigin *location
 }
 
 func newModel(doc *xmltree.Document, filePath string) model {
 	exp := map[int]bool{}
 	xmltree.Walk(doc, func(n *xmltree.Node) { exp[n.ID] = true })
-	return model{doc: doc, expanded: exp, filePath: filePath}
+	return model{doc: doc, expanded: exp, filePath: filePath, jumpIndex: -1}
 }
 
 func (m model) Init() tea.Cmd { return nil }
@@ -127,13 +158,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		if m.mode == modeSearch {
 			return m.updateSearch(msg), nil
 		}
-		if m.pendingG {
-			m.pendingG = false
-			if msg.String() == "g" {
-				m.goTop()
-				return m, nil
-			}
-		}
 		switch msg.String() {
 		case "q", "ctrl+c":
 			return m, tea.Quit
@@ -143,22 +167,26 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.move(-1)
 		case "down", "j":
 			m.move(1)
-		case "ctrl+d":
+		case "ctrl+d", "d":
 			m.pageJump(m.halfPageStep())
-		case "ctrl+u":
+		case "ctrl+u", "u":
 			m.pageJump(-m.halfPageStep())
-		case "ctrl+f":
+		case "ctrl+f", "f":
 			m.pageJump(m.pageStep())
-		case "ctrl+b":
+		case "ctrl+b", "b":
 			m.pageJump(-m.pageStep())
-		case "ctrl+e":
+		case "ctrl+e", "e":
 			m.scroll(1)
-		case "ctrl+y":
+		case "ctrl+y", "y":
 			m.scroll(-1)
 		case "g":
-			m.pendingG = true
+			m.goTop()
 		case "G":
 			m.goBottom()
+		case "ctrl+o", "o":
+			m.jumpBack()
+		case "ctrl+i", "tab", "i":
+			m.jumpForward()
 		case "left", "h":
 			m.collapseOrParent()
 		case "right", "l":
@@ -166,6 +194,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case "enter":
 			m.toggleSelected()
 		case "/":
+			origin := m.currentLocation()
+			m.searchOrigin = &origin
 			m.mode = modeSearch
 			m.query = ""
 		case "esc":
@@ -215,19 +245,26 @@ func (m *model) applySearch() {
 	}
 	m.matches = xmltree.Search(m.doc, q)
 	m.matchIDs = xmltree.MatchIDs(m.matches)
-	m.selected = 0
 	if len(m.matchIDs) == 0 {
 		m.lastError = "No matches"
+		m.selected = 0
 	} else {
 		m.lastError = ""
 		rows := m.rows()
 		for i, r := range rows {
 			if r.Match {
+				if m.searchOrigin != nil {
+					m.recordLocation(*m.searchOrigin)
+				} else if m.selected != i || m.offset != 0 {
+					m.recordJump()
+				}
 				m.selected = i
+				m.ensureVisible(len(rows), m.contentHeight())
 				break
 			}
 		}
 	}
+	m.searchOrigin = nil
 }
 
 func (m *model) clearSearch() {
@@ -237,6 +274,7 @@ func (m *model) clearSearch() {
 	m.selected = 0
 	m.offset = 0
 	m.lastError = ""
+	m.searchOrigin = nil
 }
 
 func (m model) hasSearch() bool {
@@ -347,8 +385,13 @@ func (m *model) pageJump(delta int) {
 	visibleHeight := m.contentHeight()
 	maxOffset := max(0, len(rows)-visibleHeight)
 	rowInView := clamp(m.selected-m.offset, 0, max(0, visibleHeight-1))
-	m.offset = clamp(m.offset+delta, 0, maxOffset)
-	m.selected = clamp(m.offset+rowInView, 0, len(rows)-1)
+	nextOffset := clamp(m.offset+delta, 0, maxOffset)
+	nextSelected := clamp(nextOffset+rowInView, 0, len(rows)-1)
+	if nextSelected != m.selected || nextOffset != m.offset {
+		m.recordJump()
+	}
+	m.offset = nextOffset
+	m.selected = nextSelected
 }
 
 func (m *model) scroll(delta int) {
@@ -358,12 +401,18 @@ func (m *model) scroll(delta int) {
 }
 
 func (m *model) goTop() {
+	if m.selected != 0 || m.offset != 0 {
+		m.recordJump()
+	}
 	m.selected = 0
 	m.offset = 0
 }
 
 func (m *model) goBottom() {
 	rows := m.rows()
+	if m.selected != max(0, len(rows)-1) {
+		m.recordJump()
+	}
 	m.selected = max(0, len(rows)-1)
 	m.ensureVisible(len(rows), m.contentHeight())
 }
@@ -417,7 +466,91 @@ func (m *model) nextMatch(delta int) {
 		}
 	}
 	idx = (idx + delta + len(m.matchIDs)) % len(m.matchIDs)
+	if m.matchIDs[idx] != curID {
+		m.recordJump()
+	}
 	m.selectNode(m.matchIDs[idx])
+}
+
+func (m *model) recordJump() {
+	m.recordLocation(m.currentLocation())
+}
+
+func (m model) currentLocation() location {
+	return location{
+		selected:  m.selected,
+		offset:    m.offset,
+		query:     m.query,
+		matches:   cloneMatches(m.matches),
+		matchIDs:  append([]int(nil), m.matchIDs...),
+		lastError: m.lastError,
+	}
+}
+
+func (m *model) recordLocation(loc location) {
+	if m.jumpIndex < len(m.jumps)-1 {
+		m.jumps = append([]location{}, m.jumps[:m.jumpIndex+1]...)
+	}
+	if m.jumpIndex >= 0 && m.jumpIndex < len(m.jumps) && sameLocation(m.jumps[m.jumpIndex], loc) {
+		return
+	}
+	m.jumps = append(m.jumps, loc)
+	m.jumpIndex = len(m.jumps) - 1
+}
+
+func (m *model) jumpBack() {
+	if len(m.jumps) == 0 {
+		m.recordJump()
+		if len(m.jumps) == 0 {
+			return
+		}
+	}
+	if m.jumpIndex == len(m.jumps)-1 {
+		cur := m.currentLocation()
+		if !sameLocation(m.jumps[m.jumpIndex], cur) {
+			m.jumps = append(m.jumps, cur)
+			m.jumpIndex = len(m.jumps) - 1
+		}
+	}
+	if m.jumpIndex <= 0 {
+		return
+	}
+	m.jumpIndex--
+	m.goLocation(m.jumps[m.jumpIndex])
+}
+
+func (m *model) jumpForward() {
+	if m.jumpIndex < 0 || m.jumpIndex >= len(m.jumps)-1 {
+		return
+	}
+	m.jumpIndex++
+	m.goLocation(m.jumps[m.jumpIndex])
+}
+
+func (m *model) goLocation(loc location) {
+	m.query = loc.query
+	m.matches = cloneMatches(loc.matches)
+	m.matchIDs = append([]int(nil), loc.matchIDs...)
+	m.lastError = loc.lastError
+	m.searchOrigin = nil
+	rows := m.rows()
+	m.selected = clamp(loc.selected, 0, len(rows)-1)
+	m.offset = clamp(loc.offset, 0, max(0, len(rows)-m.contentHeight()))
+}
+
+func cloneMatches(matches map[int]bool) map[int]bool {
+	if matches == nil {
+		return nil
+	}
+	clone := make(map[int]bool, len(matches))
+	for k, v := range matches {
+		clone[k] = v
+	}
+	return clone
+}
+
+func sameLocation(a, b location) bool {
+	return a.selected == b.selected && a.offset == b.offset && a.query == b.query && a.lastError == b.lastError
 }
 
 func (m model) selectedNodeID() int {
@@ -461,11 +594,11 @@ func (m model) status() string {
 		return statusStyle.Render(alignStatus(left, right, max(20, m.width)))
 	}
 
-	controls := []string{"jk/hl nav", "^D/^U page", "/ search"}
+	controls := []string{"jk", "hl", "du/fb", "oi", "/"}
 	if m.hasSearch() {
-		controls = append(controls, "esc/c clear")
+		controls = append(controls, "esc/c")
 	}
-	controls = append(controls, "? help", "q quit")
+	controls = append(controls, "?", "q")
 	right := strings.Join(controls, "  ·  ")
 
 	if m.query != "" {
@@ -481,11 +614,12 @@ func alignStatus(left, right string, width int) string {
 	if width <= 1 {
 		return truncate(left, width)
 	}
-	minLeft := min(width, 12)
-	maxRight := max(1, width-minLeft-1)
-	right = truncate(right, maxRight)
-	left = truncate(left, max(1, width-lipgloss.Width(right)-1))
+	left = truncate(left, width)
 	leftWidth := lipgloss.Width(left)
+	if leftWidth >= width-1 {
+		return left
+	}
+	right = truncate(right, max(1, width-leftWidth-1))
 	rightWidth := lipgloss.Width(right)
 	return left + strings.Repeat(" ", max(1, width-leftWidth-rightWidth)) + right
 }

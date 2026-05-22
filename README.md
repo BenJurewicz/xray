@@ -166,10 +166,11 @@ Baseline controls:
 | --- | --- |
 | `↑` / `k` | move up |
 | `↓` / `j` | move down |
-| `ctrl-d` / `ctrl-u` | half-page down / up |
-| `ctrl-f` / `ctrl-b` | page down / up |
-| `ctrl-e` / `ctrl-y` | scroll down / up |
-| `gg` / `G` | jump to top / bottom |
+| `d` / `u` | half-page down / up (`ctrl-d` / `ctrl-u` also work) |
+| `f` / `b` | page down / up (`ctrl-f` / `ctrl-b` also work) |
+| `e` / `y` | scroll down / up (`ctrl-e` / `ctrl-y` also work) |
+| `g` / `G` | jump to top / bottom |
+| `o` / `i` | jump backward / forward (`ctrl-o` / `ctrl-i` also work) |
 | `←` / `h` | collapse / move to parent |
 | `→` / `l` | expand / move into child |
 | `enter` | expand/collapse |
@@ -179,6 +180,35 @@ Baseline controls:
 | `N` | previous match |
 | `?` | help |
 | `q` | quit |
+
+### Search help
+
+Press `/` to enter search mode. The footer shows a compact search cheatsheet while typing.
+
+Bare queries search across element names, attribute names, attribute values, and text content:
+
+```text
+invoice
+paid
+```
+
+Prefix filters narrow the search:
+
+```text
+tag:item
+attr:id
+attr:id=42
+text:paid
+value:paid
+```
+
+Filters compose with spaces. Every token must match:
+
+```text
+tag:item attr:status=paid
+```
+
+Press `enter` to apply. Press `esc` while typing to cancel. After a search is active, `esc` or `c` clears the filter. `n` and `N` move between matches. Search jumps are added to the jump list, so `o` returns to where you were before the search and `i` moves forward again.
 
 ## Theme
 

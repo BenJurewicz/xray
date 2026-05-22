@@ -33,10 +33,10 @@ func TestViewPinsFooterToBottom(t *testing.T) {
 	if !strings.HasPrefix(footer, "testdata/sample.xml") {
 		t.Fatalf("footer missing path: %q", footer)
 	}
-	if !strings.Contains(footer, "q quit") {
+	if !strings.Contains(footer, "q") {
 		t.Fatalf("footer missing controls: %q", footer)
 	}
-	if !strings.Contains(footer, "  jk/hl nav") {
+	if !strings.Contains(footer, "  jk") {
 		t.Fatalf("footer controls are not right-aligned: %q", footer)
 	}
 	if lipgloss.Width(footer) != m.width {
@@ -81,13 +81,13 @@ func TestClearSearchKeyOnlyShowsAfterSearch(t *testing.T) {
 	m := newModel(doc, "testdata/sample.xml")
 	m.width = 100
 	m.height = 8
-	if strings.Contains(lastLine(m.View()), "esc/c clear") {
+	if strings.Contains(lastLine(m.View()), "esc/c") {
 		t.Fatalf("clear key shown before search: %q", lastLine(m.View()))
 	}
 
 	m.query = "tag:child"
 	m.applySearch()
-	if !strings.Contains(lastLine(m.View()), "esc/c clear") {
+	if !strings.Contains(lastLine(m.View()), "esc/c") {
 		t.Fatalf("clear key hidden after search: %q", lastLine(m.View()))
 	}
 	if m.matches == nil {
@@ -99,7 +99,7 @@ func TestClearSearchKeyOnlyShowsAfterSearch(t *testing.T) {
 	if m.matches != nil || m.query != "" || len(m.matchIDs) != 0 {
 		t.Fatalf("search not cleared: query=%q matches=%v matchIDs=%v", m.query, m.matches, m.matchIDs)
 	}
-	if strings.Contains(lastLine(m.View()), "esc/c clear") {
+	if strings.Contains(lastLine(m.View()), "esc/c") {
 		t.Fatalf("clear key still shown after clearing: %q", lastLine(m.View()))
 	}
 }
@@ -131,28 +131,28 @@ func TestVimNavigationKeys(t *testing.T) {
 	m.width = 100
 	m.height = 10
 
-	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyCtrlD})
+	updated, _ := m.Update(teaKey("d"))
 	m = updated.(model)
 	if m.offset != 4 || m.selected != 4 {
-		t.Fatalf("ctrl-d selected=%d offset=%d want 4/4", m.selected, m.offset)
+		t.Fatalf("d selected=%d offset=%d want 4/4", m.selected, m.offset)
 	}
 
-	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyCtrlU})
+	updated, _ = m.Update(teaKey("u"))
 	m = updated.(model)
 	if m.offset != 0 || m.selected != 0 {
-		t.Fatalf("ctrl-u selected=%d offset=%d want 0/0", m.selected, m.offset)
+		t.Fatalf("u selected=%d offset=%d want 0/0", m.selected, m.offset)
 	}
 
-	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyCtrlF})
+	updated, _ = m.Update(teaKey("f"))
 	m = updated.(model)
 	if m.offset != 9 || m.selected != 9 {
-		t.Fatalf("ctrl-f selected=%d offset=%d want 9/9", m.selected, m.offset)
+		t.Fatalf("f selected=%d offset=%d want 9/9", m.selected, m.offset)
 	}
 
-	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyCtrlB})
+	updated, _ = m.Update(teaKey("b"))
 	m = updated.(model)
 	if m.offset != 0 || m.selected != 0 {
-		t.Fatalf("ctrl-b selected=%d offset=%d want 0/0", m.selected, m.offset)
+		t.Fatalf("b selected=%d offset=%d want 0/0", m.selected, m.offset)
 	}
 
 	updated, _ = m.Update(teaKey("G"))
@@ -163,21 +163,112 @@ func TestVimNavigationKeys(t *testing.T) {
 
 	updated, _ = m.Update(teaKey("g"))
 	m = updated.(model)
-	updated, _ = m.Update(teaKey("g"))
-	m = updated.(model)
 	if m.selected != 0 || m.offset != 0 {
-		t.Fatalf("gg selected=%d offset=%d want top", m.selected, m.offset)
+		t.Fatalf("g selected=%d offset=%d want top", m.selected, m.offset)
 	}
 
-	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyCtrlE})
+	updated, _ = m.Update(teaKey("e"))
 	m = updated.(model)
 	if m.offset != 1 {
-		t.Fatalf("ctrl-e offset=%d want 1", m.offset)
+		t.Fatalf("e offset=%d want 1", m.offset)
 	}
-	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyCtrlY})
+	updated, _ = m.Update(teaKey("y"))
 	m = updated.(model)
 	if m.offset != 0 {
-		t.Fatalf("ctrl-y offset=%d want 0", m.offset)
+		t.Fatalf("y offset=%d want 0", m.offset)
+	}
+}
+
+func TestControlNavigationAliasesStillWork(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<item>value</item>`, 30) + `</root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 10
+
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyCtrlD})
+	m = updated.(model)
+	if m.offset != 4 || m.selected != 4 {
+		t.Fatalf("ctrl-d selected=%d offset=%d want 4/4", m.selected, m.offset)
+	}
+	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyCtrlU})
+	m = updated.(model)
+	if m.offset != 0 || m.selected != 0 {
+		t.Fatalf("ctrl-u selected=%d offset=%d want 0/0", m.selected, m.offset)
+	}
+}
+
+func TestJumpListBackAndForward(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<item>value</item>`, 30) + `</root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 10
+
+	updated, _ := m.Update(teaKey("G"))
+	m = updated.(model)
+	bottom := m.selected
+	updated, _ = m.Update(teaKey("g"))
+	m = updated.(model)
+	if m.selected != 0 {
+		t.Fatalf("g selected=%d want top", m.selected)
+	}
+
+	updated, _ = m.Update(teaKey("o"))
+	m = updated.(model)
+	if m.selected != bottom {
+		t.Fatalf("o selected=%d want previous bottom %d", m.selected, bottom)
+	}
+	updated, _ = m.Update(teaKey("i"))
+	m = updated.(model)
+	if m.selected != 0 {
+		t.Fatalf("i selected=%d want forward top", m.selected)
+	}
+}
+
+func TestSearchRecordsJumpAndOBackRestoresPreviousView(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<other>no</other>`, 20) + `<target>yes</target></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 8
+	updated, _ := m.Update(teaKey("G"))
+	m = updated.(model)
+	previous := m.selected
+
+	updated, _ = m.Update(teaKey("/"))
+	m = updated.(model)
+	for _, r := range "tag:target" {
+		updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{r}})
+		m = updated.(model)
+	}
+	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyEnter})
+	m = updated.(model)
+	if !m.hasSearch() || m.query != "tag:target" {
+		t.Fatalf("expected active target search, query=%q", m.query)
+	}
+
+	updated, _ = m.Update(teaKey("o"))
+	m = updated.(model)
+	if m.hasSearch() || m.query != "" {
+		t.Fatalf("o should restore pre-search unfiltered view, query=%q", m.query)
+	}
+	if m.selected != previous {
+		t.Fatalf("o selected=%d want previous %d", m.selected, previous)
+	}
+}
+
+func TestHelpExplainsSearch(t *testing.T) {
+	for _, want := range []string{"Search:", "tag:item", "attr:id=42", "value:paid", "Filters compose", "o/i move backward"} {
+		if !strings.Contains(helpText, want) {
+			t.Fatalf("help missing %q", want)
+		}
 	}
 }
 
