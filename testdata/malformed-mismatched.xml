@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<orders>
+  <order id="1001">
+    <customer>Example Customer</customer>
+    <status>paid</status>
+  </invoice>
+  <order id="1002">
+    <customer>Another Customer</customer>
+    <status>pending</status>
+  </order>
+</orders>

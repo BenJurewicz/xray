@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<feed>
+  <entry id="one">
+    <title>First entry</title>
+    <summary>This entry never closes cleanly.
+  <entry id="two">
+    <title>Second entry</title>
+</feed>

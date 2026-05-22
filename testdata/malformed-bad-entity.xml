@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<document>
+  <title>Bad entity sample</title>
+  <body>This uses an undefined entity: &notDefined; and should produce a warning.</body>
+  <footer>Recover whatever can be read before the parser stops.</footer>
+</document>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <book id="bk-1" genre="sci-fi">
+    <title>Dune</title>
+    <author>Frank Herbert</author>
+    <summary>A desert planet, political intrigue, ecology, prophecy, and a story long enough to exercise the long text handling in xray's tree viewer.</summary>
+  </book>
+  <book id="bk-2" genre="fantasy">
+    <title>The Hobbit</title>
+    <author>J.R.R. Tolkien</author>
+  </book>
+</library>

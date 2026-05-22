@@ -1,0 +1,1923 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<telemetry source="sample-generator">
+  <event id="evt-00001" level="info" component="worker">
+    <timestamp>2026-05-22T00:01:00Z</timestamp>
+    <message>Sample telemetry event 1 emitted by the worker component.</message>
+    <context>
+      <request id="req-10001" region="test-1" />
+      <duration unit="ms">25</duration>
+    </context>
+  </event>
+  <event id="evt-00002" level="warn" component="database">
+    <timestamp>2026-05-22T00:02:00Z</timestamp>
+    <message>Sample telemetry event 2 emitted by the database component.</message>
+    <context>
+      <request id="req-10002" region="test-2" />
+      <duration unit="ms">38</duration>
+    </context>
+  </event>
+  <event id="evt-00003" level="error" component="cache">
+    <timestamp>2026-05-22T00:03:00Z</timestamp>
+    <message>Sample telemetry event 3 emitted by the cache component.</message>
+    <context>
+      <request id="req-10003" region="test-3" />
+      <duration unit="ms">51</duration>
+    </context>
+  </event>
+  <event id="evt-00004" level="debug" component="scheduler">
+    <timestamp>2026-05-22T00:04:00Z</timestamp>
+    <message>Sample telemetry event 4 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10004" region="test-4" />
+      <duration unit="ms">64</duration>
+    </context>
+  </event>
+  <event id="evt-00005" level="info" component="api">
+    <timestamp>2026-05-22T00:05:00Z</timestamp>
+    <message>Sample telemetry event 5 emitted by the api component.</message>
+    <context>
+      <request id="req-10005" region="test-5" />
+      <duration unit="ms">77</duration>
+    </context>
+  </event>
+  <event id="evt-00006" level="warn" component="worker">
+    <timestamp>2026-05-22T00:06:00Z</timestamp>
+    <message>Sample telemetry event 6 emitted by the worker component.</message>
+    <context>
+      <request id="req-10006" region="test-0" />
+      <duration unit="ms">90</duration>
+    </context>
+  </event>
+  <event id="evt-00007" level="error" component="database">
+    <timestamp>2026-05-22T00:07:00Z</timestamp>
+    <message>Sample telemetry event 7 emitted by the database component.</message>
+    <context>
+      <request id="req-10007" region="test-1" />
+      <duration unit="ms">103</duration>
+    </context>
+  </event>
+  <event id="evt-00008" level="debug" component="cache">
+    <timestamp>2026-05-22T00:08:00Z</timestamp>
+    <message>Sample telemetry event 8 emitted by the cache component.</message>
+    <context>
+      <request id="req-10008" region="test-2" />
+      <duration unit="ms">116</duration>
+    </context>
+  </event>
+  <event id="evt-00009" level="info" component="scheduler">
+    <timestamp>2026-05-22T00:09:00Z</timestamp>
+    <message>Sample telemetry event 9 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10009" region="test-3" />
+      <duration unit="ms">129</duration>
+    </context>
+  </event>
+  <event id="evt-00010" level="warn" component="api">
+    <timestamp>2026-05-22T00:10:00Z</timestamp>
+    <message>Sample telemetry event 10 emitted by the api component.</message>
+    <context>
+      <request id="req-10010" region="test-4" />
+      <duration unit="ms">142</duration>
+    </context>
+  </event>
+  <event id="evt-00011" level="error" component="worker">
+    <timestamp>2026-05-22T00:11:00Z</timestamp>
+    <message>Sample telemetry event 11 emitted by the worker component.</message>
+    <context>
+      <request id="req-10011" region="test-5" />
+      <duration unit="ms">155</duration>
+    </context>
+  </event>
+  <event id="evt-00012" level="debug" component="database">
+    <timestamp>2026-05-22T00:12:00Z</timestamp>
+    <message>Sample telemetry event 12 emitted by the database component.</message>
+    <context>
+      <request id="req-10012" region="test-0" />
+      <duration unit="ms">168</duration>
+    </context>
+  </event>
+  <event id="evt-00013" level="info" component="cache">
+    <timestamp>2026-05-22T00:13:00Z</timestamp>
+    <message>Sample telemetry event 13 emitted by the cache component.</message>
+    <context>
+      <request id="req-10013" region="test-1" />
+      <duration unit="ms">181</duration>
+    </context>
+  </event>
+  <event id="evt-00014" level="warn" component="scheduler">
+    <timestamp>2026-05-22T00:14:00Z</timestamp>
+    <message>Sample telemetry event 14 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10014" region="test-2" />
+      <duration unit="ms">194</duration>
+    </context>
+  </event>
+  <event id="evt-00015" level="error" component="api">
+    <timestamp>2026-05-22T00:15:00Z</timestamp>
+    <message>Sample telemetry event 15 emitted by the api component.</message>
+    <context>
+      <request id="req-10015" region="test-3" />
+      <duration unit="ms">207</duration>
+    </context>
+  </event>
+  <event id="evt-00016" level="debug" component="worker">
+    <timestamp>2026-05-22T00:16:00Z</timestamp>
+    <message>Sample telemetry event 16 emitted by the worker component.</message>
+    <context>
+      <request id="req-10016" region="test-4" />
+      <duration unit="ms">220</duration>
+    </context>
+  </event>
+  <event id="evt-00017" level="info" component="database">
+    <timestamp>2026-05-22T00:17:00Z</timestamp>
+    <message>Sample telemetry event 17 emitted by the database component.</message>
+    <context>
+      <request id="req-10017" region="test-5" />
+      <duration unit="ms">233</duration>
+    </context>
+  </event>
+  <event id="evt-00018" level="warn" component="cache">
+    <timestamp>2026-05-22T00:18:00Z</timestamp>
+    <message>Sample telemetry event 18 emitted by the cache component.</message>
+    <context>
+      <request id="req-10018" region="test-0" />
+      <duration unit="ms">246</duration>
+    </context>
+  </event>
+  <event id="evt-00019" level="error" component="scheduler">
+    <timestamp>2026-05-22T00:19:00Z</timestamp>
+    <message>Sample telemetry event 19 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10019" region="test-1" />
+      <duration unit="ms">259</duration>
+    </context>
+  </event>
+  <event id="evt-00020" level="debug" component="api">
+    <timestamp>2026-05-22T00:20:00Z</timestamp>
+    <message>Sample telemetry event 20 emitted by the api component.</message>
+    <context>
+      <request id="req-10020" region="test-2" />
+      <duration unit="ms">272</duration>
+    </context>
+  </event>
+  <event id="evt-00021" level="info" component="worker">
+    <timestamp>2026-05-22T00:21:00Z</timestamp>
+    <message>Sample telemetry event 21 emitted by the worker component.</message>
+    <context>
+      <request id="req-10021" region="test-3" />
+      <duration unit="ms">285</duration>
+    </context>
+  </event>
+  <event id="evt-00022" level="warn" component="database">
+    <timestamp>2026-05-22T00:22:00Z</timestamp>
+    <message>Sample telemetry event 22 emitted by the database component.</message>
+    <context>
+      <request id="req-10022" region="test-4" />
+      <duration unit="ms">298</duration>
+    </context>
+  </event>
+  <event id="evt-00023" level="error" component="cache">
+    <timestamp>2026-05-22T00:23:00Z</timestamp>
+    <message>Sample telemetry event 23 emitted by the cache component.</message>
+    <context>
+      <request id="req-10023" region="test-5" />
+      <duration unit="ms">311</duration>
+    </context>
+  </event>
+  <event id="evt-00024" level="debug" component="scheduler">
+    <timestamp>2026-05-22T00:24:00Z</timestamp>
+    <message>Sample telemetry event 24 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10024" region="test-0" />
+      <duration unit="ms">324</duration>
+    </context>
+  </event>
+  <event id="evt-00025" level="info" component="api">
+    <timestamp>2026-05-22T00:25:00Z</timestamp>
+    <message>Sample telemetry event 25 emitted by the api component.</message>
+    <context>
+      <request id="req-10025" region="test-1" />
+      <duration unit="ms">337</duration>
+    </context>
+  </event>
+  <event id="evt-00026" level="warn" component="worker">
+    <timestamp>2026-05-22T00:26:00Z</timestamp>
+    <message>Sample telemetry event 26 emitted by the worker component.</message>
+    <context>
+      <request id="req-10026" region="test-2" />
+      <duration unit="ms">350</duration>
+    </context>
+  </event>
+  <event id="evt-00027" level="error" component="database">
+    <timestamp>2026-05-22T00:27:00Z</timestamp>
+    <message>Sample telemetry event 27 emitted by the database component.</message>
+    <context>
+      <request id="req-10027" region="test-3" />
+      <duration unit="ms">363</duration>
+    </context>
+  </event>
+  <event id="evt-00028" level="debug" component="cache">
+    <timestamp>2026-05-22T00:28:00Z</timestamp>
+    <message>Sample telemetry event 28 emitted by the cache component.</message>
+    <context>
+      <request id="req-10028" region="test-4" />
+      <duration unit="ms">376</duration>
+    </context>
+  </event>
+  <event id="evt-00029" level="info" component="scheduler">
+    <timestamp>2026-05-22T00:29:00Z</timestamp>
+    <message>Sample telemetry event 29 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10029" region="test-5" />
+      <duration unit="ms">389</duration>
+    </context>
+  </event>
+  <event id="evt-00030" level="warn" component="api">
+    <timestamp>2026-05-22T00:30:00Z</timestamp>
+    <message>Sample telemetry event 30 emitted by the api component.</message>
+    <context>
+      <request id="req-10030" region="test-0" />
+      <duration unit="ms">402</duration>
+    </context>
+  </event>
+  <event id="evt-00031" level="error" component="worker">
+    <timestamp>2026-05-22T00:31:00Z</timestamp>
+    <message>Sample telemetry event 31 emitted by the worker component.</message>
+    <context>
+      <request id="req-10031" region="test-1" />
+      <duration unit="ms">415</duration>
+    </context>
+  </event>
+  <event id="evt-00032" level="debug" component="database">
+    <timestamp>2026-05-22T00:32:00Z</timestamp>
+    <message>Sample telemetry event 32 emitted by the database component.</message>
+    <context>
+      <request id="req-10032" region="test-2" />
+      <duration unit="ms">428</duration>
+    </context>
+  </event>
+  <event id="evt-00033" level="info" component="cache">
+    <timestamp>2026-05-22T00:33:00Z</timestamp>
+    <message>Sample telemetry event 33 emitted by the cache component.</message>
+    <context>
+      <request id="req-10033" region="test-3" />
+      <duration unit="ms">441</duration>
+    </context>
+  </event>
+  <event id="evt-00034" level="warn" component="scheduler">
+    <timestamp>2026-05-22T00:34:00Z</timestamp>
+    <message>Sample telemetry event 34 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10034" region="test-4" />
+      <duration unit="ms">454</duration>
+    </context>
+  </event>
+  <event id="evt-00035" level="error" component="api">
+    <timestamp>2026-05-22T00:35:00Z</timestamp>
+    <message>Sample telemetry event 35 emitted by the api component.</message>
+    <context>
+      <request id="req-10035" region="test-5" />
+      <duration unit="ms">467</duration>
+    </context>
+  </event>
+  <event id="evt-00036" level="debug" component="worker">
+    <timestamp>2026-05-22T00:36:00Z</timestamp>
+    <message>Sample telemetry event 36 emitted by the worker component.</message>
+    <context>
+      <request id="req-10036" region="test-0" />
+      <duration unit="ms">480</duration>
+    </context>
+  </event>
+  <event id="evt-00037" level="info" component="database">
+    <timestamp>2026-05-22T00:37:00Z</timestamp>
+    <message>Sample telemetry event 37 emitted by the database component.</message>
+    <context>
+      <request id="req-10037" region="test-1" />
+      <duration unit="ms">493</duration>
+    </context>
+  </event>
+  <event id="evt-00038" level="warn" component="cache">
+    <timestamp>2026-05-22T00:38:00Z</timestamp>
+    <message>Sample telemetry event 38 emitted by the cache component.</message>
+    <context>
+      <request id="req-10038" region="test-2" />
+      <duration unit="ms">506</duration>
+    </context>
+  </event>
+  <event id="evt-00039" level="error" component="scheduler">
+    <timestamp>2026-05-22T00:39:00Z</timestamp>
+    <message>Sample telemetry event 39 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10039" region="test-3" />
+      <duration unit="ms">519</duration>
+    </context>
+  </event>
+  <event id="evt-00040" level="debug" component="api">
+    <timestamp>2026-05-22T00:40:00Z</timestamp>
+    <message>Sample telemetry event 40 emitted by the api component.</message>
+    <context>
+      <request id="req-10040" region="test-4" />
+      <duration unit="ms">532</duration>
+    </context>
+  </event>
+  <event id="evt-00041" level="info" component="worker">
+    <timestamp>2026-05-22T00:41:00Z</timestamp>
+    <message>Sample telemetry event 41 emitted by the worker component.</message>
+    <context>
+      <request id="req-10041" region="test-5" />
+      <duration unit="ms">545</duration>
+    </context>
+  </event>
+  <event id="evt-00042" level="warn" component="database">
+    <timestamp>2026-05-22T00:42:00Z</timestamp>
+    <message>Sample telemetry event 42 emitted by the database component.</message>
+    <context>
+      <request id="req-10042" region="test-0" />
+      <duration unit="ms">558</duration>
+    </context>
+  </event>
+  <event id="evt-00043" level="error" component="cache">
+    <timestamp>2026-05-22T00:43:00Z</timestamp>
+    <message>Sample telemetry event 43 emitted by the cache component.</message>
+    <context>
+      <request id="req-10043" region="test-1" />
+      <duration unit="ms">571</duration>
+    </context>
+  </event>
+  <event id="evt-00044" level="debug" component="scheduler">
+    <timestamp>2026-05-22T00:44:00Z</timestamp>
+    <message>Sample telemetry event 44 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10044" region="test-2" />
+      <duration unit="ms">584</duration>
+    </context>
+  </event>
+  <event id="evt-00045" level="info" component="api">
+    <timestamp>2026-05-22T00:45:00Z</timestamp>
+    <message>Sample telemetry event 45 emitted by the api component.</message>
+    <context>
+      <request id="req-10045" region="test-3" />
+      <duration unit="ms">597</duration>
+    </context>
+  </event>
+  <event id="evt-00046" level="warn" component="worker">
+    <timestamp>2026-05-22T00:46:00Z</timestamp>
+    <message>Sample telemetry event 46 emitted by the worker component.</message>
+    <context>
+      <request id="req-10046" region="test-4" />
+      <duration unit="ms">610</duration>
+    </context>
+  </event>
+  <event id="evt-00047" level="error" component="database">
+    <timestamp>2026-05-22T00:47:00Z</timestamp>
+    <message>Sample telemetry event 47 emitted by the database component.</message>
+    <context>
+      <request id="req-10047" region="test-5" />
+      <duration unit="ms">623</duration>
+    </context>
+  </event>
+  <event id="evt-00048" level="debug" component="cache">
+    <timestamp>2026-05-22T00:48:00Z</timestamp>
+    <message>Sample telemetry event 48 emitted by the cache component.</message>
+    <context>
+      <request id="req-10048" region="test-0" />
+      <duration unit="ms">636</duration>
+    </context>
+  </event>
+  <event id="evt-00049" level="info" component="scheduler">
+    <timestamp>2026-05-22T00:49:00Z</timestamp>
+    <message>Sample telemetry event 49 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10049" region="test-1" />
+      <duration unit="ms">649</duration>
+    </context>
+  </event>
+  <event id="evt-00050" level="warn" component="api">
+    <timestamp>2026-05-22T00:50:00Z</timestamp>
+    <message>Sample telemetry event 50 emitted by the api component.</message>
+    <context>
+      <request id="req-10050" region="test-2" />
+      <duration unit="ms">662</duration>
+    </context>
+  </event>
+  <event id="evt-00051" level="error" component="worker">
+    <timestamp>2026-05-22T00:51:00Z</timestamp>
+    <message>Sample telemetry event 51 emitted by the worker component.</message>
+    <context>
+      <request id="req-10051" region="test-3" />
+      <duration unit="ms">675</duration>
+    </context>
+  </event>
+  <event id="evt-00052" level="debug" component="database">
+    <timestamp>2026-05-22T00:52:00Z</timestamp>
+    <message>Sample telemetry event 52 emitted by the database component.</message>
+    <context>
+      <request id="req-10052" region="test-4" />
+      <duration unit="ms">688</duration>
+    </context>
+  </event>
+  <event id="evt-00053" level="info" component="cache">
+    <timestamp>2026-05-22T00:53:00Z</timestamp>
+    <message>Sample telemetry event 53 emitted by the cache component.</message>
+    <context>
+      <request id="req-10053" region="test-5" />
+      <duration unit="ms">701</duration>
+    </context>
+  </event>
+  <event id="evt-00054" level="warn" component="scheduler">
+    <timestamp>2026-05-22T00:54:00Z</timestamp>
+    <message>Sample telemetry event 54 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10054" region="test-0" />
+      <duration unit="ms">714</duration>
+    </context>
+  </event>
+  <event id="evt-00055" level="error" component="api">
+    <timestamp>2026-05-22T00:55:00Z</timestamp>
+    <message>Sample telemetry event 55 emitted by the api component.</message>
+    <context>
+      <request id="req-10055" region="test-1" />
+      <duration unit="ms">727</duration>
+    </context>
+  </event>
+  <event id="evt-00056" level="debug" component="worker">
+    <timestamp>2026-05-22T00:56:00Z</timestamp>
+    <message>Sample telemetry event 56 emitted by the worker component.</message>
+    <context>
+      <request id="req-10056" region="test-2" />
+      <duration unit="ms">740</duration>
+    </context>
+  </event>
+  <event id="evt-00057" level="info" component="database">
+    <timestamp>2026-05-22T00:57:00Z</timestamp>
+    <message>Sample telemetry event 57 emitted by the database component.</message>
+    <context>
+      <request id="req-10057" region="test-3" />
+      <duration unit="ms">753</duration>
+    </context>
+  </event>
+  <event id="evt-00058" level="warn" component="cache">
+    <timestamp>2026-05-22T00:58:00Z</timestamp>
+    <message>Sample telemetry event 58 emitted by the cache component.</message>
+    <context>
+      <request id="req-10058" region="test-4" />
+      <duration unit="ms">766</duration>
+    </context>
+  </event>
+  <event id="evt-00059" level="error" component="scheduler">
+    <timestamp>2026-05-22T00:59:00Z</timestamp>
+    <message>Sample telemetry event 59 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10059" region="test-5" />
+      <duration unit="ms">779</duration>
+    </context>
+  </event>
+  <event id="evt-00060" level="debug" component="api">
+    <timestamp>2026-05-22T01:00:00Z</timestamp>
+    <message>Sample telemetry event 60 emitted by the api component.</message>
+    <context>
+      <request id="req-10060" region="test-0" />
+      <duration unit="ms">792</duration>
+    </context>
+  </event>
+  <event id="evt-00061" level="info" component="worker">
+    <timestamp>2026-05-22T01:01:00Z</timestamp>
+    <message>Sample telemetry event 61 emitted by the worker component.</message>
+    <context>
+      <request id="req-10061" region="test-1" />
+      <duration unit="ms">805</duration>
+    </context>
+  </event>
+  <event id="evt-00062" level="warn" component="database">
+    <timestamp>2026-05-22T01:02:00Z</timestamp>
+    <message>Sample telemetry event 62 emitted by the database component.</message>
+    <context>
+      <request id="req-10062" region="test-2" />
+      <duration unit="ms">818</duration>
+    </context>
+  </event>
+  <event id="evt-00063" level="error" component="cache">
+    <timestamp>2026-05-22T01:03:00Z</timestamp>
+    <message>Sample telemetry event 63 emitted by the cache component.</message>
+    <context>
+      <request id="req-10063" region="test-3" />
+      <duration unit="ms">831</duration>
+    </context>
+  </event>
+  <event id="evt-00064" level="debug" component="scheduler">
+    <timestamp>2026-05-22T01:04:00Z</timestamp>
+    <message>Sample telemetry event 64 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10064" region="test-4" />
+      <duration unit="ms">844</duration>
+    </context>
+  </event>
+  <event id="evt-00065" level="info" component="api">
+    <timestamp>2026-05-22T01:05:00Z</timestamp>
+    <message>Sample telemetry event 65 emitted by the api component.</message>
+    <context>
+      <request id="req-10065" region="test-5" />
+      <duration unit="ms">857</duration>
+    </context>
+  </event>
+  <event id="evt-00066" level="warn" component="worker">
+    <timestamp>2026-05-22T01:06:00Z</timestamp>
+    <message>Sample telemetry event 66 emitted by the worker component.</message>
+    <context>
+      <request id="req-10066" region="test-0" />
+      <duration unit="ms">870</duration>
+    </context>
+  </event>
+  <event id="evt-00067" level="error" component="database">
+    <timestamp>2026-05-22T01:07:00Z</timestamp>
+    <message>Sample telemetry event 67 emitted by the database component.</message>
+    <context>
+      <request id="req-10067" region="test-1" />
+      <duration unit="ms">883</duration>
+    </context>
+  </event>
+  <event id="evt-00068" level="debug" component="cache">
+    <timestamp>2026-05-22T01:08:00Z</timestamp>
+    <message>Sample telemetry event 68 emitted by the cache component.</message>
+    <context>
+      <request id="req-10068" region="test-2" />
+      <duration unit="ms">896</duration>
+    </context>
+  </event>
+  <event id="evt-00069" level="info" component="scheduler">
+    <timestamp>2026-05-22T01:09:00Z</timestamp>
+    <message>Sample telemetry event 69 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10069" region="test-3" />
+      <duration unit="ms">909</duration>
+    </context>
+  </event>
+  <event id="evt-00070" level="warn" component="api">
+    <timestamp>2026-05-22T01:10:00Z</timestamp>
+    <message>Sample telemetry event 70 emitted by the api component.</message>
+    <context>
+      <request id="req-10070" region="test-4" />
+      <duration unit="ms">22</duration>
+    </context>
+  </event>
+  <event id="evt-00071" level="error" component="worker">
+    <timestamp>2026-05-22T01:11:00Z</timestamp>
+    <message>Sample telemetry event 71 emitted by the worker component.</message>
+    <context>
+      <request id="req-10071" region="test-5" />
+      <duration unit="ms">35</duration>
+    </context>
+  </event>
+  <event id="evt-00072" level="debug" component="database">
+    <timestamp>2026-05-22T01:12:00Z</timestamp>
+    <message>Sample telemetry event 72 emitted by the database component.</message>
+    <context>
+      <request id="req-10072" region="test-0" />
+      <duration unit="ms">48</duration>
+    </context>
+  </event>
+  <event id="evt-00073" level="info" component="cache">
+    <timestamp>2026-05-22T01:13:00Z</timestamp>
+    <message>Sample telemetry event 73 emitted by the cache component.</message>
+    <context>
+      <request id="req-10073" region="test-1" />
+      <duration unit="ms">61</duration>
+    </context>
+  </event>
+  <event id="evt-00074" level="warn" component="scheduler">
+    <timestamp>2026-05-22T01:14:00Z</timestamp>
+    <message>Sample telemetry event 74 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10074" region="test-2" />
+      <duration unit="ms">74</duration>
+    </context>
+  </event>
+  <event id="evt-00075" level="error" component="api">
+    <timestamp>2026-05-22T01:15:00Z</timestamp>
+    <message>Sample telemetry event 75 emitted by the api component.</message>
+    <context>
+      <request id="req-10075" region="test-3" />
+      <duration unit="ms">87</duration>
+    </context>
+  </event>
+  <event id="evt-00076" level="debug" component="worker">
+    <timestamp>2026-05-22T01:16:00Z</timestamp>
+    <message>Sample telemetry event 76 emitted by the worker component.</message>
+    <context>
+      <request id="req-10076" region="test-4" />
+      <duration unit="ms">100</duration>
+    </context>
+  </event>
+  <event id="evt-00077" level="info" component="database">
+    <timestamp>2026-05-22T01:17:00Z</timestamp>
+    <message>Sample telemetry event 77 emitted by the database component.</message>
+    <context>
+      <request id="req-10077" region="test-5" />
+      <duration unit="ms">113</duration>
+    </context>
+  </event>
+  <event id="evt-00078" level="warn" component="cache">
+    <timestamp>2026-05-22T01:18:00Z</timestamp>
+    <message>Sample telemetry event 78 emitted by the cache component.</message>
+    <context>
+      <request id="req-10078" region="test-0" />
+      <duration unit="ms">126</duration>
+    </context>
+  </event>
+  <event id="evt-00079" level="error" component="scheduler">
+    <timestamp>2026-05-22T01:19:00Z</timestamp>
+    <message>Sample telemetry event 79 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10079" region="test-1" />
+      <duration unit="ms">139</duration>
+    </context>
+  </event>
+  <event id="evt-00080" level="debug" component="api">
+    <timestamp>2026-05-22T01:20:00Z</timestamp>
+    <message>Sample telemetry event 80 emitted by the api component.</message>
+    <context>
+      <request id="req-10080" region="test-2" />
+      <duration unit="ms">152</duration>
+    </context>
+  </event>
+  <event id="evt-00081" level="info" component="worker">
+    <timestamp>2026-05-22T01:21:00Z</timestamp>
+    <message>Sample telemetry event 81 emitted by the worker component.</message>
+    <context>
+      <request id="req-10081" region="test-3" />
+      <duration unit="ms">165</duration>
+    </context>
+  </event>
+  <event id="evt-00082" level="warn" component="database">
+    <timestamp>2026-05-22T01:22:00Z</timestamp>
+    <message>Sample telemetry event 82 emitted by the database component.</message>
+    <context>
+      <request id="req-10082" region="test-4" />
+      <duration unit="ms">178</duration>
+    </context>
+  </event>
+  <event id="evt-00083" level="error" component="cache">
+    <timestamp>2026-05-22T01:23:00Z</timestamp>
+    <message>Sample telemetry event 83 emitted by the cache component.</message>
+    <context>
+      <request id="req-10083" region="test-5" />
+      <duration unit="ms">191</duration>
+    </context>
+  </event>
+  <event id="evt-00084" level="debug" component="scheduler">
+    <timestamp>2026-05-22T01:24:00Z</timestamp>
+    <message>Sample telemetry event 84 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10084" region="test-0" />
+      <duration unit="ms">204</duration>
+    </context>
+  </event>
+  <event id="evt-00085" level="info" component="api">
+    <timestamp>2026-05-22T01:25:00Z</timestamp>
+    <message>Sample telemetry event 85 emitted by the api component.</message>
+    <context>
+      <request id="req-10085" region="test-1" />
+      <duration unit="ms">217</duration>
+    </context>
+  </event>
+  <event id="evt-00086" level="warn" component="worker">
+    <timestamp>2026-05-22T01:26:00Z</timestamp>
+    <message>Sample telemetry event 86 emitted by the worker component.</message>
+    <context>
+      <request id="req-10086" region="test-2" />
+      <duration unit="ms">230</duration>
+    </context>
+  </event>
+  <event id="evt-00087" level="error" component="database">
+    <timestamp>2026-05-22T01:27:00Z</timestamp>
+    <message>Sample telemetry event 87 emitted by the database component.</message>
+    <context>
+      <request id="req-10087" region="test-3" />
+      <duration unit="ms">243</duration>
+    </context>
+  </event>
+  <event id="evt-00088" level="debug" component="cache">
+    <timestamp>2026-05-22T01:28:00Z</timestamp>
+    <message>Sample telemetry event 88 emitted by the cache component.</message>
+    <context>
+      <request id="req-10088" region="test-4" />
+      <duration unit="ms">256</duration>
+    </context>
+  </event>
+  <event id="evt-00089" level="info" component="scheduler">
+    <timestamp>2026-05-22T01:29:00Z</timestamp>
+    <message>Sample telemetry event 89 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10089" region="test-5" />
+      <duration unit="ms">269</duration>
+    </context>
+  </event>
+  <event id="evt-00090" level="warn" component="api">
+    <timestamp>2026-05-22T01:30:00Z</timestamp>
+    <message>Sample telemetry event 90 emitted by the api component.</message>
+    <context>
+      <request id="req-10090" region="test-0" />
+      <duration unit="ms">282</duration>
+    </context>
+  </event>
+  <event id="evt-00091" level="error" component="worker">
+    <timestamp>2026-05-22T01:31:00Z</timestamp>
+    <message>Sample telemetry event 91 emitted by the worker component.</message>
+    <context>
+      <request id="req-10091" region="test-1" />
+      <duration unit="ms">295</duration>
+    </context>
+  </event>
+  <event id="evt-00092" level="debug" component="database">
+    <timestamp>2026-05-22T01:32:00Z</timestamp>
+    <message>Sample telemetry event 92 emitted by the database component.</message>
+    <context>
+      <request id="req-10092" region="test-2" />
+      <duration unit="ms">308</duration>
+    </context>
+  </event>
+  <event id="evt-00093" level="info" component="cache">
+    <timestamp>2026-05-22T01:33:00Z</timestamp>
+    <message>Sample telemetry event 93 emitted by the cache component.</message>
+    <context>
+      <request id="req-10093" region="test-3" />
+      <duration unit="ms">321</duration>
+    </context>
+  </event>
+  <event id="evt-00094" level="warn" component="scheduler">
+    <timestamp>2026-05-22T01:34:00Z</timestamp>
+    <message>Sample telemetry event 94 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10094" region="test-4" />
+      <duration unit="ms">334</duration>
+    </context>
+  </event>
+  <event id="evt-00095" level="error" component="api">
+    <timestamp>2026-05-22T01:35:00Z</timestamp>
+    <message>Sample telemetry event 95 emitted by the api component.</message>
+    <context>
+      <request id="req-10095" region="test-5" />
+      <duration unit="ms">347</duration>
+    </context>
+  </event>
+  <event id="evt-00096" level="debug" component="worker">
+    <timestamp>2026-05-22T01:36:00Z</timestamp>
+    <message>Sample telemetry event 96 emitted by the worker component.</message>
+    <context>
+      <request id="req-10096" region="test-0" />
+      <duration unit="ms">360</duration>
+    </context>
+  </event>
+  <event id="evt-00097" level="info" component="database">
+    <timestamp>2026-05-22T01:37:00Z</timestamp>
+    <message>Sample telemetry event 97 emitted by the database component.</message>
+    <context>
+      <request id="req-10097" region="test-1" />
+      <duration unit="ms">373</duration>
+    </context>
+  </event>
+  <event id="evt-00098" level="warn" component="cache">
+    <timestamp>2026-05-22T01:38:00Z</timestamp>
+    <message>Sample telemetry event 98 emitted by the cache component.</message>
+    <context>
+      <request id="req-10098" region="test-2" />
+      <duration unit="ms">386</duration>
+    </context>
+  </event>
+  <event id="evt-00099" level="error" component="scheduler">
+    <timestamp>2026-05-22T01:39:00Z</timestamp>
+    <message>Sample telemetry event 99 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10099" region="test-3" />
+      <duration unit="ms">399</duration>
+    </context>
+  </event>
+  <event id="evt-00100" level="debug" component="api">
+    <timestamp>2026-05-22T01:40:00Z</timestamp>
+    <message>Sample telemetry event 100 emitted by the api component.</message>
+    <context>
+      <request id="req-10100" region="test-4" />
+      <duration unit="ms">412</duration>
+    </context>
+  </event>
+  <event id="evt-00101" level="info" component="worker">
+    <timestamp>2026-05-22T01:41:00Z</timestamp>
+    <message>Sample telemetry event 101 emitted by the worker component.</message>
+    <context>
+      <request id="req-10101" region="test-5" />
+      <duration unit="ms">425</duration>
+    </context>
+  </event>
+  <event id="evt-00102" level="warn" component="database">
+    <timestamp>2026-05-22T01:42:00Z</timestamp>
+    <message>Sample telemetry event 102 emitted by the database component.</message>
+    <context>
+      <request id="req-10102" region="test-0" />
+      <duration unit="ms">438</duration>
+    </context>
+  </event>
+  <event id="evt-00103" level="error" component="cache">
+    <timestamp>2026-05-22T01:43:00Z</timestamp>
+    <message>Sample telemetry event 103 emitted by the cache component.</message>
+    <context>
+      <request id="req-10103" region="test-1" />
+      <duration unit="ms">451</duration>
+    </context>
+  </event>
+  <event id="evt-00104" level="debug" component="scheduler">
+    <timestamp>2026-05-22T01:44:00Z</timestamp>
+    <message>Sample telemetry event 104 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10104" region="test-2" />
+      <duration unit="ms">464</duration>
+    </context>
+  </event>
+  <event id="evt-00105" level="info" component="api">
+    <timestamp>2026-05-22T01:45:00Z</timestamp>
+    <message>Sample telemetry event 105 emitted by the api component.</message>
+    <context>
+      <request id="req-10105" region="test-3" />
+      <duration unit="ms">477</duration>
+    </context>
+  </event>
+  <event id="evt-00106" level="warn" component="worker">
+    <timestamp>2026-05-22T01:46:00Z</timestamp>
+    <message>Sample telemetry event 106 emitted by the worker component.</message>
+    <context>
+      <request id="req-10106" region="test-4" />
+      <duration unit="ms">490</duration>
+    </context>
+  </event>
+  <event id="evt-00107" level="error" component="database">
+    <timestamp>2026-05-22T01:47:00Z</timestamp>
+    <message>Sample telemetry event 107 emitted by the database component.</message>
+    <context>
+      <request id="req-10107" region="test-5" />
+      <duration unit="ms">503</duration>
+    </context>
+  </event>
+  <event id="evt-00108" level="debug" component="cache">
+    <timestamp>2026-05-22T01:48:00Z</timestamp>
+    <message>Sample telemetry event 108 emitted by the cache component.</message>
+    <context>
+      <request id="req-10108" region="test-0" />
+      <duration unit="ms">516</duration>
+    </context>
+  </event>
+  <event id="evt-00109" level="info" component="scheduler">
+    <timestamp>2026-05-22T01:49:00Z</timestamp>
+    <message>Sample telemetry event 109 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10109" region="test-1" />
+      <duration unit="ms">529</duration>
+    </context>
+  </event>
+  <event id="evt-00110" level="warn" component="api">
+    <timestamp>2026-05-22T01:50:00Z</timestamp>
+    <message>Sample telemetry event 110 emitted by the api component.</message>
+    <context>
+      <request id="req-10110" region="test-2" />
+      <duration unit="ms">542</duration>
+    </context>
+  </event>
+  <event id="evt-00111" level="error" component="worker">
+    <timestamp>2026-05-22T01:51:00Z</timestamp>
+    <message>Sample telemetry event 111 emitted by the worker component.</message>
+    <context>
+      <request id="req-10111" region="test-3" />
+      <duration unit="ms">555</duration>
+    </context>
+  </event>
+  <event id="evt-00112" level="debug" component="database">
+    <timestamp>2026-05-22T01:52:00Z</timestamp>
+    <message>Sample telemetry event 112 emitted by the database component.</message>
+    <context>
+      <request id="req-10112" region="test-4" />
+      <duration unit="ms">568</duration>
+    </context>
+  </event>
+  <event id="evt-00113" level="info" component="cache">
+    <timestamp>2026-05-22T01:53:00Z</timestamp>
+    <message>Sample telemetry event 113 emitted by the cache component.</message>
+    <context>
+      <request id="req-10113" region="test-5" />
+      <duration unit="ms">581</duration>
+    </context>
+  </event>
+  <event id="evt-00114" level="warn" component="scheduler">
+    <timestamp>2026-05-22T01:54:00Z</timestamp>
+    <message>Sample telemetry event 114 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10114" region="test-0" />
+      <duration unit="ms">594</duration>
+    </context>
+  </event>
+  <event id="evt-00115" level="error" component="api">
+    <timestamp>2026-05-22T01:55:00Z</timestamp>
+    <message>Sample telemetry event 115 emitted by the api component.</message>
+    <context>
+      <request id="req-10115" region="test-1" />
+      <duration unit="ms">607</duration>
+    </context>
+  </event>
+  <event id="evt-00116" level="debug" component="worker">
+    <timestamp>2026-05-22T01:56:00Z</timestamp>
+    <message>Sample telemetry event 116 emitted by the worker component.</message>
+    <context>
+      <request id="req-10116" region="test-2" />
+      <duration unit="ms">620</duration>
+    </context>
+  </event>
+  <event id="evt-00117" level="info" component="database">
+    <timestamp>2026-05-22T01:57:00Z</timestamp>
+    <message>Sample telemetry event 117 emitted by the database component.</message>
+    <context>
+      <request id="req-10117" region="test-3" />
+      <duration unit="ms">633</duration>
+    </context>
+  </event>
+  <event id="evt-00118" level="warn" component="cache">
+    <timestamp>2026-05-22T01:58:00Z</timestamp>
+    <message>Sample telemetry event 118 emitted by the cache component.</message>
+    <context>
+      <request id="req-10118" region="test-4" />
+      <duration unit="ms">646</duration>
+    </context>
+  </event>
+  <event id="evt-00119" level="error" component="scheduler">
+    <timestamp>2026-05-22T01:59:00Z</timestamp>
+    <message>Sample telemetry event 119 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10119" region="test-5" />
+      <duration unit="ms">659</duration>
+    </context>
+  </event>
+  <event id="evt-00120" level="debug" component="api">
+    <timestamp>2026-05-22T02:00:00Z</timestamp>
+    <message>Sample telemetry event 120 emitted by the api component.</message>
+    <context>
+      <request id="req-10120" region="test-0" />
+      <duration unit="ms">672</duration>
+    </context>
+  </event>
+  <event id="evt-00121" level="info" component="worker">
+    <timestamp>2026-05-22T02:01:00Z</timestamp>
+    <message>Sample telemetry event 121 emitted by the worker component.</message>
+    <context>
+      <request id="req-10121" region="test-1" />
+      <duration unit="ms">685</duration>
+    </context>
+  </event>
+  <event id="evt-00122" level="warn" component="database">
+    <timestamp>2026-05-22T02:02:00Z</timestamp>
+    <message>Sample telemetry event 122 emitted by the database component.</message>
+    <context>
+      <request id="req-10122" region="test-2" />
+      <duration unit="ms">698</duration>
+    </context>
+  </event>
+  <event id="evt-00123" level="error" component="cache">
+    <timestamp>2026-05-22T02:03:00Z</timestamp>
+    <message>Sample telemetry event 123 emitted by the cache component.</message>
+    <context>
+      <request id="req-10123" region="test-3" />
+      <duration unit="ms">711</duration>
+    </context>
+  </event>
+  <event id="evt-00124" level="debug" component="scheduler">
+    <timestamp>2026-05-22T02:04:00Z</timestamp>
+    <message>Sample telemetry event 124 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10124" region="test-4" />
+      <duration unit="ms">724</duration>
+    </context>
+  </event>
+  <event id="evt-00125" level="info" component="api">
+    <timestamp>2026-05-22T02:05:00Z</timestamp>
+    <message>Sample telemetry event 125 emitted by the api component.</message>
+    <context>
+      <request id="req-10125" region="test-5" />
+      <duration unit="ms">737</duration>
+    </context>
+  </event>
+  <event id="evt-00126" level="warn" component="worker">
+    <timestamp>2026-05-22T02:06:00Z</timestamp>
+    <message>Sample telemetry event 126 emitted by the worker component.</message>
+    <context>
+      <request id="req-10126" region="test-0" />
+      <duration unit="ms">750</duration>
+    </context>
+  </event>
+  <event id="evt-00127" level="error" component="database">
+    <timestamp>2026-05-22T02:07:00Z</timestamp>
+    <message>Sample telemetry event 127 emitted by the database component.</message>
+    <context>
+      <request id="req-10127" region="test-1" />
+      <duration unit="ms">763</duration>
+    </context>
+  </event>
+  <event id="evt-00128" level="debug" component="cache">
+    <timestamp>2026-05-22T02:08:00Z</timestamp>
+    <message>Sample telemetry event 128 emitted by the cache component.</message>
+    <context>
+      <request id="req-10128" region="test-2" />
+      <duration unit="ms">776</duration>
+    </context>
+  </event>
+  <event id="evt-00129" level="info" component="scheduler">
+    <timestamp>2026-05-22T02:09:00Z</timestamp>
+    <message>Sample telemetry event 129 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10129" region="test-3" />
+      <duration unit="ms">789</duration>
+    </context>
+  </event>
+  <event id="evt-00130" level="warn" component="api">
+    <timestamp>2026-05-22T02:10:00Z</timestamp>
+    <message>Sample telemetry event 130 emitted by the api component.</message>
+    <context>
+      <request id="req-10130" region="test-4" />
+      <duration unit="ms">802</duration>
+    </context>
+  </event>
+  <event id="evt-00131" level="error" component="worker">
+    <timestamp>2026-05-22T02:11:00Z</timestamp>
+    <message>Sample telemetry event 131 emitted by the worker component.</message>
+    <context>
+      <request id="req-10131" region="test-5" />
+      <duration unit="ms">815</duration>
+    </context>
+  </event>
+  <event id="evt-00132" level="debug" component="database">
+    <timestamp>2026-05-22T02:12:00Z</timestamp>
+    <message>Sample telemetry event 132 emitted by the database component.</message>
+    <context>
+      <request id="req-10132" region="test-0" />
+      <duration unit="ms">828</duration>
+    </context>
+  </event>
+  <event id="evt-00133" level="info" component="cache">
+    <timestamp>2026-05-22T02:13:00Z</timestamp>
+    <message>Sample telemetry event 133 emitted by the cache component.</message>
+    <context>
+      <request id="req-10133" region="test-1" />
+      <duration unit="ms">841</duration>
+    </context>
+  </event>
+  <event id="evt-00134" level="warn" component="scheduler">
+    <timestamp>2026-05-22T02:14:00Z</timestamp>
+    <message>Sample telemetry event 134 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10134" region="test-2" />
+      <duration unit="ms">854</duration>
+    </context>
+  </event>
+  <event id="evt-00135" level="error" component="api">
+    <timestamp>2026-05-22T02:15:00Z</timestamp>
+    <message>Sample telemetry event 135 emitted by the api component.</message>
+    <context>
+      <request id="req-10135" region="test-3" />
+      <duration unit="ms">867</duration>
+    </context>
+  </event>
+  <event id="evt-00136" level="debug" component="worker">
+    <timestamp>2026-05-22T02:16:00Z</timestamp>
+    <message>Sample telemetry event 136 emitted by the worker component.</message>
+    <context>
+      <request id="req-10136" region="test-4" />
+      <duration unit="ms">880</duration>
+    </context>
+  </event>
+  <event id="evt-00137" level="info" component="database">
+    <timestamp>2026-05-22T02:17:00Z</timestamp>
+    <message>Sample telemetry event 137 emitted by the database component.</message>
+    <context>
+      <request id="req-10137" region="test-5" />
+      <duration unit="ms">893</duration>
+    </context>
+  </event>
+  <event id="evt-00138" level="warn" component="cache">
+    <timestamp>2026-05-22T02:18:00Z</timestamp>
+    <message>Sample telemetry event 138 emitted by the cache component.</message>
+    <context>
+      <request id="req-10138" region="test-0" />
+      <duration unit="ms">906</duration>
+    </context>
+  </event>
+  <event id="evt-00139" level="error" component="scheduler">
+    <timestamp>2026-05-22T02:19:00Z</timestamp>
+    <message>Sample telemetry event 139 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10139" region="test-1" />
+      <duration unit="ms">19</duration>
+    </context>
+  </event>
+  <event id="evt-00140" level="debug" component="api">
+    <timestamp>2026-05-22T02:20:00Z</timestamp>
+    <message>Sample telemetry event 140 emitted by the api component.</message>
+    <context>
+      <request id="req-10140" region="test-2" />
+      <duration unit="ms">32</duration>
+    </context>
+  </event>
+  <event id="evt-00141" level="info" component="worker">
+    <timestamp>2026-05-22T02:21:00Z</timestamp>
+    <message>Sample telemetry event 141 emitted by the worker component.</message>
+    <context>
+      <request id="req-10141" region="test-3" />
+      <duration unit="ms">45</duration>
+    </context>
+  </event>
+  <event id="evt-00142" level="warn" component="database">
+    <timestamp>2026-05-22T02:22:00Z</timestamp>
+    <message>Sample telemetry event 142 emitted by the database component.</message>
+    <context>
+      <request id="req-10142" region="test-4" />
+      <duration unit="ms">58</duration>
+    </context>
+  </event>
+  <event id="evt-00143" level="error" component="cache">
+    <timestamp>2026-05-22T02:23:00Z</timestamp>
+    <message>Sample telemetry event 143 emitted by the cache component.</message>
+    <context>
+      <request id="req-10143" region="test-5" />
+      <duration unit="ms">71</duration>
+    </context>
+  </event>
+  <event id="evt-00144" level="debug" component="scheduler">
+    <timestamp>2026-05-22T02:24:00Z</timestamp>
+    <message>Sample telemetry event 144 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10144" region="test-0" />
+      <duration unit="ms">84</duration>
+    </context>
+  </event>
+  <event id="evt-00145" level="info" component="api">
+    <timestamp>2026-05-22T02:25:00Z</timestamp>
+    <message>Sample telemetry event 145 emitted by the api component.</message>
+    <context>
+      <request id="req-10145" region="test-1" />
+      <duration unit="ms">97</duration>
+    </context>
+  </event>
+  <event id="evt-00146" level="warn" component="worker">
+    <timestamp>2026-05-22T02:26:00Z</timestamp>
+    <message>Sample telemetry event 146 emitted by the worker component.</message>
+    <context>
+      <request id="req-10146" region="test-2" />
+      <duration unit="ms">110</duration>
+    </context>
+  </event>
+  <event id="evt-00147" level="error" component="database">
+    <timestamp>2026-05-22T02:27:00Z</timestamp>
+    <message>Sample telemetry event 147 emitted by the database component.</message>
+    <context>
+      <request id="req-10147" region="test-3" />
+      <duration unit="ms">123</duration>
+    </context>
+  </event>
+  <event id="evt-00148" level="debug" component="cache">
+    <timestamp>2026-05-22T02:28:00Z</timestamp>
+    <message>Sample telemetry event 148 emitted by the cache component.</message>
+    <context>
+      <request id="req-10148" region="test-4" />
+      <duration unit="ms">136</duration>
+    </context>
+  </event>
+  <event id="evt-00149" level="info" component="scheduler">
+    <timestamp>2026-05-22T02:29:00Z</timestamp>
+    <message>Sample telemetry event 149 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10149" region="test-5" />
+      <duration unit="ms">149</duration>
+    </context>
+  </event>
+  <event id="evt-00150" level="warn" component="api">
+    <timestamp>2026-05-22T02:30:00Z</timestamp>
+    <message>Sample telemetry event 150 emitted by the api component.</message>
+    <context>
+      <request id="req-10150" region="test-0" />
+      <duration unit="ms">162</duration>
+    </context>
+  </event>
+  <event id="evt-00151" level="error" component="worker">
+    <timestamp>2026-05-22T02:31:00Z</timestamp>
+    <message>Sample telemetry event 151 emitted by the worker component.</message>
+    <context>
+      <request id="req-10151" region="test-1" />
+      <duration unit="ms">175</duration>
+    </context>
+  </event>
+  <event id="evt-00152" level="debug" component="database">
+    <timestamp>2026-05-22T02:32:00Z</timestamp>
+    <message>Sample telemetry event 152 emitted by the database component.</message>
+    <context>
+      <request id="req-10152" region="test-2" />
+      <duration unit="ms">188</duration>
+    </context>
+  </event>
+  <event id="evt-00153" level="info" component="cache">
+    <timestamp>2026-05-22T02:33:00Z</timestamp>
+    <message>Sample telemetry event 153 emitted by the cache component.</message>
+    <context>
+      <request id="req-10153" region="test-3" />
+      <duration unit="ms">201</duration>
+    </context>
+  </event>
+  <event id="evt-00154" level="warn" component="scheduler">
+    <timestamp>2026-05-22T02:34:00Z</timestamp>
+    <message>Sample telemetry event 154 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10154" region="test-4" />
+      <duration unit="ms">214</duration>
+    </context>
+  </event>
+  <event id="evt-00155" level="error" component="api">
+    <timestamp>2026-05-22T02:35:00Z</timestamp>
+    <message>Sample telemetry event 155 emitted by the api component.</message>
+    <context>
+      <request id="req-10155" region="test-5" />
+      <duration unit="ms">227</duration>
+    </context>
+  </event>
+  <event id="evt-00156" level="debug" component="worker">
+    <timestamp>2026-05-22T02:36:00Z</timestamp>
+    <message>Sample telemetry event 156 emitted by the worker component.</message>
+    <context>
+      <request id="req-10156" region="test-0" />
+      <duration unit="ms">240</duration>
+    </context>
+  </event>
+  <event id="evt-00157" level="info" component="database">
+    <timestamp>2026-05-22T02:37:00Z</timestamp>
+    <message>Sample telemetry event 157 emitted by the database component.</message>
+    <context>
+      <request id="req-10157" region="test-1" />
+      <duration unit="ms">253</duration>
+    </context>
+  </event>
+  <event id="evt-00158" level="warn" component="cache">
+    <timestamp>2026-05-22T02:38:00Z</timestamp>
+    <message>Sample telemetry event 158 emitted by the cache component.</message>
+    <context>
+      <request id="req-10158" region="test-2" />
+      <duration unit="ms">266</duration>
+    </context>
+  </event>
+  <event id="evt-00159" level="error" component="scheduler">
+    <timestamp>2026-05-22T02:39:00Z</timestamp>
+    <message>Sample telemetry event 159 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10159" region="test-3" />
+      <duration unit="ms">279</duration>
+    </context>
+  </event>
+  <event id="evt-00160" level="debug" component="api">
+    <timestamp>2026-05-22T02:40:00Z</timestamp>
+    <message>Sample telemetry event 160 emitted by the api component.</message>
+    <context>
+      <request id="req-10160" region="test-4" />
+      <duration unit="ms">292</duration>
+    </context>
+  </event>
+  <event id="evt-00161" level="info" component="worker">
+    <timestamp>2026-05-22T02:41:00Z</timestamp>
+    <message>Sample telemetry event 161 emitted by the worker component.</message>
+    <context>
+      <request id="req-10161" region="test-5" />
+      <duration unit="ms">305</duration>
+    </context>
+  </event>
+  <event id="evt-00162" level="warn" component="database">
+    <timestamp>2026-05-22T02:42:00Z</timestamp>
+    <message>Sample telemetry event 162 emitted by the database component.</message>
+    <context>
+      <request id="req-10162" region="test-0" />
+      <duration unit="ms">318</duration>
+    </context>
+  </event>
+  <event id="evt-00163" level="error" component="cache">
+    <timestamp>2026-05-22T02:43:00Z</timestamp>
+    <message>Sample telemetry event 163 emitted by the cache component.</message>
+    <context>
+      <request id="req-10163" region="test-1" />
+      <duration unit="ms">331</duration>
+    </context>
+  </event>
+  <event id="evt-00164" level="debug" component="scheduler">
+    <timestamp>2026-05-22T02:44:00Z</timestamp>
+    <message>Sample telemetry event 164 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10164" region="test-2" />
+      <duration unit="ms">344</duration>
+    </context>
+  </event>
+  <event id="evt-00165" level="info" component="api">
+    <timestamp>2026-05-22T02:45:00Z</timestamp>
+    <message>Sample telemetry event 165 emitted by the api component.</message>
+    <context>
+      <request id="req-10165" region="test-3" />
+      <duration unit="ms">357</duration>
+    </context>
+  </event>
+  <event id="evt-00166" level="warn" component="worker">
+    <timestamp>2026-05-22T02:46:00Z</timestamp>
+    <message>Sample telemetry event 166 emitted by the worker component.</message>
+    <context>
+      <request id="req-10166" region="test-4" />
+      <duration unit="ms">370</duration>
+    </context>
+  </event>
+  <event id="evt-00167" level="error" component="database">
+    <timestamp>2026-05-22T02:47:00Z</timestamp>
+    <message>Sample telemetry event 167 emitted by the database component.</message>
+    <context>
+      <request id="req-10167" region="test-5" />
+      <duration unit="ms">383</duration>
+    </context>
+  </event>
+  <event id="evt-00168" level="debug" component="cache">
+    <timestamp>2026-05-22T02:48:00Z</timestamp>
+    <message>Sample telemetry event 168 emitted by the cache component.</message>
+    <context>
+      <request id="req-10168" region="test-0" />
+      <duration unit="ms">396</duration>
+    </context>
+  </event>
+  <event id="evt-00169" level="info" component="scheduler">
+    <timestamp>2026-05-22T02:49:00Z</timestamp>
+    <message>Sample telemetry event 169 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10169" region="test-1" />
+      <duration unit="ms">409</duration>
+    </context>
+  </event>
+  <event id="evt-00170" level="warn" component="api">
+    <timestamp>2026-05-22T02:50:00Z</timestamp>
+    <message>Sample telemetry event 170 emitted by the api component.</message>
+    <context>
+      <request id="req-10170" region="test-2" />
+      <duration unit="ms">422</duration>
+    </context>
+  </event>
+  <event id="evt-00171" level="error" component="worker">
+    <timestamp>2026-05-22T02:51:00Z</timestamp>
+    <message>Sample telemetry event 171 emitted by the worker component.</message>
+    <context>
+      <request id="req-10171" region="test-3" />
+      <duration unit="ms">435</duration>
+    </context>
+  </event>
+  <event id="evt-00172" level="debug" component="database">
+    <timestamp>2026-05-22T02:52:00Z</timestamp>
+    <message>Sample telemetry event 172 emitted by the database component.</message>
+    <context>
+      <request id="req-10172" region="test-4" />
+      <duration unit="ms">448</duration>
+    </context>
+  </event>
+  <event id="evt-00173" level="info" component="cache">
+    <timestamp>2026-05-22T02:53:00Z</timestamp>
+    <message>Sample telemetry event 173 emitted by the cache component.</message>
+    <context>
+      <request id="req-10173" region="test-5" />
+      <duration unit="ms">461</duration>
+    </context>
+  </event>
+  <event id="evt-00174" level="warn" component="scheduler">
+    <timestamp>2026-05-22T02:54:00Z</timestamp>
+    <message>Sample telemetry event 174 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10174" region="test-0" />
+      <duration unit="ms">474</duration>
+    </context>
+  </event>
+  <event id="evt-00175" level="error" component="api">
+    <timestamp>2026-05-22T02:55:00Z</timestamp>
+    <message>Sample telemetry event 175 emitted by the api component.</message>
+    <context>
+      <request id="req-10175" region="test-1" />
+      <duration unit="ms">487</duration>
+    </context>
+  </event>
+  <event id="evt-00176" level="debug" component="worker">
+    <timestamp>2026-05-22T02:56:00Z</timestamp>
+    <message>Sample telemetry event 176 emitted by the worker component.</message>
+    <context>
+      <request id="req-10176" region="test-2" />
+      <duration unit="ms">500</duration>
+    </context>
+  </event>
+  <event id="evt-00177" level="info" component="database">
+    <timestamp>2026-05-22T02:57:00Z</timestamp>
+    <message>Sample telemetry event 177 emitted by the database component.</message>
+    <context>
+      <request id="req-10177" region="test-3" />
+      <duration unit="ms">513</duration>
+    </context>
+  </event>
+  <event id="evt-00178" level="warn" component="cache">
+    <timestamp>2026-05-22T02:58:00Z</timestamp>
+    <message>Sample telemetry event 178 emitted by the cache component.</message>
+    <context>
+      <request id="req-10178" region="test-4" />
+      <duration unit="ms">526</duration>
+    </context>
+  </event>
+  <event id="evt-00179" level="error" component="scheduler">
+    <timestamp>2026-05-22T02:59:00Z</timestamp>
+    <message>Sample telemetry event 179 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10179" region="test-5" />
+      <duration unit="ms">539</duration>
+    </context>
+  </event>
+  <event id="evt-00180" level="debug" component="api">
+    <timestamp>2026-05-22T03:00:00Z</timestamp>
+    <message>Sample telemetry event 180 emitted by the api component.</message>
+    <context>
+      <request id="req-10180" region="test-0" />
+      <duration unit="ms">552</duration>
+    </context>
+  </event>
+  <event id="evt-00181" level="info" component="worker">
+    <timestamp>2026-05-22T03:01:00Z</timestamp>
+    <message>Sample telemetry event 181 emitted by the worker component.</message>
+    <context>
+      <request id="req-10181" region="test-1" />
+      <duration unit="ms">565</duration>
+    </context>
+  </event>
+  <event id="evt-00182" level="warn" component="database">
+    <timestamp>2026-05-22T03:02:00Z</timestamp>
+    <message>Sample telemetry event 182 emitted by the database component.</message>
+    <context>
+      <request id="req-10182" region="test-2" />
+      <duration unit="ms">578</duration>
+    </context>
+  </event>
+  <event id="evt-00183" level="error" component="cache">
+    <timestamp>2026-05-22T03:03:00Z</timestamp>
+    <message>Sample telemetry event 183 emitted by the cache component.</message>
+    <context>
+      <request id="req-10183" region="test-3" />
+      <duration unit="ms">591</duration>
+    </context>
+  </event>
+  <event id="evt-00184" level="debug" component="scheduler">
+    <timestamp>2026-05-22T03:04:00Z</timestamp>
+    <message>Sample telemetry event 184 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10184" region="test-4" />
+      <duration unit="ms">604</duration>
+    </context>
+  </event>
+  <event id="evt-00185" level="info" component="api">
+    <timestamp>2026-05-22T03:05:00Z</timestamp>
+    <message>Sample telemetry event 185 emitted by the api component.</message>
+    <context>
+      <request id="req-10185" region="test-5" />
+      <duration unit="ms">617</duration>
+    </context>
+  </event>
+  <event id="evt-00186" level="warn" component="worker">
+    <timestamp>2026-05-22T03:06:00Z</timestamp>
+    <message>Sample telemetry event 186 emitted by the worker component.</message>
+    <context>
+      <request id="req-10186" region="test-0" />
+      <duration unit="ms">630</duration>
+    </context>
+  </event>
+  <event id="evt-00187" level="error" component="database">
+    <timestamp>2026-05-22T03:07:00Z</timestamp>
+    <message>Sample telemetry event 187 emitted by the database component.</message>
+    <context>
+      <request id="req-10187" region="test-1" />
+      <duration unit="ms">643</duration>
+    </context>
+  </event>
+  <event id="evt-00188" level="debug" component="cache">
+    <timestamp>2026-05-22T03:08:00Z</timestamp>
+    <message>Sample telemetry event 188 emitted by the cache component.</message>
+    <context>
+      <request id="req-10188" region="test-2" />
+      <duration unit="ms">656</duration>
+    </context>
+  </event>
+  <event id="evt-00189" level="info" component="scheduler">
+    <timestamp>2026-05-22T03:09:00Z</timestamp>
+    <message>Sample telemetry event 189 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10189" region="test-3" />
+      <duration unit="ms">669</duration>
+    </context>
+  </event>
+  <event id="evt-00190" level="warn" component="api">
+    <timestamp>2026-05-22T03:10:00Z</timestamp>
+    <message>Sample telemetry event 190 emitted by the api component.</message>
+    <context>
+      <request id="req-10190" region="test-4" />
+      <duration unit="ms">682</duration>
+    </context>
+  </event>
+  <event id="evt-00191" level="error" component="worker">
+    <timestamp>2026-05-22T03:11:00Z</timestamp>
+    <message>Sample telemetry event 191 emitted by the worker component.</message>
+    <context>
+      <request id="req-10191" region="test-5" />
+      <duration unit="ms">695</duration>
+    </context>
+  </event>
+  <event id="evt-00192" level="debug" component="database">
+    <timestamp>2026-05-22T03:12:00Z</timestamp>
+    <message>Sample telemetry event 192 emitted by the database component.</message>
+    <context>
+      <request id="req-10192" region="test-0" />
+      <duration unit="ms">708</duration>
+    </context>
+  </event>
+  <event id="evt-00193" level="info" component="cache">
+    <timestamp>2026-05-22T03:13:00Z</timestamp>
+    <message>Sample telemetry event 193 emitted by the cache component.</message>
+    <context>
+      <request id="req-10193" region="test-1" />
+      <duration unit="ms">721</duration>
+    </context>
+  </event>
+  <event id="evt-00194" level="warn" component="scheduler">
+    <timestamp>2026-05-22T03:14:00Z</timestamp>
+    <message>Sample telemetry event 194 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10194" region="test-2" />
+      <duration unit="ms">734</duration>
+    </context>
+  </event>
+  <event id="evt-00195" level="error" component="api">
+    <timestamp>2026-05-22T03:15:00Z</timestamp>
+    <message>Sample telemetry event 195 emitted by the api component.</message>
+    <context>
+      <request id="req-10195" region="test-3" />
+      <duration unit="ms">747</duration>
+    </context>
+  </event>
+  <event id="evt-00196" level="debug" component="worker">
+    <timestamp>2026-05-22T03:16:00Z</timestamp>
+    <message>Sample telemetry event 196 emitted by the worker component.</message>
+    <context>
+      <request id="req-10196" region="test-4" />
+      <duration unit="ms">760</duration>
+    </context>
+  </event>
+  <event id="evt-00197" level="info" component="database">
+    <timestamp>2026-05-22T03:17:00Z</timestamp>
+    <message>Sample telemetry event 197 emitted by the database component.</message>
+    <context>
+      <request id="req-10197" region="test-5" />
+      <duration unit="ms">773</duration>
+    </context>
+  </event>
+  <event id="evt-00198" level="warn" component="cache">
+    <timestamp>2026-05-22T03:18:00Z</timestamp>
+    <message>Sample telemetry event 198 emitted by the cache component.</message>
+    <context>
+      <request id="req-10198" region="test-0" />
+      <duration unit="ms">786</duration>
+    </context>
+  </event>
+  <event id="evt-00199" level="error" component="scheduler">
+    <timestamp>2026-05-22T03:19:00Z</timestamp>
+    <message>Sample telemetry event 199 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10199" region="test-1" />
+      <duration unit="ms">799</duration>
+    </context>
+  </event>
+  <event id="evt-00200" level="debug" component="api">
+    <timestamp>2026-05-22T03:20:00Z</timestamp>
+    <message>Sample telemetry event 200 emitted by the api component.</message>
+    <context>
+      <request id="req-10200" region="test-2" />
+      <duration unit="ms">812</duration>
+    </context>
+  </event>
+  <event id="evt-00201" level="info" component="worker">
+    <timestamp>2026-05-22T03:21:00Z</timestamp>
+    <message>Sample telemetry event 201 emitted by the worker component.</message>
+    <context>
+      <request id="req-10201" region="test-3" />
+      <duration unit="ms">825</duration>
+    </context>
+  </event>
+  <event id="evt-00202" level="warn" component="database">
+    <timestamp>2026-05-22T03:22:00Z</timestamp>
+    <message>Sample telemetry event 202 emitted by the database component.</message>
+    <context>
+      <request id="req-10202" region="test-4" />
+      <duration unit="ms">838</duration>
+    </context>
+  </event>
+  <event id="evt-00203" level="error" component="cache">
+    <timestamp>2026-05-22T03:23:00Z</timestamp>
+    <message>Sample telemetry event 203 emitted by the cache component.</message>
+    <context>
+      <request id="req-10203" region="test-5" />
+      <duration unit="ms">851</duration>
+    </context>
+  </event>
+  <event id="evt-00204" level="debug" component="scheduler">
+    <timestamp>2026-05-22T03:24:00Z</timestamp>
+    <message>Sample telemetry event 204 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10204" region="test-0" />
+      <duration unit="ms">864</duration>
+    </context>
+  </event>
+  <event id="evt-00205" level="info" component="api">
+    <timestamp>2026-05-22T03:25:00Z</timestamp>
+    <message>Sample telemetry event 205 emitted by the api component.</message>
+    <context>
+      <request id="req-10205" region="test-1" />
+      <duration unit="ms">877</duration>
+    </context>
+  </event>
+  <event id="evt-00206" level="warn" component="worker">
+    <timestamp>2026-05-22T03:26:00Z</timestamp>
+    <message>Sample telemetry event 206 emitted by the worker component.</message>
+    <context>
+      <request id="req-10206" region="test-2" />
+      <duration unit="ms">890</duration>
+    </context>
+  </event>
+  <event id="evt-00207" level="error" component="database">
+    <timestamp>2026-05-22T03:27:00Z</timestamp>
+    <message>Sample telemetry event 207 emitted by the database component.</message>
+    <context>
+      <request id="req-10207" region="test-3" />
+      <duration unit="ms">903</duration>
+    </context>
+  </event>
+  <event id="evt-00208" level="debug" component="cache">
+    <timestamp>2026-05-22T03:28:00Z</timestamp>
+    <message>Sample telemetry event 208 emitted by the cache component.</message>
+    <context>
+      <request id="req-10208" region="test-4" />
+      <duration unit="ms">16</duration>
+    </context>
+  </event>
+  <event id="evt-00209" level="info" component="scheduler">
+    <timestamp>2026-05-22T03:29:00Z</timestamp>
+    <message>Sample telemetry event 209 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10209" region="test-5" />
+      <duration unit="ms">29</duration>
+    </context>
+  </event>
+  <event id="evt-00210" level="warn" component="api">
+    <timestamp>2026-05-22T03:30:00Z</timestamp>
+    <message>Sample telemetry event 210 emitted by the api component.</message>
+    <context>
+      <request id="req-10210" region="test-0" />
+      <duration unit="ms">42</duration>
+    </context>
+  </event>
+  <event id="evt-00211" level="error" component="worker">
+    <timestamp>2026-05-22T03:31:00Z</timestamp>
+    <message>Sample telemetry event 211 emitted by the worker component.</message>
+    <context>
+      <request id="req-10211" region="test-1" />
+      <duration unit="ms">55</duration>
+    </context>
+  </event>
+  <event id="evt-00212" level="debug" component="database">
+    <timestamp>2026-05-22T03:32:00Z</timestamp>
+    <message>Sample telemetry event 212 emitted by the database component.</message>
+    <context>
+      <request id="req-10212" region="test-2" />
+      <duration unit="ms">68</duration>
+    </context>
+  </event>
+  <event id="evt-00213" level="info" component="cache">
+    <timestamp>2026-05-22T03:33:00Z</timestamp>
+    <message>Sample telemetry event 213 emitted by the cache component.</message>
+    <context>
+      <request id="req-10213" region="test-3" />
+      <duration unit="ms">81</duration>
+    </context>
+  </event>
+  <event id="evt-00214" level="warn" component="scheduler">
+    <timestamp>2026-05-22T03:34:00Z</timestamp>
+    <message>Sample telemetry event 214 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10214" region="test-4" />
+      <duration unit="ms">94</duration>
+    </context>
+  </event>
+  <event id="evt-00215" level="error" component="api">
+    <timestamp>2026-05-22T03:35:00Z</timestamp>
+    <message>Sample telemetry event 215 emitted by the api component.</message>
+    <context>
+      <request id="req-10215" region="test-5" />
+      <duration unit="ms">107</duration>
+    </context>
+  </event>
+  <event id="evt-00216" level="debug" component="worker">
+    <timestamp>2026-05-22T03:36:00Z</timestamp>
+    <message>Sample telemetry event 216 emitted by the worker component.</message>
+    <context>
+      <request id="req-10216" region="test-0" />
+      <duration unit="ms">120</duration>
+    </context>
+  </event>
+  <event id="evt-00217" level="info" component="database">
+    <timestamp>2026-05-22T03:37:00Z</timestamp>
+    <message>Sample telemetry event 217 emitted by the database component.</message>
+    <context>
+      <request id="req-10217" region="test-1" />
+      <duration unit="ms">133</duration>
+    </context>
+  </event>
+  <event id="evt-00218" level="warn" component="cache">
+    <timestamp>2026-05-22T03:38:00Z</timestamp>
+    <message>Sample telemetry event 218 emitted by the cache component.</message>
+    <context>
+      <request id="req-10218" region="test-2" />
+      <duration unit="ms">146</duration>
+    </context>
+  </event>
+  <event id="evt-00219" level="error" component="scheduler">
+    <timestamp>2026-05-22T03:39:00Z</timestamp>
+    <message>Sample telemetry event 219 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10219" region="test-3" />
+      <duration unit="ms">159</duration>
+    </context>
+  </event>
+  <event id="evt-00220" level="debug" component="api">
+    <timestamp>2026-05-22T03:40:00Z</timestamp>
+    <message>Sample telemetry event 220 emitted by the api component.</message>
+    <context>
+      <request id="req-10220" region="test-4" />
+      <duration unit="ms">172</duration>
+    </context>
+  </event>
+  <event id="evt-00221" level="info" component="worker">
+    <timestamp>2026-05-22T03:41:00Z</timestamp>
+    <message>Sample telemetry event 221 emitted by the worker component.</message>
+    <context>
+      <request id="req-10221" region="test-5" />
+      <duration unit="ms">185</duration>
+    </context>
+  </event>
+  <event id="evt-00222" level="warn" component="database">
+    <timestamp>2026-05-22T03:42:00Z</timestamp>
+    <message>Sample telemetry event 222 emitted by the database component.</message>
+    <context>
+      <request id="req-10222" region="test-0" />
+      <duration unit="ms">198</duration>
+    </context>
+  </event>
+  <event id="evt-00223" level="error" component="cache">
+    <timestamp>2026-05-22T03:43:00Z</timestamp>
+    <message>Sample telemetry event 223 emitted by the cache component.</message>
+    <context>
+      <request id="req-10223" region="test-1" />
+      <duration unit="ms">211</duration>
+    </context>
+  </event>
+  <event id="evt-00224" level="debug" component="scheduler">
+    <timestamp>2026-05-22T03:44:00Z</timestamp>
+    <message>Sample telemetry event 224 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10224" region="test-2" />
+      <duration unit="ms">224</duration>
+    </context>
+  </event>
+  <event id="evt-00225" level="info" component="api">
+    <timestamp>2026-05-22T03:45:00Z</timestamp>
+    <message>Sample telemetry event 225 emitted by the api component.</message>
+    <context>
+      <request id="req-10225" region="test-3" />
+      <duration unit="ms">237</duration>
+    </context>
+  </event>
+  <event id="evt-00226" level="warn" component="worker">
+    <timestamp>2026-05-22T03:46:00Z</timestamp>
+    <message>Sample telemetry event 226 emitted by the worker component.</message>
+    <context>
+      <request id="req-10226" region="test-4" />
+      <duration unit="ms">250</duration>
+    </context>
+  </event>
+  <event id="evt-00227" level="error" component="database">
+    <timestamp>2026-05-22T03:47:00Z</timestamp>
+    <message>Sample telemetry event 227 emitted by the database component.</message>
+    <context>
+      <request id="req-10227" region="test-5" />
+      <duration unit="ms">263</duration>
+    </context>
+  </event>
+  <event id="evt-00228" level="debug" component="cache">
+    <timestamp>2026-05-22T03:48:00Z</timestamp>
+    <message>Sample telemetry event 228 emitted by the cache component.</message>
+    <context>
+      <request id="req-10228" region="test-0" />
+      <duration unit="ms">276</duration>
+    </context>
+  </event>
+  <event id="evt-00229" level="info" component="scheduler">
+    <timestamp>2026-05-22T03:49:00Z</timestamp>
+    <message>Sample telemetry event 229 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10229" region="test-1" />
+      <duration unit="ms">289</duration>
+    </context>
+  </event>
+  <event id="evt-00230" level="warn" component="api">
+    <timestamp>2026-05-22T03:50:00Z</timestamp>
+    <message>Sample telemetry event 230 emitted by the api component.</message>
+    <context>
+      <request id="req-10230" region="test-2" />
+      <duration unit="ms">302</duration>
+    </context>
+  </event>
+  <event id="evt-00231" level="error" component="worker">
+    <timestamp>2026-05-22T03:51:00Z</timestamp>
+    <message>Sample telemetry event 231 emitted by the worker component.</message>
+    <context>
+      <request id="req-10231" region="test-3" />
+      <duration unit="ms">315</duration>
+    </context>
+  </event>
+  <event id="evt-00232" level="debug" component="database">
+    <timestamp>2026-05-22T03:52:00Z</timestamp>
+    <message>Sample telemetry event 232 emitted by the database component.</message>
+    <context>
+      <request id="req-10232" region="test-4" />
+      <duration unit="ms">328</duration>
+    </context>
+  </event>
+  <event id="evt-00233" level="info" component="cache">
+    <timestamp>2026-05-22T03:53:00Z</timestamp>
+    <message>Sample telemetry event 233 emitted by the cache component.</message>
+    <context>
+      <request id="req-10233" region="test-5" />
+      <duration unit="ms">341</duration>
+    </context>
+  </event>
+  <event id="evt-00234" level="warn" component="scheduler">
+    <timestamp>2026-05-22T03:54:00Z</timestamp>
+    <message>Sample telemetry event 234 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10234" region="test-0" />
+      <duration unit="ms">354</duration>
+    </context>
+  </event>
+  <event id="evt-00235" level="error" component="api">
+    <timestamp>2026-05-22T03:55:00Z</timestamp>
+    <message>Sample telemetry event 235 emitted by the api component.</message>
+    <context>
+      <request id="req-10235" region="test-1" />
+      <duration unit="ms">367</duration>
+    </context>
+  </event>
+  <event id="evt-00236" level="debug" component="worker">
+    <timestamp>2026-05-22T03:56:00Z</timestamp>
+    <message>Sample telemetry event 236 emitted by the worker component.</message>
+    <context>
+      <request id="req-10236" region="test-2" />
+      <duration unit="ms">380</duration>
+    </context>
+  </event>
+  <event id="evt-00237" level="info" component="database">
+    <timestamp>2026-05-22T03:57:00Z</timestamp>
+    <message>Sample telemetry event 237 emitted by the database component.</message>
+    <context>
+      <request id="req-10237" region="test-3" />
+      <duration unit="ms">393</duration>
+    </context>
+  </event>
+  <event id="evt-00238" level="warn" component="cache">
+    <timestamp>2026-05-22T03:58:00Z</timestamp>
+    <message>Sample telemetry event 238 emitted by the cache component.</message>
+    <context>
+      <request id="req-10238" region="test-4" />
+      <duration unit="ms">406</duration>
+    </context>
+  </event>
+  <event id="evt-00239" level="error" component="scheduler">
+    <timestamp>2026-05-22T03:59:00Z</timestamp>
+    <message>Sample telemetry event 239 emitted by the scheduler component.</message>
+    <context>
+      <request id="req-10239" region="test-5" />
+      <duration unit="ms">419</duration>
+    </context>
+  </event>
+  <event id="evt-00240" level="debug" component="api">
+    <timestamp>2026-05-22T04:00:00Z</timestamp>
+    <message>Sample telemetry event 240 emitted by the api component.</message>
+    <context>
+      <request id="req-10240" region="test-0" />
+      <duration unit="ms">432</duration>
+    </context>
+  </event>
+</telemetry>

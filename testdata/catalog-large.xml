@@ -1,0 +1,2409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog generated="true" version="1.0">
+  <metadata>
+    <title>Generated Product Catalog</title>
+    <description>A larger XML fixture for testing navigation, filtering, and terminal layout.</description>
+  </metadata>
+  <items>
+    <item sku="SKU-0001" category="software" status="backorder">
+      <name>Software item 1</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">26.99</price>
+      <dimensions unit="cm">
+        <width>6</width>
+        <height>4</height>
+        <depth>3</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0002" category="service" status="retired">
+      <name>Service item 2</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">33.99</price>
+      <dimensions unit="cm">
+        <width>7</width>
+        <height>5</height>
+        <depth>4</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0003" category="accessory" status="available">
+      <name>Accessory item 3</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">40.99</price>
+      <dimensions unit="cm">
+        <width>8</width>
+        <height>6</height>
+        <depth>5</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0004" category="hardware" status="backorder">
+      <name>Hardware item 4</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">47.99</price>
+      <dimensions unit="cm">
+        <width>9</width>
+        <height>7</height>
+        <depth>6</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0005" category="software" status="retired">
+      <name>Software item 5</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">54.99</price>
+      <dimensions unit="cm">
+        <width>10</width>
+        <height>8</height>
+        <depth>7</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0006" category="service" status="available">
+      <name>Service item 6</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">61.99</price>
+      <dimensions unit="cm">
+        <width>11</width>
+        <height>9</height>
+        <depth>8</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0007" category="accessory" status="backorder">
+      <name>Accessory item 7</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">68.99</price>
+      <dimensions unit="cm">
+        <width>12</width>
+        <height>10</height>
+        <depth>9</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0008" category="hardware" status="retired">
+      <name>Hardware item 8</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">75.99</price>
+      <dimensions unit="cm">
+        <width>13</width>
+        <height>11</height>
+        <depth>10</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0009" category="software" status="available">
+      <name>Software item 9</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">82.99</price>
+      <dimensions unit="cm">
+        <width>14</width>
+        <height>12</height>
+        <depth>11</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0010" category="service" status="backorder">
+      <name>Service item 10</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">89.99</price>
+      <dimensions unit="cm">
+        <width>15</width>
+        <height>13</height>
+        <depth>12</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0011" category="accessory" status="retired">
+      <name>Accessory item 11</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">96.99</price>
+      <dimensions unit="cm">
+        <width>16</width>
+        <height>14</height>
+        <depth>13</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0012" category="hardware" status="available">
+      <name>Hardware item 12</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">103.99</price>
+      <dimensions unit="cm">
+        <width>17</width>
+        <height>15</height>
+        <depth>14</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0013" category="software" status="backorder">
+      <name>Software item 13</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">110.99</price>
+      <dimensions unit="cm">
+        <width>18</width>
+        <height>16</height>
+        <depth>15</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0014" category="service" status="retired">
+      <name>Service item 14</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">117.99</price>
+      <dimensions unit="cm">
+        <width>19</width>
+        <height>17</height>
+        <depth>16</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0015" category="accessory" status="available">
+      <name>Accessory item 15</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">124.99</price>
+      <dimensions unit="cm">
+        <width>20</width>
+        <height>18</height>
+        <depth>17</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0016" category="hardware" status="backorder">
+      <name>Hardware item 16</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">131.99</price>
+      <dimensions unit="cm">
+        <width>21</width>
+        <height>19</height>
+        <depth>18</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0017" category="software" status="retired">
+      <name>Software item 17</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">138.99</price>
+      <dimensions unit="cm">
+        <width>22</width>
+        <height>20</height>
+        <depth>19</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0018" category="service" status="available">
+      <name>Service item 18</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">145.99</price>
+      <dimensions unit="cm">
+        <width>23</width>
+        <height>21</height>
+        <depth>20</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0019" category="accessory" status="backorder">
+      <name>Accessory item 19</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">152.99</price>
+      <dimensions unit="cm">
+        <width>24</width>
+        <height>22</height>
+        <depth>21</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0020" category="hardware" status="retired">
+      <name>Hardware item 20</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">159.99</price>
+      <dimensions unit="cm">
+        <width>25</width>
+        <height>23</height>
+        <depth>22</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0021" category="software" status="available">
+      <name>Software item 21</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">166.99</price>
+      <dimensions unit="cm">
+        <width>26</width>
+        <height>24</height>
+        <depth>23</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0022" category="service" status="backorder">
+      <name>Service item 22</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">173.99</price>
+      <dimensions unit="cm">
+        <width>27</width>
+        <height>25</height>
+        <depth>24</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0023" category="accessory" status="retired">
+      <name>Accessory item 23</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">180.99</price>
+      <dimensions unit="cm">
+        <width>28</width>
+        <height>26</height>
+        <depth>25</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0024" category="hardware" status="available">
+      <name>Hardware item 24</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">187.99</price>
+      <dimensions unit="cm">
+        <width>29</width>
+        <height>27</height>
+        <depth>26</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0025" category="software" status="backorder">
+      <name>Software item 25</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">194.99</price>
+      <dimensions unit="cm">
+        <width>30</width>
+        <height>3</height>
+        <depth>27</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0026" category="service" status="retired">
+      <name>Service item 26</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">201.99</price>
+      <dimensions unit="cm">
+        <width>31</width>
+        <height>4</height>
+        <depth>28</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0027" category="accessory" status="available">
+      <name>Accessory item 27</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">208.99</price>
+      <dimensions unit="cm">
+        <width>32</width>
+        <height>5</height>
+        <depth>29</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0028" category="hardware" status="backorder">
+      <name>Hardware item 28</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">215.99</price>
+      <dimensions unit="cm">
+        <width>33</width>
+        <height>6</height>
+        <depth>30</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0029" category="software" status="retired">
+      <name>Software item 29</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">222.99</price>
+      <dimensions unit="cm">
+        <width>34</width>
+        <height>7</height>
+        <depth>31</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0030" category="service" status="available">
+      <name>Service item 30</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">229.99</price>
+      <dimensions unit="cm">
+        <width>35</width>
+        <height>8</height>
+        <depth>2</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0031" category="accessory" status="backorder">
+      <name>Accessory item 31</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">236.99</price>
+      <dimensions unit="cm">
+        <width>36</width>
+        <height>9</height>
+        <depth>3</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0032" category="hardware" status="retired">
+      <name>Hardware item 32</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">243.99</price>
+      <dimensions unit="cm">
+        <width>37</width>
+        <height>10</height>
+        <depth>4</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0033" category="software" status="available">
+      <name>Software item 33</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">250.99</price>
+      <dimensions unit="cm">
+        <width>38</width>
+        <height>11</height>
+        <depth>5</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0034" category="service" status="backorder">
+      <name>Service item 34</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">257.99</price>
+      <dimensions unit="cm">
+        <width>39</width>
+        <height>12</height>
+        <depth>6</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0035" category="accessory" status="retired">
+      <name>Accessory item 35</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">264.99</price>
+      <dimensions unit="cm">
+        <width>40</width>
+        <height>13</height>
+        <depth>7</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0036" category="hardware" status="available">
+      <name>Hardware item 36</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">271.99</price>
+      <dimensions unit="cm">
+        <width>41</width>
+        <height>14</height>
+        <depth>8</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0037" category="software" status="backorder">
+      <name>Software item 37</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">278.99</price>
+      <dimensions unit="cm">
+        <width>42</width>
+        <height>15</height>
+        <depth>9</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0038" category="service" status="retired">
+      <name>Service item 38</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">285.99</price>
+      <dimensions unit="cm">
+        <width>43</width>
+        <height>16</height>
+        <depth>10</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0039" category="accessory" status="available">
+      <name>Accessory item 39</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">292.99</price>
+      <dimensions unit="cm">
+        <width>44</width>
+        <height>17</height>
+        <depth>11</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0040" category="hardware" status="backorder">
+      <name>Hardware item 40</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">299.99</price>
+      <dimensions unit="cm">
+        <width>5</width>
+        <height>18</height>
+        <depth>12</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0041" category="software" status="retired">
+      <name>Software item 41</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">306.99</price>
+      <dimensions unit="cm">
+        <width>6</width>
+        <height>19</height>
+        <depth>13</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0042" category="service" status="available">
+      <name>Service item 42</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">313.99</price>
+      <dimensions unit="cm">
+        <width>7</width>
+        <height>20</height>
+        <depth>14</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0043" category="accessory" status="backorder">
+      <name>Accessory item 43</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">320.99</price>
+      <dimensions unit="cm">
+        <width>8</width>
+        <height>21</height>
+        <depth>15</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0044" category="hardware" status="retired">
+      <name>Hardware item 44</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">327.99</price>
+      <dimensions unit="cm">
+        <width>9</width>
+        <height>22</height>
+        <depth>16</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0045" category="software" status="available">
+      <name>Software item 45</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">334.99</price>
+      <dimensions unit="cm">
+        <width>10</width>
+        <height>23</height>
+        <depth>17</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0046" category="service" status="backorder">
+      <name>Service item 46</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">341.99</price>
+      <dimensions unit="cm">
+        <width>11</width>
+        <height>24</height>
+        <depth>18</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0047" category="accessory" status="retired">
+      <name>Accessory item 47</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">348.99</price>
+      <dimensions unit="cm">
+        <width>12</width>
+        <height>25</height>
+        <depth>19</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0048" category="hardware" status="available">
+      <name>Hardware item 48</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">355.99</price>
+      <dimensions unit="cm">
+        <width>13</width>
+        <height>26</height>
+        <depth>20</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0049" category="software" status="backorder">
+      <name>Software item 49</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">362.99</price>
+      <dimensions unit="cm">
+        <width>14</width>
+        <height>27</height>
+        <depth>21</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0050" category="service" status="retired">
+      <name>Service item 50</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">369.99</price>
+      <dimensions unit="cm">
+        <width>15</width>
+        <height>3</height>
+        <depth>22</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0051" category="accessory" status="available">
+      <name>Accessory item 51</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">376.99</price>
+      <dimensions unit="cm">
+        <width>16</width>
+        <height>4</height>
+        <depth>23</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0052" category="hardware" status="backorder">
+      <name>Hardware item 52</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">383.99</price>
+      <dimensions unit="cm">
+        <width>17</width>
+        <height>5</height>
+        <depth>24</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0053" category="software" status="retired">
+      <name>Software item 53</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">390.99</price>
+      <dimensions unit="cm">
+        <width>18</width>
+        <height>6</height>
+        <depth>25</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0054" category="service" status="available">
+      <name>Service item 54</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">397.99</price>
+      <dimensions unit="cm">
+        <width>19</width>
+        <height>7</height>
+        <depth>26</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0055" category="accessory" status="backorder">
+      <name>Accessory item 55</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">404.99</price>
+      <dimensions unit="cm">
+        <width>20</width>
+        <height>8</height>
+        <depth>27</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0056" category="hardware" status="retired">
+      <name>Hardware item 56</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">411.99</price>
+      <dimensions unit="cm">
+        <width>21</width>
+        <height>9</height>
+        <depth>28</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0057" category="software" status="available">
+      <name>Software item 57</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">418.99</price>
+      <dimensions unit="cm">
+        <width>22</width>
+        <height>10</height>
+        <depth>29</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0058" category="service" status="backorder">
+      <name>Service item 58</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">425.99</price>
+      <dimensions unit="cm">
+        <width>23</width>
+        <height>11</height>
+        <depth>30</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0059" category="accessory" status="retired">
+      <name>Accessory item 59</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">432.99</price>
+      <dimensions unit="cm">
+        <width>24</width>
+        <height>12</height>
+        <depth>31</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0060" category="hardware" status="available">
+      <name>Hardware item 60</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">439.99</price>
+      <dimensions unit="cm">
+        <width>25</width>
+        <height>13</height>
+        <depth>2</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0061" category="software" status="backorder">
+      <name>Software item 61</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">446.99</price>
+      <dimensions unit="cm">
+        <width>26</width>
+        <height>14</height>
+        <depth>3</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0062" category="service" status="retired">
+      <name>Service item 62</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">23.99</price>
+      <dimensions unit="cm">
+        <width>27</width>
+        <height>15</height>
+        <depth>4</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0063" category="accessory" status="available">
+      <name>Accessory item 63</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">30.99</price>
+      <dimensions unit="cm">
+        <width>28</width>
+        <height>16</height>
+        <depth>5</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0064" category="hardware" status="backorder">
+      <name>Hardware item 64</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">37.99</price>
+      <dimensions unit="cm">
+        <width>29</width>
+        <height>17</height>
+        <depth>6</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0065" category="software" status="retired">
+      <name>Software item 65</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">44.99</price>
+      <dimensions unit="cm">
+        <width>30</width>
+        <height>18</height>
+        <depth>7</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0066" category="service" status="available">
+      <name>Service item 66</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">51.99</price>
+      <dimensions unit="cm">
+        <width>31</width>
+        <height>19</height>
+        <depth>8</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0067" category="accessory" status="backorder">
+      <name>Accessory item 67</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">58.99</price>
+      <dimensions unit="cm">
+        <width>32</width>
+        <height>20</height>
+        <depth>9</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0068" category="hardware" status="retired">
+      <name>Hardware item 68</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">65.99</price>
+      <dimensions unit="cm">
+        <width>33</width>
+        <height>21</height>
+        <depth>10</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0069" category="software" status="available">
+      <name>Software item 69</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">72.99</price>
+      <dimensions unit="cm">
+        <width>34</width>
+        <height>22</height>
+        <depth>11</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0070" category="service" status="backorder">
+      <name>Service item 70</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">79.99</price>
+      <dimensions unit="cm">
+        <width>35</width>
+        <height>23</height>
+        <depth>12</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0071" category="accessory" status="retired">
+      <name>Accessory item 71</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">86.99</price>
+      <dimensions unit="cm">
+        <width>36</width>
+        <height>24</height>
+        <depth>13</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0072" category="hardware" status="available">
+      <name>Hardware item 72</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">93.99</price>
+      <dimensions unit="cm">
+        <width>37</width>
+        <height>25</height>
+        <depth>14</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0073" category="software" status="backorder">
+      <name>Software item 73</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">100.99</price>
+      <dimensions unit="cm">
+        <width>38</width>
+        <height>26</height>
+        <depth>15</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0074" category="service" status="retired">
+      <name>Service item 74</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">107.99</price>
+      <dimensions unit="cm">
+        <width>39</width>
+        <height>27</height>
+        <depth>16</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0075" category="accessory" status="available">
+      <name>Accessory item 75</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">114.99</price>
+      <dimensions unit="cm">
+        <width>40</width>
+        <height>3</height>
+        <depth>17</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0076" category="hardware" status="backorder">
+      <name>Hardware item 76</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">121.99</price>
+      <dimensions unit="cm">
+        <width>41</width>
+        <height>4</height>
+        <depth>18</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0077" category="software" status="retired">
+      <name>Software item 77</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">128.99</price>
+      <dimensions unit="cm">
+        <width>42</width>
+        <height>5</height>
+        <depth>19</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0078" category="service" status="available">
+      <name>Service item 78</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">135.99</price>
+      <dimensions unit="cm">
+        <width>43</width>
+        <height>6</height>
+        <depth>20</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0079" category="accessory" status="backorder">
+      <name>Accessory item 79</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">142.99</price>
+      <dimensions unit="cm">
+        <width>44</width>
+        <height>7</height>
+        <depth>21</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0080" category="hardware" status="retired">
+      <name>Hardware item 80</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">149.99</price>
+      <dimensions unit="cm">
+        <width>5</width>
+        <height>8</height>
+        <depth>22</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0081" category="software" status="available">
+      <name>Software item 81</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">156.99</price>
+      <dimensions unit="cm">
+        <width>6</width>
+        <height>9</height>
+        <depth>23</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0082" category="service" status="backorder">
+      <name>Service item 82</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">163.99</price>
+      <dimensions unit="cm">
+        <width>7</width>
+        <height>10</height>
+        <depth>24</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0083" category="accessory" status="retired">
+      <name>Accessory item 83</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">170.99</price>
+      <dimensions unit="cm">
+        <width>8</width>
+        <height>11</height>
+        <depth>25</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0084" category="hardware" status="available">
+      <name>Hardware item 84</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">177.99</price>
+      <dimensions unit="cm">
+        <width>9</width>
+        <height>12</height>
+        <depth>26</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0085" category="software" status="backorder">
+      <name>Software item 85</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">184.99</price>
+      <dimensions unit="cm">
+        <width>10</width>
+        <height>13</height>
+        <depth>27</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0086" category="service" status="retired">
+      <name>Service item 86</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">191.99</price>
+      <dimensions unit="cm">
+        <width>11</width>
+        <height>14</height>
+        <depth>28</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0087" category="accessory" status="available">
+      <name>Accessory item 87</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">198.99</price>
+      <dimensions unit="cm">
+        <width>12</width>
+        <height>15</height>
+        <depth>29</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0088" category="hardware" status="backorder">
+      <name>Hardware item 88</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">205.99</price>
+      <dimensions unit="cm">
+        <width>13</width>
+        <height>16</height>
+        <depth>30</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0089" category="software" status="retired">
+      <name>Software item 89</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">212.99</price>
+      <dimensions unit="cm">
+        <width>14</width>
+        <height>17</height>
+        <depth>31</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0090" category="service" status="available">
+      <name>Service item 90</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">219.99</price>
+      <dimensions unit="cm">
+        <width>15</width>
+        <height>18</height>
+        <depth>2</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0091" category="accessory" status="backorder">
+      <name>Accessory item 91</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">226.99</price>
+      <dimensions unit="cm">
+        <width>16</width>
+        <height>19</height>
+        <depth>3</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0092" category="hardware" status="retired">
+      <name>Hardware item 92</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">233.99</price>
+      <dimensions unit="cm">
+        <width>17</width>
+        <height>20</height>
+        <depth>4</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0093" category="software" status="available">
+      <name>Software item 93</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">240.99</price>
+      <dimensions unit="cm">
+        <width>18</width>
+        <height>21</height>
+        <depth>5</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0094" category="service" status="backorder">
+      <name>Service item 94</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">247.99</price>
+      <dimensions unit="cm">
+        <width>19</width>
+        <height>22</height>
+        <depth>6</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0095" category="accessory" status="retired">
+      <name>Accessory item 95</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">254.99</price>
+      <dimensions unit="cm">
+        <width>20</width>
+        <height>23</height>
+        <depth>7</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0096" category="hardware" status="available">
+      <name>Hardware item 96</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">261.99</price>
+      <dimensions unit="cm">
+        <width>21</width>
+        <height>24</height>
+        <depth>8</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0097" category="software" status="backorder">
+      <name>Software item 97</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">268.99</price>
+      <dimensions unit="cm">
+        <width>22</width>
+        <height>25</height>
+        <depth>9</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0098" category="service" status="retired">
+      <name>Service item 98</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">275.99</price>
+      <dimensions unit="cm">
+        <width>23</width>
+        <height>26</height>
+        <depth>10</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0099" category="accessory" status="available">
+      <name>Accessory item 99</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">282.99</price>
+      <dimensions unit="cm">
+        <width>24</width>
+        <height>27</height>
+        <depth>11</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0100" category="hardware" status="backorder">
+      <name>Hardware item 100</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">289.99</price>
+      <dimensions unit="cm">
+        <width>25</width>
+        <height>3</height>
+        <depth>12</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0101" category="software" status="retired">
+      <name>Software item 101</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">296.99</price>
+      <dimensions unit="cm">
+        <width>26</width>
+        <height>4</height>
+        <depth>13</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0102" category="service" status="available">
+      <name>Service item 102</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">303.99</price>
+      <dimensions unit="cm">
+        <width>27</width>
+        <height>5</height>
+        <depth>14</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0103" category="accessory" status="backorder">
+      <name>Accessory item 103</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">310.99</price>
+      <dimensions unit="cm">
+        <width>28</width>
+        <height>6</height>
+        <depth>15</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0104" category="hardware" status="retired">
+      <name>Hardware item 104</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">317.99</price>
+      <dimensions unit="cm">
+        <width>29</width>
+        <height>7</height>
+        <depth>16</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0105" category="software" status="available">
+      <name>Software item 105</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">324.99</price>
+      <dimensions unit="cm">
+        <width>30</width>
+        <height>8</height>
+        <depth>17</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0106" category="service" status="backorder">
+      <name>Service item 106</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">331.99</price>
+      <dimensions unit="cm">
+        <width>31</width>
+        <height>9</height>
+        <depth>18</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0107" category="accessory" status="retired">
+      <name>Accessory item 107</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">338.99</price>
+      <dimensions unit="cm">
+        <width>32</width>
+        <height>10</height>
+        <depth>19</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0108" category="hardware" status="available">
+      <name>Hardware item 108</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">345.99</price>
+      <dimensions unit="cm">
+        <width>33</width>
+        <height>11</height>
+        <depth>20</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0109" category="software" status="backorder">
+      <name>Software item 109</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">352.99</price>
+      <dimensions unit="cm">
+        <width>34</width>
+        <height>12</height>
+        <depth>21</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0110" category="service" status="retired">
+      <name>Service item 110</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">359.99</price>
+      <dimensions unit="cm">
+        <width>35</width>
+        <height>13</height>
+        <depth>22</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0111" category="accessory" status="available">
+      <name>Accessory item 111</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">366.99</price>
+      <dimensions unit="cm">
+        <width>36</width>
+        <height>14</height>
+        <depth>23</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0112" category="hardware" status="backorder">
+      <name>Hardware item 112</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">373.99</price>
+      <dimensions unit="cm">
+        <width>37</width>
+        <height>15</height>
+        <depth>24</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0113" category="software" status="retired">
+      <name>Software item 113</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">380.99</price>
+      <dimensions unit="cm">
+        <width>38</width>
+        <height>16</height>
+        <depth>25</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0114" category="service" status="available">
+      <name>Service item 114</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">387.99</price>
+      <dimensions unit="cm">
+        <width>39</width>
+        <height>17</height>
+        <depth>26</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0115" category="accessory" status="backorder">
+      <name>Accessory item 115</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">394.99</price>
+      <dimensions unit="cm">
+        <width>40</width>
+        <height>18</height>
+        <depth>27</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0116" category="hardware" status="retired">
+      <name>Hardware item 116</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">401.99</price>
+      <dimensions unit="cm">
+        <width>41</width>
+        <height>19</height>
+        <depth>28</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0117" category="software" status="available">
+      <name>Software item 117</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">408.99</price>
+      <dimensions unit="cm">
+        <width>42</width>
+        <height>20</height>
+        <depth>29</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0118" category="service" status="backorder">
+      <name>Service item 118</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">415.99</price>
+      <dimensions unit="cm">
+        <width>43</width>
+        <height>21</height>
+        <depth>30</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0119" category="accessory" status="retired">
+      <name>Accessory item 119</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">422.99</price>
+      <dimensions unit="cm">
+        <width>44</width>
+        <height>22</height>
+        <depth>31</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0120" category="hardware" status="available">
+      <name>Hardware item 120</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">429.99</price>
+      <dimensions unit="cm">
+        <width>5</width>
+        <height>23</height>
+        <depth>2</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0121" category="software" status="backorder">
+      <name>Software item 121</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">436.99</price>
+      <dimensions unit="cm">
+        <width>6</width>
+        <height>24</height>
+        <depth>3</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0122" category="service" status="retired">
+      <name>Service item 122</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">443.99</price>
+      <dimensions unit="cm">
+        <width>7</width>
+        <height>25</height>
+        <depth>4</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0123" category="accessory" status="available">
+      <name>Accessory item 123</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">20.99</price>
+      <dimensions unit="cm">
+        <width>8</width>
+        <height>26</height>
+        <depth>5</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0124" category="hardware" status="backorder">
+      <name>Hardware item 124</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">27.99</price>
+      <dimensions unit="cm">
+        <width>9</width>
+        <height>27</height>
+        <depth>6</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0125" category="software" status="retired">
+      <name>Software item 125</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">34.99</price>
+      <dimensions unit="cm">
+        <width>10</width>
+        <height>3</height>
+        <depth>7</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0126" category="service" status="available">
+      <name>Service item 126</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">41.99</price>
+      <dimensions unit="cm">
+        <width>11</width>
+        <height>4</height>
+        <depth>8</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0127" category="accessory" status="backorder">
+      <name>Accessory item 127</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">48.99</price>
+      <dimensions unit="cm">
+        <width>12</width>
+        <height>5</height>
+        <depth>9</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0128" category="hardware" status="retired">
+      <name>Hardware item 128</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">55.99</price>
+      <dimensions unit="cm">
+        <width>13</width>
+        <height>6</height>
+        <depth>10</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0129" category="software" status="available">
+      <name>Software item 129</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">62.99</price>
+      <dimensions unit="cm">
+        <width>14</width>
+        <height>7</height>
+        <depth>11</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0130" category="service" status="backorder">
+      <name>Service item 130</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">69.99</price>
+      <dimensions unit="cm">
+        <width>15</width>
+        <height>8</height>
+        <depth>12</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0131" category="accessory" status="retired">
+      <name>Accessory item 131</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">76.99</price>
+      <dimensions unit="cm">
+        <width>16</width>
+        <height>9</height>
+        <depth>13</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0132" category="hardware" status="available">
+      <name>Hardware item 132</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">83.99</price>
+      <dimensions unit="cm">
+        <width>17</width>
+        <height>10</height>
+        <depth>14</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0133" category="software" status="backorder">
+      <name>Software item 133</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">90.99</price>
+      <dimensions unit="cm">
+        <width>18</width>
+        <height>11</height>
+        <depth>15</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0134" category="service" status="retired">
+      <name>Service item 134</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">97.99</price>
+      <dimensions unit="cm">
+        <width>19</width>
+        <height>12</height>
+        <depth>16</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0135" category="accessory" status="available">
+      <name>Accessory item 135</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">104.99</price>
+      <dimensions unit="cm">
+        <width>20</width>
+        <height>13</height>
+        <depth>17</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0136" category="hardware" status="backorder">
+      <name>Hardware item 136</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">111.99</price>
+      <dimensions unit="cm">
+        <width>21</width>
+        <height>14</height>
+        <depth>18</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0137" category="software" status="retired">
+      <name>Software item 137</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">118.99</price>
+      <dimensions unit="cm">
+        <width>22</width>
+        <height>15</height>
+        <depth>19</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0138" category="service" status="available">
+      <name>Service item 138</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">125.99</price>
+      <dimensions unit="cm">
+        <width>23</width>
+        <height>16</height>
+        <depth>20</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0139" category="accessory" status="backorder">
+      <name>Accessory item 139</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">132.99</price>
+      <dimensions unit="cm">
+        <width>24</width>
+        <height>17</height>
+        <depth>21</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0140" category="hardware" status="retired">
+      <name>Hardware item 140</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">139.99</price>
+      <dimensions unit="cm">
+        <width>25</width>
+        <height>18</height>
+        <depth>22</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0141" category="software" status="available">
+      <name>Software item 141</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">146.99</price>
+      <dimensions unit="cm">
+        <width>26</width>
+        <height>19</height>
+        <depth>23</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0142" category="service" status="backorder">
+      <name>Service item 142</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">153.99</price>
+      <dimensions unit="cm">
+        <width>27</width>
+        <height>20</height>
+        <depth>24</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0143" category="accessory" status="retired">
+      <name>Accessory item 143</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">160.99</price>
+      <dimensions unit="cm">
+        <width>28</width>
+        <height>21</height>
+        <depth>25</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0144" category="hardware" status="available">
+      <name>Hardware item 144</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">167.99</price>
+      <dimensions unit="cm">
+        <width>29</width>
+        <height>22</height>
+        <depth>26</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0145" category="software" status="backorder">
+      <name>Software item 145</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">174.99</price>
+      <dimensions unit="cm">
+        <width>30</width>
+        <height>23</height>
+        <depth>27</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0146" category="service" status="retired">
+      <name>Service item 146</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">181.99</price>
+      <dimensions unit="cm">
+        <width>31</width>
+        <height>24</height>
+        <depth>28</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0147" category="accessory" status="available">
+      <name>Accessory item 147</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">188.99</price>
+      <dimensions unit="cm">
+        <width>32</width>
+        <height>25</height>
+        <depth>29</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0148" category="hardware" status="backorder">
+      <name>Hardware item 148</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">195.99</price>
+      <dimensions unit="cm">
+        <width>33</width>
+        <height>26</height>
+        <depth>30</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0149" category="software" status="retired">
+      <name>Software item 149</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">202.99</price>
+      <dimensions unit="cm">
+        <width>34</width>
+        <height>27</height>
+        <depth>31</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0150" category="service" status="available">
+      <name>Service item 150</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">209.99</price>
+      <dimensions unit="cm">
+        <width>35</width>
+        <height>3</height>
+        <depth>2</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0151" category="accessory" status="backorder">
+      <name>Accessory item 151</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">216.99</price>
+      <dimensions unit="cm">
+        <width>36</width>
+        <height>4</height>
+        <depth>3</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0152" category="hardware" status="retired">
+      <name>Hardware item 152</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">223.99</price>
+      <dimensions unit="cm">
+        <width>37</width>
+        <height>5</height>
+        <depth>4</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0153" category="software" status="available">
+      <name>Software item 153</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">230.99</price>
+      <dimensions unit="cm">
+        <width>38</width>
+        <height>6</height>
+        <depth>5</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0154" category="service" status="backorder">
+      <name>Service item 154</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">237.99</price>
+      <dimensions unit="cm">
+        <width>39</width>
+        <height>7</height>
+        <depth>6</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0155" category="accessory" status="retired">
+      <name>Accessory item 155</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">244.99</price>
+      <dimensions unit="cm">
+        <width>40</width>
+        <height>8</height>
+        <depth>7</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0156" category="hardware" status="available">
+      <name>Hardware item 156</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">251.99</price>
+      <dimensions unit="cm">
+        <width>41</width>
+        <height>9</height>
+        <depth>8</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0157" category="software" status="backorder">
+      <name>Software item 157</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">258.99</price>
+      <dimensions unit="cm">
+        <width>42</width>
+        <height>10</height>
+        <depth>9</depth>
+      </dimensions>
+      <tags>
+        <tag>software</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0158" category="service" status="retired">
+      <name>Service item 158</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">265.99</price>
+      <dimensions unit="cm">
+        <width>43</width>
+        <height>11</height>
+        <depth>10</depth>
+      </dimensions>
+      <tags>
+        <tag>service</tag>
+        <tag>retired</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0159" category="accessory" status="available">
+      <name>Accessory item 159</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">272.99</price>
+      <dimensions unit="cm">
+        <width>44</width>
+        <height>12</height>
+        <depth>11</depth>
+      </dimensions>
+      <tags>
+        <tag>accessory</tag>
+        <tag>available</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+    <item sku="SKU-0160" category="hardware" status="backorder">
+      <name>Hardware item 160</name>
+      <description>This generated catalog item has enough nested fields to exercise scrolling, search, attributes, and repeated XML elements in xray.</description>
+      <price currency="USD">279.99</price>
+      <dimensions unit="cm">
+        <width>5</width>
+        <height>13</height>
+        <depth>12</depth>
+      </dimensions>
+      <tags>
+        <tag>hardware</tag>
+        <tag>backorder</tag>
+        <tag>generated-sample</tag>
+      </tags>
+    </item>
+  </items>
+</catalog>
