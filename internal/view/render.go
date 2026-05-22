@@ -80,7 +80,20 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 		}
 		switch item.kind {
 		case itemText:
-			*rows = append(*rows, Row{Text: childPrefix + conn + "“" + item.text + "”"})
+			textLines := textRows(item.text, 120)
+			if len(textLines) == 0 {
+				break
+			}
+			*rows = append(*rows, Row{Text: childPrefix + conn + "“" + textLines[0]})
+			for _, line := range textLines[1:] {
+				continuationPrefix := childPrefix + "   "
+				if !isLast {
+					continuationPrefix = childPrefix + "│  "
+				}
+				*rows = append(*rows, Row{Text: continuationPrefix + line})
+			}
+			lastIdx := len(*rows) - 1
+			(*rows)[lastIdx].Text += "”"
 		case itemWarning:
 			*rows = append(*rows, Row{Text: childPrefix + conn + "⚠ " + item.text})
 		case itemNode:
@@ -131,7 +144,7 @@ type childItem struct {
 func childItems(n *xmltree.Node, limit int, opts Options) []childItem {
 	items := []childItem{}
 	if n.Text != "" && len([]rune(n.Text)) > limit {
-		items = append(items, childItem{kind: itemText, text: wrapish(n.Text, 120)})
+		items = append(items, childItem{kind: itemText, text: n.Text})
 	}
 	if n.Warning != "" {
 		items = append(items, childItem{kind: itemWarning, text: n.Warning})
@@ -144,12 +157,27 @@ func childItems(n *xmltree.Node, limit int, opts Options) []childItem {
 	return items
 }
 
-func wrapish(s string, max int) string {
-	r := []rune(s)
-	if len(r) <= max {
-		return s
+func textRows(s string, width int) []string {
+	words := strings.Fields(s)
+	if len(words) == 0 {
+		return nil
 	}
-	return string(r[:max]) + "…"
+	if width <= 0 {
+		width = 120
+	}
+
+	var rows []string
+	line := words[0]
+	for _, word := range words[1:] {
+		if len([]rune(line))+1+len([]rune(word)) > width {
+			rows = append(rows, line)
+			line = word
+			continue
+		}
+		line += " " + word
+	}
+	rows = append(rows, line)
+	return rows
 }
 
 // SyntaxHighlight adds lightweight XML-aware styling to a rendered row while

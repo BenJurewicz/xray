@@ -9,7 +9,8 @@ import (
 )
 
 func TestFlattenRendersAttrsTextAndLongText(t *testing.T) {
-	doc, err := xmltree.Parse(strings.NewReader(`<root><user id="42">User</user><note>` + strings.Repeat("long ", 30) + `</note></root>`))
+	longText := strings.TrimSpace(strings.Repeat("long ", 30))
+	doc, err := xmltree.Parse(strings.NewReader(`<root><user id="42">User</user><note>` + longText + `</note></root>`))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -20,6 +21,23 @@ func TestFlattenRendersAttrsTextAndLongText(t *testing.T) {
 	}
 	if !strings.Contains(joined, "“long long") {
 		t.Fatalf("missing long text continuation:\n%s", joined)
+	}
+	if count := strings.Count(joined, "long"); count != 30 {
+		t.Fatalf("long text word count=%d want 30:\n%s", count, joined)
+	}
+	if strings.Contains(joined, "long…") {
+		t.Fatalf("long text contains truncation marker:\n%s", joined)
+	}
+}
+
+func TestTextRowsWrapWithoutTruncating(t *testing.T) {
+	text := "one two three four five six seven"
+	rows := textRows(text, 13)
+	if got := strings.Join(rows, " "); got != text {
+		t.Fatalf("wrapped text changed:\n got %q\nwant %q", got, text)
+	}
+	if len(rows) < 2 {
+		t.Fatalf("expected wrapping, got %#v", rows)
 	}
 }
 
