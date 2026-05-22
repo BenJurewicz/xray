@@ -4,6 +4,11 @@
 
 It turns XML into a compact, syntax-highlighted tree so files are easier to inspect than raw angle-bracket markup. It is inspired by [`glow`](https://github.com/charmbracelet/glow), but built specifically for XML.
 
+## ⚠️ Warning
+
+This has been vibecoded because I had a need for a tool like that,
+but it is surprisingly not that sloppy.
+
 ## Features
 
 - Interactive terminal UI
