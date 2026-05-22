@@ -2,197 +2,97 @@
 
 `xray` is an interactive, read-only XML viewer for the terminal.
 
-It is inspired by [`glow`](https://github.com/charmbracelet/glow), but instead of rendering Markdown, `xray` renders XML as a human-friendly tree. The goal is not to expose raw XML syntax. The goal is to make any XML file pleasant to read, regardless of how it was originally formatted.
+It turns XML into a compact, syntax-highlighted tree so files are easier to inspect than raw angle-bracket markup. It is inspired by [`glow`](https://github.com/charmbracelet/glow), but built specifically for XML.
 
-## Goals
+## Features
 
-- Make XML readable in the terminal.
-- Hide XML verbosity where it does not help comprehension.
-- Preserve all meaningful structure, attributes, and text.
-- Provide fast keyboard-driven navigation.
-- Provide intuitive fuzzy and XML-aware search.
-- Stay strictly read-only.
+- Interactive terminal UI
+- Read-only by design
+- Tree-first XML display
+- Inline attributes and short text
+- Wrapped long text without truncation
+- Lightweight syntax highlighting
+- Best-effort malformed XML warnings
+- Fuzzy search plus XML-aware filters
+- Vim-style navigation and jump list
+- File input and stdin input
+- SVG support as regular XML
 
-## Non-goals
+## Install
 
-- Editing XML.
-- Reformatting files in-place.
-- Acting as a validator-first tool.
-- Rendering raw XML syntax as the primary view.
-- Supporting huge XML files in v1.
-- Supporting HTML in v1.
+There are no packaged releases yet. Build from source with Go:
 
-## v1 scope
+```sh
+git clone <repo-url>
+cd xray
+go build ./cmd/xray
+```
 
-`xray` should comfortably handle XML files around 2,000 lines.
+This creates a local `./xray` binary.
 
-Supported input:
+Optional install into your Go bin directory:
+
+```sh
+go install ./cmd/xray
+```
+
+## Usage
+
+Open a file:
 
 ```sh
 xray file.xml
+```
+
+Read from stdin:
+
+```sh
 cat file.xml | xray -
 ```
 
-Running `xray` without arguments should show help in v1. A future version may open a file picker/search rooted in the current directory.
+Show CLI help:
 
-SVG should work naturally because SVG is XML. HTML support is intentionally deferred.
-
-## Sample files
-
-The `testdata/` directory includes fixtures for manual testing:
-
-- `sample.xml` — small readable library example
-- `sample.svg` — SVG-as-XML smoke test
-- `catalog-large.xml` — larger generated product catalog
-- `telemetry-large.xml` — larger repeated event/log-style document
-- `malformed-mismatched.xml` — mismatched closing tag
-- `malformed-unclosed.xml` — unclosed nested elements
-- `malformed-bad-entity.xml` — undefined entity
-
-## Interface
-
-`xray` is TUI-only for v1. There is no static print mode.
-
-The interface is a single-pane tree viewer. Nodes and their useful details are shown directly in the tree rather than split into separate side panels.
-
-Tree rows use lightweight syntax highlighting for element names, attributes, attribute values, and text while keeping the display compact.
-
-### Tree display
-
-XML elements are rendered as tree nodes.
-
-Repeated elements are not grouped. If the source has three `<book>` elements, the viewer shows three separate `book` nodes.
-
-Attributes are shown inline with names and values:
-
-```text
-user  @id="42" @role="admin"  User
+```sh
+xray --help
 ```
 
-Short text content is shown inline. Long text content is shown separately beneath the element.
+## Display model
 
-Default short-text threshold: **80 characters**.
+`xray` renders XML as a human-friendly tree rather than raw XML syntax.
 
-Whitespace in text nodes is trimmed and collapsed for readability. For example:
+Example XML:
 
 ```xml
-<title>
-  Hello
-</title>
+<user id="42" role="admin">User</user>
 ```
 
-renders as:
+Rendered conceptually as:
 
 ```text
-title  Hello
+user  @id="42"  @role="admin"  User
 ```
 
-### Long text
+Rules:
 
-If an element contains text longer than the inline threshold, the element remains readable in the tree and the long text appears as expanded child content or continuation lines.
+- Repeated elements are shown separately, not grouped.
+- Attributes are shown inline as `@name="value"`.
+- Short text is shown inline.
+- Long text is wrapped below the element.
+- Whitespace in text nodes is trimmed and collapsed.
+- Malformed XML produces warnings where recovery is possible.
 
-The exact visual treatment can evolve during implementation, but the principle is:
+## Search
 
-- short text: inline
-- long text: visible, readable, not crammed into one row
+Press `/` in the TUI to search. Press `enter` to apply, or `esc` to cancel while typing.
 
-### Malformed XML
-
-`xray` should use best-effort parsing for malformed XML where practical.
-
-Malformed input should not fail with a cryptic parser dump. Instead, the TUI should show visible errors or warnings while still rendering whatever structure can be recovered.
-
-Recommended behavior:
-
-- show a compact warning/error indicator in the interface
-- include parse error entries in the tree where useful
-- keep the file readable whenever recovery is possible
-
-## Search and filtering
-
-Search should support both broad fuzzy search and XML-specific filters.
-
-A bare query performs fuzzy search across tag names, attribute names, attribute values, and text content.
-
-Examples:
-
-```text
-invoice
-5
-User
-```
-
-Prefix filters provide XML-aware search.
-
-Supported prefixes:
-
-```text
-tag:user
-attr:id
-attr:id=42
-text:foo
-value:5
-```
-
-`value:` is an alias for `text:`.
-
-Filters are composable. For example:
-
-```text
-attr:id text:paid
-```
-
-matches nodes that satisfy both conditions.
-
-When filtering, the viewer should show matching nodes plus compacted ancestors for context, rather than showing matches in isolation.
-
-Preferred compact ancestor style:
-
-```text
-rss
-└─ …/channel/item
-   └─ title  Foo
-```
-
-This keeps the view compact while still explaining where the match lives.
-
-## Keyboard controls
-
-The TUI should use common terminal and Vim-like bindings.
-
-Baseline controls:
-
-| Key | Action |
-| --- | --- |
-| `↑` / `k` | move up |
-| `↓` / `j` | move down |
-| `d` / `u` | half-page down / up (`ctrl-d` / `ctrl-u` also work) |
-| `f` / `b` | page down / up (`ctrl-f` / `ctrl-b` also work) |
-| `e` / `y` | scroll down / up (`ctrl-e` / `ctrl-y` also work) |
-| `g` / `G` | jump to top / bottom |
-| `o` / `i` | jump backward / forward (`ctrl-o` / `ctrl-i` also work) |
-| `←` / `h` | collapse / move to parent |
-| `→` / `l` | expand / move into child |
-| `enter` | expand/collapse |
-| `/` | search |
-| `c` | clear search filter, visible only after a search |
-| `n` | next match |
-| `N` | previous match |
-| `?` | help |
-| `q` | quit |
-
-### Search help
-
-Press `/` to enter search mode. The footer shows a compact search cheatsheet while typing.
-
-Bare queries search across element names, attribute names, attribute values, and text content:
+Bare queries search across tag names, attribute names, attribute values, and text content:
 
 ```text
 invoice
 paid
 ```
 
-Prefix filters narrow the search:
+XML-aware filters:
 
 ```text
 tag:item
@@ -202,54 +102,76 @@ text:paid
 value:paid
 ```
 
+`value:` is an alias for `text:`.
+
 Filters compose with spaces. Every token must match:
 
 ```text
 tag:item attr:status=paid
 ```
 
-Press `enter` to apply. Press `esc` while typing to cancel. After a search is active, `esc` or `c` clears the filter. `n` and `N` move between matches. Search jumps are added to the jump list, so `o` returns to where you were before the search and `i` moves forward again.
+After a search is active:
 
-## Theme
+- `n` moves to the next match
+- `N` moves to the previous match
+- `esc` or `c` clears the filter
+- `o` jumps back to where you were before the search
+- `i` jumps forward again
 
-v1 should use hardcoded terminal-color-aware styling rather than a config file.
+## Keyboard controls
 
-The default theme should work well with:
+| Key | Action |
+| --- | --- |
+| `↑` / `k` | Move up |
+| `↓` / `j` | Move down |
+| `←` / `h` | Collapse / move to parent |
+| `→` / `l` | Expand / move into child |
+| `enter` | Expand/collapse |
+| `d` / `u` | Half-page down / up |
+| `ctrl-d` / `ctrl-u` | Half-page down / up |
+| `f` / `b` | Page down / up |
+| `ctrl-f` / `ctrl-b` | Page down / up |
+| `e` / `y` | Scroll down / up |
+| `ctrl-e` / `ctrl-y` | Scroll down / up |
+| `g` / `G` | Jump to top / bottom |
+| `o` / `i` | Jump backward / forward |
+| `ctrl-o` / `ctrl-i` | Jump backward / forward |
+| `/` | Search |
+| `n` / `N` | Next / previous search match |
+| `esc` / `c` | Clear active search filter |
+| `?` | Toggle help |
+| `q` | Quit |
 
-- dark terminals
-- transparent backgrounds
-- Catppuccin Frappe-like palettes
+## Samples
 
-The theme should rely on terminal colors where possible instead of assuming an opaque background.
+The `testdata/` directory contains files for manual testing:
 
-## Implementation direction
+- `sample.xml` — small library example
+- `sample.svg` — SVG-as-XML smoke test
+- `catalog-large.xml` — larger generated product catalog
+- `telemetry-large.xml` — larger repeated event/log-style document
+- `malformed-mismatched.xml` — mismatched closing tag
+- `malformed-unclosed.xml` — unclosed nested elements
+- `malformed-bad-entity.xml` — undefined entity
 
-Preferred implementation language: **Go**.
+Try one:
 
-Reasoning:
+```sh
+go run ./cmd/xray testdata/sample.xml
+```
 
-- portable single binaries
-- strong fit for CLI/TUI tools
-- good XML parsing support
-- strong ecosystem around Bubble Tea and Lip Gloss
-- philosophically aligned with Charm Bracelet tools like Glow
+## Development
 
-Likely libraries:
+Run tests:
 
-- [`bubbletea`](https://github.com/charmbracelet/bubbletea) for the TUI
-- [`lipgloss`](https://github.com/charmbracelet/lipgloss) for styling
-- Go's standard `encoding/xml` as the starting point for parsing
+```sh
+go test ./...
+```
 
-A custom tolerant/recovery layer may be needed for best-effort malformed XML handling.
+Build:
 
-## Future ideas
+```sh
+go build ./cmd/xray
+```
 
-Not required for v1:
-
-- file picker/search when launched without args
-- configurable themes
-- raw XML view toggle
-- large-file streaming mode
-- HTML support
-- copying node paths
-- exporting filtered views
+The compiled `./xray` binary is ignored by git.
