@@ -283,7 +283,7 @@ func (m model) hasSearch() bool {
 
 func (m model) View() string {
 	if m.showHelp {
-		return m.fullHeight(helpStyle.Render(helpText), m.status())
+		return m.fullHeight(renderHelp(helpText), m.status())
 	}
 	rows := m.rows()
 	visibleHeight := m.contentHeight()
@@ -594,11 +594,11 @@ func (m model) status() string {
 		return statusStyle.Render(alignStatus(left, right, max(20, m.width)))
 	}
 
-	controls := []string{"jk", "hl", "du/fb", "oi", "/"}
+	controls := []string{"jk move", "hl fold", "du/fb page", "oi jumps", "/ search"}
 	if m.hasSearch() {
-		controls = append(controls, "esc/c")
+		controls = append(controls, "esc/c clear")
 	}
-	controls = append(controls, "?", "q")
+	controls = append(controls, "? help", "q quit")
 	right := strings.Join(controls, "  ·  ")
 
 	if m.query != "" {
@@ -641,6 +641,34 @@ var (
 	statusStyle   = lipgloss.NewStyle().Foreground(lipgloss.Color("245"))
 	helpStyle     = lipgloss.NewStyle().Foreground(lipgloss.Color("252")).Padding(1, 2)
 )
+
+func renderHelp(text string) string {
+	lines := strings.Split(strings.TrimRight(text, "\n"), "\n")
+	for i, line := range lines {
+		trimmed := strings.TrimSpace(line)
+		switch {
+		case i == 0:
+			lines[i] = ansi("111", line)
+		case strings.HasSuffix(trimmed, ":") && !strings.HasPrefix(trimmed, "tag:") && !strings.HasPrefix(trimmed, "attr:") && !strings.HasPrefix(trimmed, "text:") && !strings.HasPrefix(trimmed, "value:"):
+			lines[i] = ansi("179", line)
+		case strings.HasPrefix(line, "  ") && strings.Contains(line, "      "):
+			key, desc, ok := strings.Cut(line, "      ")
+			if ok {
+				lines[i] = ansi("150", key) + ansi("245", "      ") + ansi("252", desc)
+			}
+		case strings.HasPrefix(line, "    ") && trimmed != "":
+			lines[i] = ansi("252", line)
+		}
+	}
+	return helpStyle.Render(strings.Join(lines, "\n"))
+}
+
+func ansi(color, text string) string {
+	if text == "" {
+		return text
+	}
+	return "\x1b[38;5;" + color + "m" + text + "\x1b[0m"
+}
 
 func clamp(v, low, high int) int {
 	if high < low {

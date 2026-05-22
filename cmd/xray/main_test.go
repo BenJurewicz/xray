@@ -1,6 +1,7 @@
 package main
 
 import (
+	"regexp"
 	"strings"
 	"testing"
 
@@ -16,7 +17,7 @@ func TestViewPinsFooterToBottom(t *testing.T) {
 		t.Fatal(err)
 	}
 	m := newModel(doc, "testdata/sample.xml")
-	m.width = 80
+	m.width = 120
 	m.height = 8
 
 	out := m.View()
@@ -33,10 +34,10 @@ func TestViewPinsFooterToBottom(t *testing.T) {
 	if !strings.HasPrefix(footer, "testdata/sample.xml") {
 		t.Fatalf("footer missing path: %q", footer)
 	}
-	if !strings.Contains(footer, "q") {
+	if !strings.Contains(footer, "q quit") {
 		t.Fatalf("footer missing controls: %q", footer)
 	}
-	if !strings.Contains(footer, "  jk") {
+	if !strings.Contains(footer, "  jk move") {
 		t.Fatalf("footer controls are not right-aligned: %q", footer)
 	}
 	if lipgloss.Width(footer) != m.width {
@@ -79,15 +80,15 @@ func TestClearSearchKeyOnlyShowsAfterSearch(t *testing.T) {
 		t.Fatal(err)
 	}
 	m := newModel(doc, "testdata/sample.xml")
-	m.width = 100
+	m.width = 140
 	m.height = 8
-	if strings.Contains(lastLine(m.View()), "esc/c") {
+	if strings.Contains(lastLine(m.View()), "esc/c clear") {
 		t.Fatalf("clear key shown before search: %q", lastLine(m.View()))
 	}
 
 	m.query = "tag:child"
 	m.applySearch()
-	if !strings.Contains(lastLine(m.View()), "esc/c") {
+	if !strings.Contains(lastLine(m.View()), "esc/c clear") {
 		t.Fatalf("clear key hidden after search: %q", lastLine(m.View()))
 	}
 	if m.matches == nil {
@@ -99,7 +100,7 @@ func TestClearSearchKeyOnlyShowsAfterSearch(t *testing.T) {
 	if m.matches != nil || m.query != "" || len(m.matchIDs) != 0 {
 		t.Fatalf("search not cleared: query=%q matches=%v matchIDs=%v", m.query, m.matches, m.matchIDs)
 	}
-	if strings.Contains(lastLine(m.View()), "esc/c") {
+	if strings.Contains(lastLine(m.View()), "esc/c clear") {
 		t.Fatalf("clear key still shown after clearing: %q", lastLine(m.View()))
 	}
 }
@@ -272,6 +273,19 @@ func TestHelpExplainsSearch(t *testing.T) {
 	}
 }
 
+func TestHelpPageIsSyntaxHighlighted(t *testing.T) {
+	rendered := renderHelp(helpText)
+	if rendered == helpText {
+		t.Fatalf("expected highlighted help to differ from plain text")
+	}
+	if !strings.Contains(rendered, "\x1b[") {
+		t.Fatalf("expected ANSI styling in help output")
+	}
+	if got := stripANSI(rendered); !strings.Contains(got, "tag:item") || !strings.Contains(got, "q            quit") {
+		t.Fatalf("highlighted help changed visible content: %q", got)
+	}
+}
+
 func TestJKScrollsOnlyAtViewportEdges(t *testing.T) {
 	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<item>value</item>`, 30) + `</root>`))
 	if err != nil {
@@ -321,4 +335,10 @@ func lastLine(s string) string {
 
 func teaKey(s string) tea.KeyMsg {
 	return tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune(s)}
+}
+
+var ansiPattern = regexp.MustCompile(`\x1b\[[0-9;]*m`)
+
+func stripANSI(s string) string {
+	return ansiPattern.ReplaceAllString(s, "")
 }
