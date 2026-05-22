@@ -41,6 +41,32 @@ func TestTextRowsWrapWithoutTruncating(t *testing.T) {
 	}
 }
 
+func TestLongTextRowsUseConsistentTextHighlighting(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root><summary>` + strings.Repeat("word ", 60) + `</summary></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	rows := Flatten(doc, Options{InlineTextLimit: 10})
+	var longRows []Row
+	for _, row := range rows {
+		if row.LongText {
+			longRows = append(longRows, row)
+		}
+	}
+	if len(longRows) < 2 {
+		t.Fatalf("expected wrapped long text rows, got %#v", rows)
+	}
+	for _, row := range longRows {
+		highlighted := SyntaxHighlightRow(row)
+		if !strings.Contains(highlighted, "\x1b[38;5;252m") {
+			t.Fatalf("long text row missing text color: %q", highlighted)
+		}
+		if strings.Contains(highlighted, "\x1b[38;5;111m") {
+			t.Fatalf("long text row was styled as tag: %q", highlighted)
+		}
+	}
+}
+
 func TestFlattenFiltersWithAncestors(t *testing.T) {
 	doc, err := xmltree.Parse(strings.NewReader(`<rss><channel><item><title>Foo</title></item><item><title>Bar</title></item></channel></rss>`))
 	if err != nil {

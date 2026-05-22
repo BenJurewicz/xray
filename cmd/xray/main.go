@@ -256,8 +256,9 @@ func (m model) View() string {
 	var lines []string
 	end := min(len(rows), m.offset+visibleHeight)
 	for i := m.offset; i < end; i++ {
-		line := truncate(rows[i].Text, max(20, m.width))
-		line = view.SyntaxHighlight(line)
+		row := rows[i]
+		row.Text = truncate(row.Text, max(20, m.width))
+		line := view.SyntaxHighlightRow(row)
 		if i == m.selected {
 			line = selectedStyle.Render(line)
 		} else if rows[i].Match {

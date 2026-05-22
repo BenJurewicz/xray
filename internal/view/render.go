@@ -10,9 +10,10 @@ import (
 
 // Row is one rendered tree line.
 type Row struct {
-	NodeID int
-	Text   string
-	Match  bool
+	NodeID   int
+	Text     string
+	Match    bool
+	LongText bool
 }
 
 // Options controls tree flattening.
@@ -84,13 +85,13 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 			if len(textLines) == 0 {
 				break
 			}
-			*rows = append(*rows, Row{Text: childPrefix + conn + "“" + textLines[0]})
+			*rows = append(*rows, Row{Text: childPrefix + conn + "“" + textLines[0], LongText: true})
 			for _, line := range textLines[1:] {
 				continuationPrefix := childPrefix + "   "
 				if !isLast {
 					continuationPrefix = childPrefix + "│  "
 				}
-				*rows = append(*rows, Row{Text: continuationPrefix + line})
+				*rows = append(*rows, Row{Text: continuationPrefix + line, LongText: true})
 			}
 			lastIdx := len(*rows) - 1
 			(*rows)[lastIdx].Text += "”"
@@ -183,14 +184,30 @@ func textRows(s string, width int) []string {
 // SyntaxHighlight adds lightweight XML-aware styling to a rendered row while
 // preserving the original text content for terminal selection and tests.
 func SyntaxHighlight(line string) string {
+	return SyntaxHighlightRow(Row{Text: line})
+}
+
+func SyntaxHighlightRow(row Row) string {
+	line := row.Text
 	if strings.TrimSpace(line) == "" || strings.Contains(line, "⚠") {
 		return line
+	}
+	if row.LongText {
+		return highlightLongText(line)
 	}
 	idx := nodeStartIndex(line)
 	if idx < 0 || idx >= len(line) {
 		return line
 	}
 	return line[:idx] + highlightNodeText(line[idx:])
+}
+
+func highlightLongText(line string) string {
+	idx := nodeStartIndex(line)
+	if idx < 0 || idx >= len(line) {
+		return textStyle.Render(line)
+	}
+	return line[:idx] + textStyle.Render(line[idx:])
 }
 
 func nodeStartIndex(line string) int {
