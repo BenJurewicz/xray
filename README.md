@@ -13,7 +13,6 @@ but it is surprisingly not that sloppy.
 
 - Interactive terminal UI
 - Read-only by design
-- Tree-first XML display
 - Tree-first XML display with inline attrs and text
 - Long attrs/text fold independently with begin..end preview
 - Terminal-width-aware soft + hard wrapping, overflow splitting
