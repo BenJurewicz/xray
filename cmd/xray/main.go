@@ -380,7 +380,14 @@ func splitLines(s string) []string {
 }
 
 func (m model) rows() []view.Row {
-	return view.Flatten(m.doc, view.Options{Expanded: m.expanded, Matches: m.matches, InlineTextLimit: xmltree.DefaultInlineTextLimit, AttrExpanded: m.attrExpanded, TextExpanded: m.textExpanded})
+	return view.Flatten(m.doc, view.Options{
+		Expanded:        m.expanded,
+		Matches:         m.matches,
+		InlineTextLimit: xmltree.DefaultInlineTextLimit,
+		AttrExpanded:    m.attrExpanded,
+		TextExpanded:    m.textExpanded,
+		WrapWidth:       m.width,
+	})
 }
 
 func (m model) selectedRow() (view.Row, bool) {

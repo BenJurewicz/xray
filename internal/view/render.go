@@ -27,6 +27,7 @@ type Options struct {
 	InlineTextLimit int
 	AttrExpanded    map[int]map[int]bool
 	TextExpanded    map[int]bool
+	WrapWidth       int // terminal width in columns, 0 = default 120
 }
 
 // Flatten renders the XML document to navigable rows.
@@ -35,13 +36,17 @@ func Flatten(doc *xmltree.Document, opts Options) []Row {
 	if limit <= 0 {
 		limit = xmltree.DefaultInlineTextLimit
 	}
+	wrapWidth := opts.WrapWidth
+	if wrapWidth <= 0 {
+		wrapWidth = 120
+	}
 	var rows []Row
 	for _, w := range doc.Warnings {
 		rows = append(rows, Row{AttrIdx: -1, Text: "⚠ " + w})
 	}
 	for i, root := range doc.Roots {
 		last := i == len(doc.Roots)-1
-		flattenNode(&rows, root, "", last, opts, limit)
+		flattenNode(&rows, root, "", last, opts, limit, wrapWidth)
 	}
 	if len(rows) == 0 {
 		rows = append(rows, Row{AttrIdx: -1, Text: "No XML elements found."})
@@ -49,7 +54,7 @@ func Flatten(doc *xmltree.Document, opts Options) []Row {
 	return rows
 }
 
-func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Options, limit int) bool {
+func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Options, limit int, wrapWidth int) bool {
 	if opts.Matches != nil && !subtreeVisible(n, opts.Matches) {
 		return false
 	}
@@ -86,6 +91,12 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 		if isLast {
 			conn = "└─ "
 		}
+		// Compute wrapping width for this child item.
+		childDepth := len([]rune(childPrefix)) // rune count of child prefix = columns
+		availWidth := wrapWidth - childDepth - 3 - 2 // -3 for conn, -2 for 2-rune glyph
+		if availWidth < 20 {
+			availWidth = 20
+		}
 		switch item.kind {
 		case itemAttr:
 			// Always use a 2-char glyph so all attr rows start at the same column.
@@ -97,7 +108,14 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 					glyph = "▸ "
 				}
 			}
-			textLines := textRows(item.text, 120)
+			// Recompute availWidth using actual glyph
+			actualPrefix := childDepth + 3 + len([]rune(glyph))
+			if actualPrefix < wrapWidth {
+				availWidth = wrapWidth - actualPrefix
+			} else {
+				availWidth = 20
+			}
+			textLines := textRows(item.text, availWidth)
 			if len(textLines) == 0 {
 				break
 			}
@@ -117,7 +135,7 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 				break
 			}
 
-			textLines := textRows(item.text, 120)
+			textLines := textRows(item.text, availWidth)
 			if len(textLines) == 0 {
 				break
 			}
@@ -134,7 +152,7 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 		case itemWarning:
 			*rows = append(*rows, Row{AttrIdx: -1, Text: childPrefix + conn + "⚠ " + item.text})
 		case itemNode:
-			flattenNode(rows, item.node, childPrefix, isLast, opts, limit)
+			flattenNode(rows, item.node, childPrefix, isLast, opts, limit, wrapWidth)
 		}
 	}
 	return true
