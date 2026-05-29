@@ -19,14 +19,14 @@ func TestFlattenRendersAttrsTextAndLongText(t *testing.T) {
 	if !strings.Contains(joined, `user  @id="42"  User`) {
 		t.Fatalf("missing attr/text row:\n%s", joined)
 	}
-	if !strings.Contains(joined, "“long long") {
-		t.Fatalf("missing long text continuation:\n%s", joined)
+	if !strings.Contains(joined, `▸ "long long long long .. long long long long"`) {
+		t.Fatalf("missing folded long text row:\n%s", joined)
 	}
-	if count := strings.Count(joined, "long"); count != 30 {
-		t.Fatalf("long text word count=%d want 30:\n%s", count, joined)
+	if count := strings.Count(joined, "long"); count != 8 {
+		t.Fatalf("folded long text word count=%d want 8:\n%s", count, joined)
 	}
-	if strings.Contains(joined, "long…") {
-		t.Fatalf("long text contains truncation marker:\n%s", joined)
+	if !strings.Contains(joined, "..") {
+		t.Fatalf("folded long text missing begin..end marker:\n%s", joined)
 	}
 }
 
@@ -62,8 +62,18 @@ func TestLongTextRowsUseConsistentTextHighlighting(t *testing.T) {
 			longRows = append(longRows, row)
 		}
 	}
-	if len(longRows) < 2 {
-		t.Fatalf("expected wrapped long text rows, got %#v", rows)
+	if len(longRows) != 1 || !longRows[0].Foldable || longRows[0].Expanded {
+		t.Fatalf("expected one folded long text row, got %#v", longRows)
+	}
+	expanded := Flatten(doc, Options{InlineTextLimit: 10, TextExpanded: map[int]bool{doc.Roots[0].Children[0].ID: true}})
+	longRows = nil
+	for _, row := range expanded {
+		if row.LongText {
+			longRows = append(longRows, row)
+		}
+	}
+	if len(longRows) < 2 || !longRows[0].Expanded {
+		t.Fatalf("expected wrapped expanded long text rows, got %#v", expanded)
 	}
 	for _, row := range longRows {
 		highlighted := SyntaxHighlightRow(row)
@@ -85,7 +95,7 @@ func TestFlattenRendersMultilineTextAsSeparateRows(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	rows := Flatten(doc, Options{InlineTextLimit: 10})
+	rows := Flatten(doc, Options{InlineTextLimit: 10, TextExpanded: map[int]bool{doc.Roots[0].Children[0].ID: true}})
 	joined := joinRows(rows)
 	if !strings.Contains(joined, "First line with enough words") || !strings.Contains(joined, "Second line stays separate") {
 		t.Fatalf("missing multiline text rows:\n%s", joined)
@@ -105,7 +115,7 @@ func TestFlattenRendersMultilineTextAsSeparateRows(t *testing.T) {
 	}
 }
 
-func TestLongAttrsFoldInlineAndExpandAsValueRows(t *testing.T) {
+func TestLongAttrsMoveAllAttrsToChildrenAndFoldIndividually(t *testing.T) {
 	longValue := strings.Repeat("abcdef ", 20)
 	doc, err := xmltree.Parse(strings.NewReader(`<root><item short="ok" token="` + longValue + `">Text</item></root>`))
 	if err != nil {
@@ -113,19 +123,25 @@ func TestLongAttrsFoldInlineAndExpandAsValueRows(t *testing.T) {
 	}
 	item := doc.Roots[0].Children[0]
 
-	collapsed := Flatten(doc, Options{Expanded: map[int]bool{doc.Roots[0].ID: true}, InlineTextLimit: 20})
+	collapsed := Flatten(doc, Options{Expanded: map[int]bool{doc.Roots[0].ID: true, item.ID: true}, InlineTextLimit: 20})
 	collapsedJoined := joinRows(collapsed)
-	if !strings.Contains(collapsedJoined, `item  @short="ok"  @token=…  Text`) {
-		t.Fatalf("long attr was not folded inline:\n%s", collapsedJoined)
+	if strings.Contains(collapsedJoined, `item  @short`) || !strings.Contains(collapsedJoined, `item`) {
+		t.Fatalf("attrs should not render inline when one is long:\n%s", collapsedJoined)
+	}
+	if !strings.Contains(collapsedJoined, `@short="ok"`) {
+		t.Fatalf("short attr child row missing:\n%s", collapsedJoined)
+	}
+	if !strings.Contains(collapsedJoined, `▸ @token="abcdef abcdef abcdef..bcdef abcdef abcdef "`) {
+		t.Fatalf("long attr folded child row missing:\n%s", collapsedJoined)
 	}
 	if strings.Contains(collapsedJoined, longValue) {
 		t.Fatalf("collapsed rows included long attr value:\n%s", collapsedJoined)
 	}
 
-	expanded := Flatten(doc, Options{Expanded: map[int]bool{doc.Roots[0].ID: true, item.ID: true}, InlineTextLimit: 20})
+	expanded := Flatten(doc, Options{Expanded: map[int]bool{doc.Roots[0].ID: true, item.ID: true}, InlineTextLimit: 20, AttrExpanded: map[int]map[int]bool{item.ID: {1: true}}})
 	var attrRows []Row
 	for _, row := range expanded {
-		if row.LongAttr {
+		if row.AttrLong {
 			attrRows = append(attrRows, row)
 		}
 	}

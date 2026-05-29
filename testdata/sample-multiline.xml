@@ -5,6 +5,14 @@
     First paragraph keeps its own line and wraps only within that line.
 
     Second paragraph follows an intentional blank line.
-    Third line should remain separate instead of being merged with the second.
+
+    Third paragraph follows two preserved paragraph breaks and has a trailing newline before the closing tag.
   </body>
+  <long-lines>
+    This single logical line is deliberately very long so wrapping has to happen within the line while still keeping the surrounding newline boundaries intact for the renderer and tests.
+    Another very long logical line follows so the sample covers the combination of explicit newlines and automatic wrapping without merging separate source lines together.
+  </long-lines>
+  <trailing>
+    Line with a trailing newline preserved before the element closes.
+  </trailing>
 </article>

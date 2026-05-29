@@ -125,6 +125,8 @@ type location struct {
 type model struct {
 	doc          *xmltree.Document
 	expanded     map[int]bool
+	attrExpanded map[int]map[int]bool
+	textExpanded map[int]bool
 	matches      map[int]bool
 	matchIDs     []int
 	selected     int
@@ -144,7 +146,7 @@ type model struct {
 func newModel(doc *xmltree.Document, filePath string) model {
 	exp := map[int]bool{}
 	xmltree.Walk(doc, func(n *xmltree.Node) { exp[n.ID] = true })
-	return model{doc: doc, expanded: exp, filePath: filePath, jumpIndex: -1}
+	return model{doc: doc, expanded: exp, attrExpanded: map[int]map[int]bool{}, textExpanded: map[int]bool{}, filePath: filePath, jumpIndex: -1}
 }
 
 func (m model) Init() tea.Cmd { return nil }
@@ -187,12 +189,27 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.jumpBack()
 		case "ctrl+i", "tab", "i":
 			m.jumpForward()
-		case "left", "h":
-			m.collapseOrParent()
 		case "right", "l":
-			m.expandOrChild()
+			row, ok := m.selectedRow()
+			if ok && row.Foldable {
+				m.toggleFold(row)
+			} else {
+				m.expandOrChild()
+			}
+		case "left", "h":
+			row, ok := m.selectedRow()
+			if ok && row.Foldable && row.Expanded {
+				m.toggleFold(row)
+			} else {
+				m.collapseOrParent()
+			}
 		case "enter":
-			m.toggleSelected()
+			row, ok := m.selectedRow()
+			if ok && row.Foldable {
+				m.toggleFold(row)
+			} else {
+				m.toggleSelected()
+			}
 		case "/":
 			origin := m.currentLocation()
 			m.searchOrigin = &origin
@@ -363,7 +380,15 @@ func splitLines(s string) []string {
 }
 
 func (m model) rows() []view.Row {
-	return view.Flatten(m.doc, view.Options{Expanded: m.expanded, Matches: m.matches, InlineTextLimit: xmltree.DefaultInlineTextLimit})
+	return view.Flatten(m.doc, view.Options{Expanded: m.expanded, Matches: m.matches, InlineTextLimit: xmltree.DefaultInlineTextLimit, AttrExpanded: m.attrExpanded, TextExpanded: m.textExpanded})
+}
+
+func (m model) selectedRow() (view.Row, bool) {
+	rows := m.rows()
+	if m.selected < 0 || m.selected >= len(rows) {
+		return view.Row{}, false
+	}
+	return rows[m.selected], true
 }
 
 func (m *model) move(delta int) {
@@ -420,6 +445,17 @@ func (m *model) goBottom() {
 func (m *model) toggleSelected() {
 	if id := m.selectedNodeID(); id != 0 {
 		m.expanded[id] = !m.expanded[id]
+	}
+}
+
+func (m *model) toggleFold(row view.Row) {
+	if row.AttrIdx >= 0 {
+		if m.attrExpanded[row.NodeID] == nil {
+			m.attrExpanded[row.NodeID] = map[int]bool{}
+		}
+		m.attrExpanded[row.NodeID][row.AttrIdx] = !row.Expanded
+	} else if row.LongText {
+		m.textExpanded[row.NodeID] = !row.Expanded
 	}
 }
 

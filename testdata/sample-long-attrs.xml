@@ -2,8 +2,21 @@
 <catalog>
   <entry
     id="short-id"
-    description="This attribute value is intentionally long enough to exceed the inline rendering limit so it should be folded by default and shown as a wrapped child item only when the node is expanded."
-    href="https://example.com/articles/2026/05/29/a-very-long-path-with-many-segments-and-query-parameters?utm_source=xray&amp;utm_campaign=long-attribute-rendering&amp;token=abcdefghijklmnopqrstuvwxyz0123456789">
+    status="published"
+    description="This attribute value is intentionally long enough to exceed the inline rendering limit so every attribute on this element should move to a child row and this one should start folded by default.">
     Short text
   </entry>
+
+  <asset
+    name="hero-image"
+    checksum="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+    href="https://example.com/assets/2026/05/29/a-very-long-path-with-many-segments-and-query-parameters?utm_source=xray&amp;utm_campaign=long-attribute-rendering&amp;token=abcdefghijklmnopqrstuvwxyz0123456789" />
+
+  <plain id="short" kind="inline">No long attrs here, so attributes stay inline.</plain>
+
+  <article
+    slug="long-attrs-and-long-text"
+    data="alpha beta gamma delta epsilon zeta eta theta iota kappa lambda mu nu xi omicron pi rho sigma tau upsilon phi chi psi omega">
+    This text is also intentionally long enough to exceed the inline text limit so the element can show folded attributes first and then a separately foldable text row after them.
+  </article>
 </catalog>

@@ -8,6 +8,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
 
+	"xray/internal/view"
 	"xray/internal/xmltree"
 )
 
@@ -201,6 +202,45 @@ func TestControlNavigationAliasesStillWork(t *testing.T) {
 	}
 }
 
+func TestFoldableAttrAndTextKeysToggleIndependently(t *testing.T) {
+	longAttr := strings.Repeat("abcdef ", 12)
+	longText := strings.Repeat("word ", 30)
+	doc, err := xmltree.Parse(strings.NewReader(`<root><item short="ok" token="` + longAttr + `">` + longText + `</item></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 160
+	m.height = 20
+
+	attrRow := findRowIndex(m.rows(), func(r view.Row) bool { return r.AttrIdx == 1 && r.Foldable && !r.Expanded })
+	if attrRow < 0 {
+		t.Fatalf("folded attr row not found: %#v", m.rows())
+	}
+	m.selected = attrRow
+	updated, _ := m.Update(teaKey("l"))
+	m = updated.(model)
+	if !m.attrExpanded[doc.Roots[0].Children[0].ID][1] {
+		t.Fatalf("l did not expand selected attr")
+	}
+	updated, _ = m.Update(teaKey("h"))
+	m = updated.(model)
+	if m.attrExpanded[doc.Roots[0].Children[0].ID][1] {
+		t.Fatalf("h did not fold selected attr")
+	}
+
+	textRow := findRowIndex(m.rows(), func(r view.Row) bool { return r.LongText && r.Foldable && !r.Expanded })
+	if textRow < 0 {
+		t.Fatalf("folded text row not found: %#v", m.rows())
+	}
+	m.selected = textRow
+	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyEnter})
+	m = updated.(model)
+	if !m.textExpanded[doc.Roots[0].Children[0].ID] {
+		t.Fatalf("enter did not expand selected text")
+	}
+}
+
 func TestJumpListBackAndForward(t *testing.T) {
 	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<item>value</item>`, 30) + `</root>`))
 	if err != nil {
@@ -331,6 +371,15 @@ func TestJKScrollsOnlyAtViewportEdges(t *testing.T) {
 func lastLine(s string) string {
 	lines := strings.Split(s, "\n")
 	return lines[len(lines)-1]
+}
+
+func findRowIndex(rows []view.Row, pred func(view.Row) bool) int {
+	for i, row := range rows {
+		if pred(row) {
+			return i
+		}
+	}
+	return -1
 }
 
 func teaKey(s string) tea.KeyMsg {
