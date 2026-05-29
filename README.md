@@ -14,20 +14,16 @@ but it is surprisingly not that sloppy.
 - Interactive terminal UI
 - Read-only by design
 - Tree-first XML display
-- Inline attributes and short text for compact layout
-- Long attribute values fold by default with per-attr expand/collapse
-- Long text folds independently with per-element expand/collapse
-- Wrapped long text with truncation-free word wrapping
-- Hard-wrapping for words that exceed line width
-- Terminal-width-aware wrapping (text and expanded attrs fit the window)
-- Inline overflow splitting — when a line is wider than the terminal, attrs and text move to structured child rows
-- Multiline text content preserved (newlines keep their structure)
-- Lightweight syntax highlighting (blue tags, gold attributes, green values, gray text)
-- Best-effort malformed XML warnings
-- Fuzzy search plus XML-aware filters
-- Vim-style navigation and jump list
-- File input and stdin input
-- SVG support as regular XML
+- Tree-first XML display with inline attrs and text
+- Long attrs/text fold independently with begin..end preview
+- Terminal-width-aware soft + hard wrapping, overflow splitting
+- Multiline text preserved
+- Syntax highlighting: blue tags, gold attrs, green values, gray text
+- Malformed XML recovery with warnings
+- Fuzzy search + XML filters (tag:, attr:, text:, value:)
+- Vim-style navigation with jump list
+- File and stdin input
+- SVG support
 
 ## Install
 
