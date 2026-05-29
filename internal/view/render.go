@@ -88,27 +88,26 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 		}
 		switch item.kind {
 		case itemAttr:
-			if item.attrLong && !item.attrExpanded {
-				line := childPrefix + conn + "▸ " + item.text
-				*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: item.attrIdx, Text: line, Foldable: true, Expanded: false, AttrLong: true})
-				break
-			}
-
-			glyph := ""
-			if item.attrLong && item.attrExpanded {
-				glyph = "▾ "
+			// Always use a 2-char glyph so all attr rows start at the same column.
+			glyph := "  "
+			if item.attrLong {
+				if item.attrExpanded {
+					glyph = "▾ "
+				} else {
+					glyph = "▸ "
+				}
 			}
 			textLines := textRows(item.text, 120)
 			if len(textLines) == 0 {
 				break
 			}
-			*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: item.attrIdx, Text: childPrefix + conn + glyph + textLines[0], Foldable: item.attrLong, Expanded: item.attrExpanded, AttrLong: item.attrLong})
+			*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: item.attrIdx, Text: childPrefix + conn + glyph + textLines[0], Foldable: item.attrLong, Expanded: item.attrExpanded, AttrLong: true})
 			for _, line := range textLines[1:] {
 				continuationPrefix := childPrefix + "   "
 				if !isLast {
 					continuationPrefix = childPrefix + "│  "
 				}
-				*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: item.attrIdx, Text: continuationPrefix + line})
+				*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: item.attrIdx, Text: continuationPrefix + line, AttrLong: true})
 			}
 		case itemText:
 			if !item.textExpanded {
@@ -283,21 +282,27 @@ func SyntaxHighlightRow(row Row) string {
 	if strings.TrimSpace(line) == "" || strings.Contains(line, "⚠") {
 		return line
 	}
+
 	if row.AttrLong {
-		idx := nodeStartIndex(line)
-		if idx < 0 || idx >= len(line) {
-			return line
+		// Attribute row: find @name=value and style properly.
+		// First line: "   ├─   @name=\"value\"" or "   ├─ ▸ @name=\"val\""
+		// Continuation: "   │  wrapped value text" (no @)
+		if atIdx := strings.Index(line, "@"); atIdx >= 0 {
+			return line[:atIdx] + highlightAttrFolded(line[atIdx:])
 		}
-		rest := line[idx:]
-		if attrIdx := strings.Index(rest, "@"); attrIdx >= 0 {
-			before := rest[:attrIdx]
-			return line[:idx] + before + highlightAttrFolded(rest[attrIdx:])
+		// Continuation line — content follows the tree prefix "│  ".
+		marker := "│  "
+		if idx := strings.LastIndex(line, marker); idx >= 0 {
+			return line[:idx+len(marker)] + valueStyle.Render(line[idx+len(marker):])
 		}
-		return line[:idx] + valueStyle.Render(rest)
+		return valueStyle.Render(line)
 	}
+
 	if row.LongText {
 		return highlightLongText(line)
 	}
+
+	// Node line: tag name, optional inline attrs/text.
 	idx := nodeStartIndex(line)
 	if idx < 0 || idx >= len(line) {
 		return line
@@ -325,13 +330,30 @@ func highlightLongText(line string) string {
 }
 
 func nodeStartIndex(line string) int {
-	for _, marker := range []string{"▾ ", "▸ "} {
-		if idx := strings.Index(line, marker); idx >= 0 {
-			return idx + len(marker)
+	// Node line format: <prefix><connector><glyph><content>
+	// Connector is "├─ " or "└─ " (3 runes).
+	// Glyph is "▾ ", "▸ ", or "  " (always 2 runes on node lines).
+	// Return the byte offset right after the glyph.
+	runes := []rune(line)
+	for _, conn := range []string{"└─ ", "├─ "} {
+		cr := []rune(conn)
+		// Search backwards through runes for the connector sequence
+		for i := len(runes) - len(cr); i >= 0; i-- {
+			match := true
+			for j := range cr {
+				if runes[i+j] != cr[j] {
+					match = false
+					break
+				}
+			}
+			if match {
+				after := i + len(cr) + 2 // skip connector (3) + glyph (2)
+				if after > len(runes) {
+					after = len(runes)
+				}
+				return len(string(runes[:after]))
+			}
 		}
-	}
-	if idx := strings.LastIndex(line, "─ "); idx >= 0 {
-		return idx + len("─ ")
 	}
 	return -1
 }

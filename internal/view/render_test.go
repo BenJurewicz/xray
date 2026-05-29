@@ -191,6 +191,152 @@ func TestSyntaxHighlightPreservesTextAndAddsStyles(t *testing.T) {
 	}
 }
 
+func TestNodeStartIndexSkipsConnectorAndGlyph(t *testing.T) {
+	tests := []struct {
+		line     string
+		wantText string
+	}{
+		{`└─ ▾ element`, `element`},
+		{`├─ ▸ element`, `element`},
+		{`└─   element`, `element`},
+		{`   └─ ▾ child`, `child`},
+		{`└─ ▾ user  @id="42"  User`, `user  @id="42"  User`},
+	}
+	for _, tt := range tests {
+		idx := nodeStartIndex(tt.line)
+		if idx < 0 || tt.line[idx:] != tt.wantText {
+			t.Errorf("nodeStartIndex(%q)=%d (text=%q), want text=%q", tt.line, idx, tt.line[idx:], tt.wantText)
+		}
+	}
+}
+
+func TestNodeHighlightShowsTagNameInBlue(t *testing.T) {
+	// Node line with no inline attrs (element with long attr)
+	plain := `├─ ▾ item`
+	highlighted := SyntaxHighlight(plain)
+	// Tag "item" must be in tagStyle (blue, 38;5;111)
+	if !strings.Contains(highlighted, "\x1b[38;5;111mitem\x1b[0m") {
+		t.Fatalf("long-attr node line: tag should be blue:\n%q", highlighted)
+	}
+	// Should NOT have textStyle (gray) or attrStyle for just the tag
+	if strings.Contains(highlighted, "\x1b[38;5;252mitem") {
+		t.Fatalf("long-attr node line: tag got gray textStyle instead of blue tagStyle:\n%q", highlighted)
+	}
+}
+
+func TestNodeHighlightShowsInlineTagBlueRestorrectly(t *testing.T) {
+	// Node line with inline attrs (no long attrs)
+	plain := `└─   user  @id="42"  User`
+	highlighted := SyntaxHighlight(plain)
+	// Tag "user" must be blue
+	if !strings.Contains(highlighted, "\x1b[38;5;111muser\x1b[0m") {
+		t.Fatalf("inline node: tag should be blue:\n%q", highlighted)
+	}
+	// @id should be attrStyle (gold, 38;5;179)
+	if !strings.Contains(highlighted, "\x1b[38;5;179m@id\x1b[0m") {
+		t.Fatalf("inline node: @id should be gold attrStyle:\n%q", highlighted)
+	}
+	// "42" should be valueStyle (green, 38;5;150)
+	if !strings.Contains(highlighted, "\x1b[38;5;150m\"42\"\x1b[0m") {
+		t.Fatalf("inline node: value should be green valueStyle:\n%q", highlighted)
+	}
+	// "User" should be textStyle (gray, 38;5;252)
+	if !strings.Contains(highlighted, "\x1b[38;5;252mUser\x1b[0m") {
+		t.Fatalf("inline node: text should be gray textStyle:\n%q", highlighted)
+	}
+}
+
+func TestShortAttrChildRowHighlighting(t *testing.T) {
+	t.Skip("requires row generation, not just SyntaxHighlight on a string")
+}
+
+func TestAttrChildRowHighlighting(t *testing.T) {
+	// Attribute rows always have AttrLong=true and content starting with @
+	// Short attr
+	row := Row{
+		Text:     `   ├─   @short="ok"`,
+		AttrLong: true,
+	}
+	hl := SyntaxHighlightRow(row)
+	// @short in attrStyle (gold)
+	if !strings.Contains(hl, "\x1b[38;5;179m@short\x1b[0m") {
+		t.Fatalf("short attr row: @short should be gold:\n%q", hl)
+	}
+	// value "ok" in valueStyle (green)
+	if !strings.Contains(hl, "\x1b[38;5;150m\"ok\"\x1b[0m") {
+		t.Fatalf("short attr row: value should be green:\n%q", hl)
+	}
+	// Should NOT have textStyle (gray) on the attr content
+	if strings.Contains(hl[len(`   ├─   `):], "\x1b[38;5;252m") {
+		t.Fatalf("short attr row: attr content should not be gray:\n%q", hl)
+	}
+
+	// Folded long attr
+	row2 := Row{
+		Text:     `   └─ ▸ @name="begin..end"`,
+		AttrLong: true,
+	}
+	hl2 := SyntaxHighlightRow(row2)
+	if !strings.Contains(hl2, "\x1b[38;5;179m@name\x1b[0m") {
+		t.Fatalf("folded attr row: @name should be gold:\n%q", hl2)
+	}
+	if !strings.Contains(hl2, "\x1b[38;5;150m\"begin..end\"\x1b[0m") {
+		t.Fatalf("folded attr row: value should be green:\n%q", hl2)
+	}
+
+	// Expanded long attr first line
+	row3 := Row{
+		Text:     `   │  very long wrapped attribute value content`,
+		AttrLong: true,
+	}
+	hl3 := SyntaxHighlightRow(row3)
+	// No @, so all content after the pipe should be green
+	if !strings.Contains(hl3, "\x1b[38;5;150mvery long wrapped attribute value content\x1b[0m") {
+		t.Fatalf("attr continuation row: content should be green:\n%q", hl3)
+	}
+}
+
+func TestFoldedTextRowHighlighting(t *testing.T) {
+	row := Row{
+		Text:     `   └─ ▸ "begin..end"`,
+		LongText: true,
+	}
+	hl := SyntaxHighlightRow(row)
+	// Text content after tree prefix should be textStyle (gray, 38;5;252)
+	if !strings.Contains(hl, "\x1b[38;5;252m\"begin..end\"\x1b[0m") {
+		t.Fatalf("folded text should be gray textStyle:\n%q", hl)
+	}
+}
+
+func TestAttrRowAlignmentUsesConsistentGlyphWidth(t *testing.T) {
+	// Short attr: glyph is "  " (2 spaces), folded: "▸ ", expanded: "▾ "
+	// All should have the same visual width (runes) before the @ content.
+	// childPrefix + conn = "   ├─ " (5 runes), glyph = 2 runes → @ at rune index 7
+
+	connector := "   ├─ "
+
+	shortRow := connector + "  " + `@id="short"`
+	foldedRow := connector + "▸ " + `@name="beginning..end"`
+	expandedRow := connector + "▾ " + `@name="full value"`
+
+	// Check rune position of @ — must be identical for visual alignment
+	checkRunePos := func(label string, s string, want int) {
+		runes := []rune(s)
+		for i, v := range runes {
+			if v == '@' {
+				if i != want {
+					t.Fatalf("%s: @ at rune index %d, want %d: %q", label, i, want, s)
+				}
+				return
+			}
+		}
+		t.Fatalf("%s: @ not found: %q", label, s)
+	}
+	checkRunePos("short", shortRow, 8)
+	checkRunePos("folded", foldedRow, 8)
+	checkRunePos("expanded", expandedRow, 8)
+}
+
 var ansiPattern = regexp.MustCompile(`\x1b\[[0-9;]*m`)
 
 func stripANSI(s string) string {
