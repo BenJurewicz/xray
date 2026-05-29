@@ -4,7 +4,7 @@
 
 It turns XML into a compact, syntax-highlighted tree so files are easier to inspect than raw angle-bracket markup. It is inspired by [`glow`](https://github.com/charmbracelet/glow), but built specifically for XML.
 
-## ⚠️ Warning
+## ⚠ Warning
 
 This has been vibecoded because I had a need for a tool like that,
 but it is surprisingly not that sloppy.
@@ -14,9 +14,15 @@ but it is surprisingly not that sloppy.
 - Interactive terminal UI
 - Read-only by design
 - Tree-first XML display
-- Inline attributes and short text
-- Wrapped long text without truncation
-- Lightweight syntax highlighting
+- Inline attributes and short text for compact layout
+- Long attribute values fold by default with per-attr expand/collapse
+- Long text folds independently with per-element expand/collapse
+- Wrapped long text with truncation-free word wrapping
+- Hard-wrapping for words that exceed line width
+- Terminal-width-aware wrapping (text and expanded attrs fit the window)
+- Inline overflow splitting — when a line is wider than the terminal, attrs and text move to structured child rows
+- Multiline text content preserved (newlines keep their structure)
+- Lightweight syntax highlighting (blue tags, gold attributes, green values, gray text)
 - Best-effort malformed XML warnings
 - Fuzzy search plus XML-aware filters
 - Vim-style navigation and jump list
@@ -71,19 +77,39 @@ Example XML:
 <user id="42" role="admin">User</user>
 ```
 
-Rendered conceptually as:
+Compact layout (all content fits on one line):
 
 ```text
 user  @id="42"  @role="admin"  User
 ```
 
+When an attribute value is long, all attributes move to their own lines and
+each long attribute becomes individually foldable:
+
+```text
+user
+   @role="admin"
+   @description="A very long p..oduct description"
+   Short inline text
+```
+
+When the full inline line is wider than the terminal, the same split happens
+automatically. All text wraps to the terminal width with both soft
+(word-boundary) and hard (column-boundary) wrapping.
+
 Rules:
 
 - Repeated elements are shown separately, not grouped.
-- Attributes are shown inline as `@name="value"`.
-- Short text is shown inline.
-- Long text is wrapped below the element.
-- Whitespace in text nodes is trimmed and collapsed.
+- Attributes are shown inline as `@name="value"` when they all fit and are short.
+- If any attribute is long (default >80 chars), all attributes move to child lines.
+- If the full line exceeds terminal width, attrs and text split to child lines automatically.
+- Long attribute values fold by default, showing `begin..end` preview.
+- Short text is shown inline when no split is needed.
+- Long text folds by default; expand to see the full wrapped content.
+- Multiline text preserves newlines; each paragraph wraps independently.
+- Long words that exceed the available width are hard-wrapped at column boundaries.
+- Whitespace in text nodes is trimmed and collapsed (newlines preserved).
+- Folded items display as `begin..end` (first 20 chars + `..` + last 20 chars).
 - Malformed XML produces warnings where recovery is possible.
 
 ## Search
@@ -129,9 +155,9 @@ After a search is active:
 | --- | --- |
 | `↑` / `k` | Move up |
 | `↓` / `j` | Move down |
-| `←` / `h` | Collapse / move to parent |
-| `→` / `l` | Expand / move into child |
-| `enter` | Expand/collapse |
+| `←` / `h` | Collapse node / fold attr or text block |
+| `→` / `l` | Expand node / unfold attr or text block |
+| `enter` | Toggle node / attr / text block expand |
 | `d` / `u` | Half-page down / up |
 | `ctrl-d` / `ctrl-u` | Half-page down / up |
 | `f` / `b` | Page down / up |
@@ -153,6 +179,8 @@ The `testdata/` directory contains files for manual testing:
 
 - `sample.xml` — small library example
 - `sample.svg` — SVG-as-XML smoke test
+- `sample-long-attrs.xml` — long attribute values, folding, and multiline text
+- `sample-multiline.xml` — newline preservation with paragraph breaks
 - `catalog-large.xml` — larger generated product catalog
 - `telemetry-large.xml` — larger repeated event/log-style document
 - `malformed-mismatched.xml` — mismatched closing tag
@@ -162,7 +190,7 @@ The `testdata/` directory contains files for manual testing:
 Try one:
 
 ```sh
-go run ./cmd/xray testdata/sample.xml
+go run ./cmd/xray testdata/sample-long-attrs.xml
 ```
 
 ## Development
