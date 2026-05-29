@@ -106,8 +106,8 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 		// Compute wrapping width for this child item.
 		childDepth := len([]rune(childPrefix)) // rune count of child prefix = columns
 		availWidth := wrapWidth - childDepth - 3 - 2 // -3 for conn, -2 for 2-rune glyph
-		if availWidth < 20 {
-			availWidth = 20
+		if availWidth < 5 {
+			availWidth = 5
 		}
 		switch item.kind {
 		case itemAttr:
@@ -122,12 +122,11 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 			}
 			// Recompute availWidth using actual glyph
 			actualPrefix := childDepth + 3 + len([]rune(glyph))
-			if actualPrefix < wrapWidth {
-				availWidth = wrapWidth - actualPrefix
-			} else {
-				availWidth = 20
+			attrAvail := wrapWidth - actualPrefix
+			if attrAvail < 5 {
+				attrAvail = 5
 			}
-			textLines := textRows(item.text, availWidth)
+			textLines := textRows(item.text, attrAvail)
 			if len(textLines) == 0 {
 				break
 			}
@@ -140,10 +139,20 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 				*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: item.attrIdx, Text: continuationPrefix + line, AttrLong: true})
 			}
 		case itemText:
-			// Short text (from inline overflow) — show on its own line, no folding.
+			// Short text (from inline overflow) — wrap to width, no folding.
 			if len([]rune(item.text)) <= limit {
-				line := childPrefix + conn + "  " + item.text
-				*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: -1, Text: line, LongText: true})
+				textLines := textRows(item.text, availWidth)
+				if len(textLines) == 0 {
+					break
+				}
+				*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: -1, Text: childPrefix + conn + "  " + textLines[0], LongText: true})
+				for _, line := range textLines[1:] {
+					contPrefix := childPrefix + "   "
+					if !isLast {
+						contPrefix = childPrefix + "│  "
+					}
+					*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: -1, Text: contPrefix + line, LongText: true})
+				}
 				break
 			}
 			if !item.textExpanded {
