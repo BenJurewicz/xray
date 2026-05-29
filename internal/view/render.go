@@ -195,12 +195,21 @@ func hasLongAttr(n *xmltree.Node, limit int) bool {
 }
 
 func textRows(s string, width int) []string {
-	words := strings.Fields(s)
-	if len(words) == 0 {
-		return nil
-	}
 	if width <= 0 {
 		width = 120
+	}
+
+	var rows []string
+	for _, segment := range strings.Split(s, "\n") {
+		rows = append(rows, wrapTextSegment(segment, width)...)
+	}
+	return rows
+}
+
+func wrapTextSegment(s string, width int) []string {
+	words := strings.Fields(s)
+	if len(words) == 0 {
+		return []string{""}
 	}
 
 	var rows []string

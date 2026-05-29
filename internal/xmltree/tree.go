@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"regexp"
 	"sort"
 	"strings"
 )
@@ -110,11 +109,22 @@ func Parse(r io.Reader) (*Document, error) {
 	return doc, nil
 }
 
-var whitespace = regexp.MustCompile(`\s+`)
-
 // CollapseWhitespace trims and collapses XML character data for display.
 func CollapseWhitespace(s string) string {
-	return strings.TrimSpace(whitespace.ReplaceAllString(s, " "))
+	lines := strings.Split(s, "\n")
+	for i, line := range lines {
+		lines[i] = strings.Join(strings.Fields(line), " ")
+	}
+
+	start := 0
+	for start < len(lines) && lines[start] == "" {
+		start++
+	}
+	end := len(lines)
+	for end > start && lines[end-1] == "" {
+		end--
+	}
+	return strings.Join(lines[start:end], "\n")
 }
 
 func strictWarning(data []byte) string {

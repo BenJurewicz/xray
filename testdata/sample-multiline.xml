@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article>
+  <title>Multiline sample</title>
+  <body>
+    First paragraph keeps its own line and wraps only within that line.
+
+    Second paragraph follows an intentional blank line.
+    Third line should remain separate instead of being merged with the second.
+  </body>
+</article>

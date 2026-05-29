@@ -41,6 +41,15 @@ func TestTextRowsWrapWithoutTruncating(t *testing.T) {
 	}
 }
 
+func TestTextRowsPreserveNewlinesAndBlankLines(t *testing.T) {
+	text := "alpha beta\n\ngamma delta epsilon"
+	rows := textRows(text, 12)
+	want := []string{"alpha beta", "", "gamma delta", "epsilon"}
+	if strings.Join(rows, "|") != strings.Join(want, "|") {
+		t.Fatalf("rows=%#v want %#v", rows, want)
+	}
+}
+
 func TestLongTextRowsUseConsistentTextHighlighting(t *testing.T) {
 	doc, err := xmltree.Parse(strings.NewReader(`<root><summary>` + strings.Repeat("word ", 60) + `</summary></root>`))
 	if err != nil {
@@ -64,6 +73,35 @@ func TestLongTextRowsUseConsistentTextHighlighting(t *testing.T) {
 		if strings.Contains(highlighted, "\x1b[38;5;111m") {
 			t.Fatalf("long text row was styled as tag: %q", highlighted)
 		}
+	}
+}
+
+func TestFlattenRendersMultilineTextAsSeparateRows(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root><description>
+		First line with enough words to be long.
+
+		Second line stays separate from the first line.
+	</description></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	rows := Flatten(doc, Options{InlineTextLimit: 10})
+	joined := joinRows(rows)
+	if !strings.Contains(joined, "First line with enough words") || !strings.Contains(joined, "Second line stays separate") {
+		t.Fatalf("missing multiline text rows:\n%s", joined)
+	}
+	if strings.Contains(joined, "long. Second") {
+		t.Fatalf("newline was collapsed between text lines:\n%s", joined)
+	}
+	foundBlankLine := false
+	for _, row := range rows {
+		if row.LongText && strings.TrimSpace(row.Text) == "" {
+			foundBlankLine = true
+			break
+		}
+	}
+	if !foundBlankLine {
+		t.Fatalf("interior blank line was not preserved:\n%s", joined)
 	}
 }
 

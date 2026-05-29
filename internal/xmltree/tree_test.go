@@ -26,6 +26,14 @@ func TestParseCollapsesWhitespaceAndAttrs(t *testing.T) {
 	}
 }
 
+func TestCollapseWhitespacePreservesNewlines(t *testing.T) {
+	input := "\n\t  First   line\n\n\tSecond\t line   with   spaces\n  Third line  \n\n"
+	want := "First line\n\nSecond line with spaces\nThird line"
+	if got := CollapseWhitespace(input); got != want {
+		t.Fatalf("CollapseWhitespace()=%q want %q", got, want)
+	}
+}
+
 func TestSearchPrefixesAndFuzzy(t *testing.T) {
 	doc, err := Parse(strings.NewReader(`<invoice id="abc-42"><status>paid</status><customer>User</customer></invoice>`))
 	if err != nil {
