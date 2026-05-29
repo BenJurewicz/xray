@@ -77,14 +77,26 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 			glyph = "▸ "
 		}
 	}
-	line := prefix + connector + glyph + formatNode(n, limit, nodeHasLongAttr)
+
+	// Build the full node line and check if it fits the terminal width
+	inlineText := formatNode(n, limit, nodeHasLongAttr)
+	line := prefix + connector + glyph + inlineText
+	// If the inline line overflows and we aren't already splitting attrs, split.
+	splitInline := !nodeHasLongAttr && wrapWidth > 0 && len([]rune(line)) > wrapWidth
+	if splitInline {
+		nodeHasLongAttr = true
+		hasKids = true
+		glyph = "▾ "
+		line = prefix + connector + glyph + n.Name
+	}
+
 	*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: -1, Text: line, Match: opts.Matches != nil && opts.Matches[n.ID]})
 
 	if !expanded {
 		return true
 	}
 
-	childRows := childItems(n, limit, opts)
+	childRows := childItems(n, limit, opts, nodeHasLongAttr, splitInline)
 	for i, item := range childRows {
 		isLast := i == len(childRows)-1
 		conn := "├─ "
@@ -128,6 +140,12 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 				*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: item.attrIdx, Text: continuationPrefix + line, AttrLong: true})
 			}
 		case itemText:
+			// Short text (from inline overflow) — show on its own line, no folding.
+			if len([]rune(item.text)) <= limit {
+				line := childPrefix + conn + "  " + item.text
+				*rows = append(*rows, Row{NodeID: n.ID, AttrIdx: -1, Text: line, LongText: true})
+				break
+			}
 			if !item.textExpanded {
 				foldedText := truncateWithEllipsis(item.text)
 				line := childPrefix + conn + "▸ \"" + foldedText + "\""
@@ -204,19 +222,23 @@ type childItem struct {
 	textExpanded bool
 }
 
-func childItems(n *xmltree.Node, limit int, opts Options) []childItem {
+func childItems(n *xmltree.Node, limit int, opts Options, forceAttrs bool, forceTextExpanded bool) []childItem {
 	items := []childItem{}
-	nodeHasLongAttr := hasLongAttr(n, limit)
-	if nodeHasLongAttr {
+	if forceAttrs {
 		for i, a := range n.Attrs {
 			expanded := opts.AttrExpanded != nil && opts.AttrExpanded[n.ID] != nil && opts.AttrExpanded[n.ID][i]
 			attrLong := len([]rune(a.Value)) > limit
 			items = append(items, childItem{kind: itemAttr, text: formatAttr(a, expanded, limit), attrIdx: i, attrExpanded: expanded, attrLong: attrLong})
 		}
 	}
-	if n.Text != "" && len([]rune(n.Text)) > limit {
-		textExpanded := opts.TextExpanded != nil && opts.TextExpanded[n.ID]
-		items = append(items, childItem{kind: itemText, text: n.Text, textExpanded: textExpanded})
+	if n.Text != "" {
+		if forceAttrs || len([]rune(n.Text)) > limit {
+			textExpanded := forceTextExpanded
+			if !forceTextExpanded {
+				textExpanded = opts.TextExpanded != nil && opts.TextExpanded[n.ID]
+			}
+			items = append(items, childItem{kind: itemText, text: n.Text, textExpanded: textExpanded})
+		}
 	}
 	if n.Warning != "" {
 		items = append(items, childItem{kind: itemWarning, text: n.Warning})
@@ -239,11 +261,8 @@ func formatAttr(a xmltree.Attr, expanded bool, limit int) string {
 
 func truncateWithEllipsis(s string) string {
 	r := []rune(s)
-	if len(r) <= 20 {
-		return string(r) + ".." + string(r)
-	}
 	if len(r) <= 40 {
-		return string(r[:20]) + ".." + string(r[len(r)-20:])
+		return s
 	}
 	return string(r[:20]) + ".." + string(r[len(r)-20:])
 }
@@ -278,12 +297,29 @@ func wrapTextSegment(s string, width int) []string {
 	var rows []string
 	line := words[0]
 	for _, word := range words[1:] {
-		if len([]rune(line))+1+len([]rune(word)) > width {
-			rows = append(rows, line)
+		sep := ""
+		if line != "" {
+			sep = " "
+		}
+		candidate := line + sep + word
+		if len([]rune(candidate)) > width {
+			if line != "" {
+				rows = append(rows, line)
+			}
+			// Hard-wrap if word alone exceeds width
+			for len([]rune(word)) > width {
+				rows = append(rows, string([]rune(word)[:width]))
+				word = string([]rune(word)[width:])
+			}
 			line = word
 			continue
 		}
-		line += " " + word
+		line = candidate
+	}
+	// Handle remaining line that might exceed width
+	for len([]rune(line)) > width {
+		rows = append(rows, string([]rune(line)[:width]))
+		line = string([]rune(line)[width:])
 	}
 	rows = append(rows, line)
 	return rows
