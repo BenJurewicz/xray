@@ -67,6 +67,47 @@ func TestLongTextRowsUseConsistentTextHighlighting(t *testing.T) {
 	}
 }
 
+func TestLongAttrsFoldInlineAndExpandAsValueRows(t *testing.T) {
+	longValue := strings.Repeat("abcdef ", 20)
+	doc, err := xmltree.Parse(strings.NewReader(`<root><item short="ok" token="` + longValue + `">Text</item></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	item := doc.Roots[0].Children[0]
+
+	collapsed := Flatten(doc, Options{Expanded: map[int]bool{doc.Roots[0].ID: true}, InlineTextLimit: 20})
+	collapsedJoined := joinRows(collapsed)
+	if !strings.Contains(collapsedJoined, `item  @short="ok"  @token=…  Text`) {
+		t.Fatalf("long attr was not folded inline:\n%s", collapsedJoined)
+	}
+	if strings.Contains(collapsedJoined, longValue) {
+		t.Fatalf("collapsed rows included long attr value:\n%s", collapsedJoined)
+	}
+
+	expanded := Flatten(doc, Options{Expanded: map[int]bool{doc.Roots[0].ID: true, item.ID: true}, InlineTextLimit: 20})
+	var attrRows []Row
+	for _, row := range expanded {
+		if row.LongAttr {
+			attrRows = append(attrRows, row)
+		}
+	}
+	if len(attrRows) == 0 {
+		t.Fatalf("expected long attr child rows, got %#v", expanded)
+	}
+	if !strings.Contains(joinRows(attrRows), `@token="abcdef`) {
+		t.Fatalf("missing attr child row:\n%s", joinRows(attrRows))
+	}
+	for _, row := range attrRows {
+		highlighted := SyntaxHighlightRow(row)
+		if !strings.Contains(highlighted, "\x1b[38;5;150m") {
+			t.Fatalf("long attr row missing value color: %q", highlighted)
+		}
+		if strings.Contains(highlighted, "\x1b[38;5;252m") {
+			t.Fatalf("long attr row styled as regular long text: %q", highlighted)
+		}
+	}
+}
+
 func TestFlattenFiltersWithAncestors(t *testing.T) {
 	doc, err := xmltree.Parse(strings.NewReader(`<rss><channel><item><title>Foo</title></item><item><title>Bar</title></item></channel></rss>`))
 	if err != nil {

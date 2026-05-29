@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <entry
+    id="short-id"
+    description="This attribute value is intentionally long enough to exceed the inline rendering limit so it should be folded by default and shown as a wrapped child item only when the node is expanded."
+    href="https://example.com/articles/2026/05/29/a-very-long-path-with-many-segments-and-query-parameters?utm_source=xray&amp;utm_campaign=long-attribute-rendering&amp;token=abcdefghijklmnopqrstuvwxyz0123456789">
+    Short text
+  </entry>
+</catalog>

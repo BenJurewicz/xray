@@ -14,6 +14,7 @@ type Row struct {
 	Text     string
 	Match    bool
 	LongText bool
+	LongAttr bool
 }
 
 // Options controls tree flattening.
@@ -56,7 +57,7 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 	}
 
 	expanded := opts.Expanded == nil || opts.Expanded[n.ID]
-	hasKids := len(n.Children) > 0 || len(n.Text) > limit || n.Warning != ""
+	hasKids := len(n.Children) > 0 || len(n.Text) > limit || hasLongAttr(n, limit) || n.Warning != ""
 	glyph := "  "
 	if hasKids {
 		if expanded {
@@ -80,6 +81,21 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 			conn = "└─ "
 		}
 		switch item.kind {
+		case itemAttrLong:
+			attrLines := textRows(item.text, 120)
+			if len(attrLines) == 0 {
+				break
+			}
+			*rows = append(*rows, Row{Text: childPrefix + conn + "@" + item.attrName + `="` + attrLines[0], LongAttr: true})
+			for _, line := range attrLines[1:] {
+				continuationPrefix := childPrefix + "   "
+				if !isLast {
+					continuationPrefix = childPrefix + "│  "
+				}
+				*rows = append(*rows, Row{Text: continuationPrefix + line, LongAttr: true})
+			}
+			lastIdx := len(*rows) - 1
+			(*rows)[lastIdx].Text += `"`
 		case itemText:
 			textLines := textRows(item.text, 120)
 			if len(textLines) == 0 {
@@ -119,6 +135,10 @@ func subtreeVisible(n *xmltree.Node, matches map[int]bool) bool {
 func formatNode(n *xmltree.Node, limit int) string {
 	parts := []string{n.Name}
 	for _, a := range n.Attrs {
+		if len([]rune(a.Value)) > limit {
+			parts = append(parts, fmt.Sprintf("@%s=…", a.Name))
+			continue
+		}
 		parts = append(parts, fmt.Sprintf("@%s=%q", a.Name, a.Value))
 	}
 	line := strings.Join(parts, "  ")
@@ -132,18 +152,25 @@ type childKind int
 
 const (
 	itemNode childKind = iota
+	itemAttrLong
 	itemText
 	itemWarning
 )
 
 type childItem struct {
-	kind childKind
-	node *xmltree.Node
-	text string
+	kind     childKind
+	node     *xmltree.Node
+	text     string
+	attrName string
 }
 
 func childItems(n *xmltree.Node, limit int, opts Options) []childItem {
 	items := []childItem{}
+	for _, a := range n.Attrs {
+		if len([]rune(a.Value)) > limit {
+			items = append(items, childItem{kind: itemAttrLong, attrName: a.Name, text: a.Value})
+		}
+	}
 	if n.Text != "" && len([]rune(n.Text)) > limit {
 		items = append(items, childItem{kind: itemText, text: n.Text})
 	}
@@ -156,6 +183,15 @@ func childItems(n *xmltree.Node, limit int, opts Options) []childItem {
 		}
 	}
 	return items
+}
+
+func hasLongAttr(n *xmltree.Node, limit int) bool {
+	for _, a := range n.Attrs {
+		if len([]rune(a.Value)) > limit {
+			return true
+		}
+	}
+	return false
 }
 
 func textRows(s string, width int) []string {
@@ -195,11 +231,22 @@ func SyntaxHighlightRow(row Row) string {
 	if row.LongText {
 		return highlightLongText(line)
 	}
+	if row.LongAttr {
+		return highlightLongAttr(line)
+	}
 	idx := nodeStartIndex(line)
 	if idx < 0 || idx >= len(line) {
 		return line
 	}
 	return line[:idx] + highlightNodeText(line[idx:])
+}
+
+func highlightLongAttr(line string) string {
+	idx := nodeStartIndex(line)
+	if idx < 0 || idx >= len(line) {
+		return valueStyle.Render(line)
+	}
+	return line[:idx] + valueStyle.Render(line[idx:])
 }
 
 func highlightLongText(line string) string {
