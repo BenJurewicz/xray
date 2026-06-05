@@ -23,6 +23,7 @@ Usage:
 Keys:
   ↑/k ↓/j      move
   ←/h →/l      collapse / expand
+  H / L        fold all / unfold all
   d/u          half-page down / up
   f/b          page down / up
   e/y          scroll down / up
@@ -196,6 +197,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			} else {
 				m.expandOrChild()
 			}
+		case "L":
+			m.unfoldAll()
 		case "left", "h":
 			row, ok := m.selectedRow()
 			if ok && row.Foldable && row.Expanded {
@@ -203,6 +206,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			} else {
 				m.collapseOrParent()
 			}
+		case "H":
+			m.foldAll()
 		case "enter":
 			row, ok := m.selectedRow()
 			if ok && row.Foldable {
@@ -482,6 +487,33 @@ func (m *model) toggleFold(row view.Row) {
 	} else if row.LongText {
 		m.textExpanded[row.NodeID] = !row.Expanded
 	}
+}
+
+func (m *model) foldAll() {
+	m.attrExpanded = map[int]map[int]bool{}
+	m.textExpanded = map[int]bool{}
+	xmltree.Walk(m.doc, func(n *xmltree.Node) {
+		m.expanded[n.ID] = false
+	})
+}
+
+func (m *model) unfoldAll() {
+	m.attrExpanded = map[int]map[int]bool{}
+	m.textExpanded = map[int]bool{}
+	xmltree.Walk(m.doc, func(n *xmltree.Node) {
+		m.expanded[n.ID] = true
+		for i, attr := range n.Attrs {
+			if len([]rune(attr.Value)) > xmltree.DefaultInlineTextLimit {
+				if m.attrExpanded[n.ID] == nil {
+					m.attrExpanded[n.ID] = map[int]bool{}
+				}
+				m.attrExpanded[n.ID][i] = true
+			}
+		}
+		if len([]rune(n.Text)) > xmltree.DefaultInlineTextLimit {
+			m.textExpanded[n.ID] = true
+		}
+	})
 }
 
 func (m *model) collapseOrParent() {

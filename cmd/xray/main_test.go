@@ -241,6 +241,47 @@ func TestFoldableAttrAndTextKeysToggleIndependently(t *testing.T) {
 	}
 }
 
+func TestFoldAndUnfoldAllKeys(t *testing.T) {
+	longAttr := strings.Repeat("abcdef ", 12)
+	longText := strings.Repeat("word ", 30)
+	doc, err := xmltree.Parse(strings.NewReader(`<root><item token="` + longAttr + `">` + longText + `</item><other><child>ok</child></other></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 160
+	m.height = 20
+
+	updated, _ := m.Update(teaKey("L"))
+	m = updated.(model)
+	for _, row := range m.rows() {
+		if row.Foldable && !row.Expanded {
+			t.Fatalf("L left a folded row: %#v", row)
+		}
+	}
+	item := doc.Roots[0].Children[0]
+	if !m.attrExpanded[item.ID][0] {
+		t.Fatalf("L did not unfold long attr")
+	}
+	if !m.textExpanded[item.ID] {
+		t.Fatalf("L did not unfold long text")
+	}
+
+	updated, _ = m.Update(teaKey("H"))
+	m = updated.(model)
+	for id, expanded := range m.expanded {
+		if expanded {
+			t.Fatalf("H left node %d expanded", id)
+		}
+	}
+	if len(m.attrExpanded) != 0 || len(m.textExpanded) != 0 {
+		t.Fatalf("H did not clear fold expansion maps: attrs=%v text=%v", m.attrExpanded, m.textExpanded)
+	}
+	if got := len(m.rows()); got != 1 {
+		t.Fatalf("H should collapse to root row, got %d rows", got)
+	}
+}
+
 func TestJumpListBackAndForward(t *testing.T) {
 	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<item>value</item>`, 30) + `</root>`))
 	if err != nil {
