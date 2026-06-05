@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"unicode"
 
 	"xray/internal/xmltree"
 )
@@ -104,7 +105,7 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 			conn = "└─ "
 		}
 		// Compute wrapping width for this child item.
-		childDepth := len([]rune(childPrefix)) // rune count of child prefix = columns
+		childDepth := len([]rune(childPrefix))       // rune count of child prefix = columns
 		availWidth := wrapWidth - childDepth - 3 - 2 // -3 for conn, -2 for 2-rune glyph
 		if availWidth < 5 {
 			availWidth = 5
@@ -269,11 +270,22 @@ func formatAttr(a xmltree.Attr, expanded bool, limit int) string {
 }
 
 func truncateWithEllipsis(s string) string {
+	s = sanitizeFoldPreview(s)
 	r := []rune(s)
 	if len(r) <= 40 {
 		return s
 	}
 	return string(r[:20]) + ".." + string(r[len(r)-20:])
+}
+
+func sanitizeFoldPreview(s string) string {
+	s = strings.Map(func(r rune) rune {
+		if unicode.IsControl(r) {
+			return ' '
+		}
+		return r
+	}, s)
+	return strings.Join(strings.Fields(s), " ")
 }
 
 func hasLongAttr(n *xmltree.Node, limit int) bool {

@@ -115,6 +115,32 @@ func TestFlattenRendersMultilineTextAsSeparateRows(t *testing.T) {
 	}
 }
 
+func TestFoldedTextPreviewRemovesControlCharacters(t *testing.T) {
+	text := "beginning of text\n" + strings.Repeat("middle\t", 12) + "\rend of text"
+	doc, err := xmltree.Parse(strings.NewReader(`<root><description>` + text + `</description></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	rows := Flatten(doc, Options{InlineTextLimit: 10})
+
+	idx := -1
+	for i, row := range rows {
+		if row.LongText && row.Foldable && !row.Expanded {
+			idx = i
+			break
+		}
+	}
+	if idx < 0 {
+		t.Fatalf("folded long text row not found: %#v", rows)
+	}
+	if strings.ContainsAny(rows[idx].Text, "\n\r\t") {
+		t.Fatalf("folded preview contains control characters: %q", rows[idx].Text)
+	}
+	if !strings.Contains(rows[idx].Text, "..") {
+		t.Fatalf("folded preview missing ellipsis marker: %q", rows[idx].Text)
+	}
+}
+
 func TestLongAttrsMoveAllAttrsToChildrenAndFoldIndividually(t *testing.T) {
 	longValue := strings.Repeat("abcdef ", 20)
 	doc, err := xmltree.Parse(strings.NewReader(`<root><item short="ok" token="` + longValue + `">Text</item></root>`))
@@ -131,7 +157,7 @@ func TestLongAttrsMoveAllAttrsToChildrenAndFoldIndividually(t *testing.T) {
 	if !strings.Contains(collapsedJoined, `@short="ok"`) {
 		t.Fatalf("short attr child row missing:\n%s", collapsedJoined)
 	}
-	if !strings.Contains(collapsedJoined, `▸ @token="abcdef abcdef abcdef..bcdef abcdef abcdef "`) {
+	if !strings.Contains(collapsedJoined, `▸ @token="abcdef abcdef abcdef..abcdef abcdef abcdef"`) {
 		t.Fatalf("long attr folded child row missing:\n%s", collapsedJoined)
 	}
 	if strings.Contains(collapsedJoined, longValue) {
