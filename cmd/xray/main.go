@@ -229,6 +229,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.nextMatch(-1)
 		}
 	}
+	m.normalizeCursor()
 	return m, nil
 }
 
@@ -251,6 +252,7 @@ func (m model) updateSearch(k tea.KeyMsg) model {
 			m.query += s
 		}
 	}
+	m.normalizeCursor()
 	return m
 }
 
@@ -400,8 +402,24 @@ func (m model) selectedRow() (view.Row, bool) {
 
 func (m *model) move(delta int) {
 	rows := m.rows()
+	if len(rows) == 0 {
+		m.selected = 0
+		m.offset = 0
+		return
+	}
 	m.selected = clamp(m.selected+delta, 0, len(rows)-1)
 	m.ensureVisible(len(rows), m.contentHeight())
+}
+
+func (m *model) normalizeCursor() {
+	rows := m.rows()
+	if len(rows) == 0 {
+		m.selected = 0
+		m.offset = 0
+		return
+	}
+	m.selected = clamp(m.selected, 0, len(rows)-1)
+	m.offset = clamp(m.offset, 0, max(0, len(rows)-m.contentHeight()))
 }
 
 func (m model) pageStep() int {

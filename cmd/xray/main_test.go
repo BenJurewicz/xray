@@ -368,6 +368,59 @@ func TestJKScrollsOnlyAtViewportEdges(t *testing.T) {
 	}
 }
 
+func TestJStopsAtLastRenderedRow(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<item>value</item>`, 12) + `</root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 6
+
+	for range 100 {
+		updated, _ := m.Update(teaKey("j"))
+		m = updated.(model)
+	}
+
+	last := len(m.rows()) - 1
+	if m.selected != last {
+		t.Fatalf("j should stop at last row: selected=%d want %d", m.selected, last)
+	}
+	if m.offset > last {
+		t.Fatalf("offset moved past last row: offset=%d last=%d", m.offset, last)
+	}
+
+	updated, _ := m.Update(teaKey("j"))
+	m = updated.(model)
+	if m.selected != last {
+		t.Fatalf("extra j moved past last row: selected=%d want %d", m.selected, last)
+	}
+}
+
+func TestCursorClampsWhenRenderedRowsShrink(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root><parent>` + strings.Repeat(`<item>value</item>`, 12) + `</parent></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 6
+	m.selected = len(m.rows()) - 1
+
+	parent := doc.Roots[0].Children[0]
+	m.expanded[parent.ID] = false
+	updated, _ := m.Update(teaKey("j"))
+	m = updated.(model)
+
+	last := len(m.rows()) - 1
+	if m.selected != last {
+		t.Fatalf("selected not clamped after rows shrink: selected=%d want %d", m.selected, last)
+	}
+	if m.offset > max(0, len(m.rows())-m.contentHeight()) {
+		t.Fatalf("offset not clamped after rows shrink: offset=%d rows=%d", m.offset, len(m.rows()))
+	}
+}
+
 func lastLine(s string) string {
 	lines := strings.Split(s, "\n")
 	return lines[len(lines)-1]
