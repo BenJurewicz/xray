@@ -141,6 +141,37 @@ func TestFoldedTextPreviewRemovesControlCharacters(t *testing.T) {
 	}
 }
 
+func TestFoldedTextPreviewUsesBoundedEdges(t *testing.T) {
+	text := "prefix " + strings.Repeat("middle ", 10000) + "suffix"
+	got := truncateWithEllipsis(text)
+	if !strings.HasPrefix(got, "prefix ") {
+		t.Fatalf("preview missing prefix: %q", got)
+	}
+	if !strings.HasSuffix(got, "suffix") {
+		t.Fatalf("preview missing suffix: %q", got)
+	}
+	if strings.Contains(got, "middle middle middle middle middle") {
+		t.Fatalf("preview included too much middle content: %q", got)
+	}
+	if strings.ContainsAny(got, "\n\r\t") {
+		t.Fatalf("preview contains control characters: %q", got)
+	}
+}
+
+func TestFoldedTextPreviewKeepsUTF8EdgesValid(t *testing.T) {
+	text := strings.Repeat("🙂", 80) + strings.Repeat("middle", 1000) + strings.Repeat("🚀", 80)
+	got := truncateWithEllipsis(text)
+	if !strings.HasPrefix(got, strings.Repeat("🙂", 20)) {
+		t.Fatalf("preview prefix split UTF-8 runes: %q", got)
+	}
+	if !strings.HasSuffix(got, strings.Repeat("🚀", 20)) {
+		t.Fatalf("preview suffix split UTF-8 runes: %q", got)
+	}
+	if strings.ContainsRune(got, '\uFFFD') {
+		t.Fatalf("preview contains replacement rune: %q", got)
+	}
+}
+
 func TestLongAttrsMoveAllAttrsToChildrenAndFoldIndividually(t *testing.T) {
 	longValue := strings.Repeat("abcdef ", 20)
 	doc, err := xmltree.Parse(strings.NewReader(`<root><item short="ok" token="` + longValue + `">Text</item></root>`))

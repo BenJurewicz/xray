@@ -462,6 +462,24 @@ func TestCursorClampsWhenRenderedRowsShrink(t *testing.T) {
 	}
 }
 
+func TestNormalizeCursorKeepsSelectionVisible(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<item>value</item>`, 30) + `</root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 6
+	m.selected = 2
+	m.offset = len(m.rows())
+
+	m.normalizeCursor()
+
+	if m.selected < m.offset || m.selected >= m.offset+m.contentHeight() {
+		t.Fatalf("selection not visible after normalize: selected=%d offset=%d height=%d", m.selected, m.offset, m.contentHeight())
+	}
+}
+
 func lastLine(s string) string {
 	lines := strings.Split(s, "\n")
 	return lines[len(lines)-1]

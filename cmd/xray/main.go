@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"unicode/utf8"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -423,8 +424,13 @@ func (m *model) normalizeCursor() {
 		m.offset = 0
 		return
 	}
+	selected := m.selected
+	offset := m.offset
 	m.selected = clamp(m.selected, 0, len(rows)-1)
 	m.offset = clamp(m.offset, 0, max(0, len(rows)-m.contentHeight()))
+	if m.selected != selected || m.offset != offset {
+		m.ensureVisible(len(rows), m.contentHeight())
+	}
 }
 
 func (m model) pageStep() int {
@@ -503,14 +509,14 @@ func (m *model) unfoldAll() {
 	xmltree.Walk(m.doc, func(n *xmltree.Node) {
 		m.expanded[n.ID] = true
 		for i, attr := range n.Attrs {
-			if len([]rune(attr.Value)) > xmltree.DefaultInlineTextLimit {
+			if utf8.RuneCountInString(attr.Value) > xmltree.DefaultInlineTextLimit {
 				if m.attrExpanded[n.ID] == nil {
 					m.attrExpanded[n.ID] = map[int]bool{}
 				}
 				m.attrExpanded[n.ID][i] = true
 			}
 		}
-		if len([]rune(n.Text)) > xmltree.DefaultInlineTextLimit {
+		if utf8.RuneCountInString(n.Text) > xmltree.DefaultInlineTextLimit {
 			m.textExpanded[n.ID] = true
 		}
 	})
