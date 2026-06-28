@@ -79,7 +79,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	p := tea.NewProgram(newModel(doc, displayPath), tea.WithAltScreen())
+	m := newModel(doc, displayPath)
+	p := tea.NewProgram(&m, tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
 		fmt.Fprintln(os.Stderr, "xray:", err)
 		os.Exit(1)
@@ -153,9 +154,9 @@ func newModel(doc *xmltree.Document, filePath string) model {
 	return model{doc: doc, expanded: exp, attrExpanded: map[int]map[int]bool{}, textExpanded: map[int]bool{}, filePath: filePath, jumpIndex: -1}
 }
 
-func (m model) Init() tea.Cmd { return nil }
+func (m *model) Init() tea.Cmd { return nil }
 
-func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
 		if m.width != msg.Width {
@@ -165,7 +166,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.height = msg.Height
 	case tea.KeyMsg:
 		if m.mode == modeSearch {
-			return m.updateSearch(msg), nil
+			m.updateSearch(msg)
+			return m, nil
 		}
 		switch msg.String() {
 		case "q", "ctrl+c":
@@ -244,7 +246,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, nil
 }
 
-func (m model) updateSearch(k tea.KeyMsg) model {
+func (m *model) updateSearch(k tea.KeyMsg) {
 	switch k.String() {
 	case "esc":
 		if m.hasSearch() && strings.TrimSpace(m.query) == "" {
@@ -264,7 +266,6 @@ func (m model) updateSearch(k tea.KeyMsg) model {
 		}
 	}
 	m.normalizeCursor()
-	return m
 }
 
 func (m *model) applySearch() {
@@ -309,11 +310,11 @@ func (m *model) clearSearch() {
 	m.invalidateRows()
 }
 
-func (m model) hasSearch() bool {
+func (m *model) hasSearch() bool {
 	return m.query != "" || m.matches != nil || len(m.matchIDs) > 0 || m.lastError == "No matches"
 }
 
-func (m model) View() string {
+func (m *model) View() string {
 	if m.showHelp {
 		return m.fullHeight(renderHelp(helpText), m.status())
 	}
@@ -341,14 +342,14 @@ func (m model) View() string {
 	return m.fullHeight(strings.Join(lines, "\n"), m.status())
 }
 
-func (m model) contentHeight() int {
+func (m *model) contentHeight() int {
 	if m.height <= 0 {
 		return 20
 	}
 	return max(1, m.height-1)
 }
 
-func (m model) fullHeight(content, footer string) string {
+func (m *model) fullHeight(content, footer string) string {
 	if m.height <= 0 {
 		if content == "" {
 			return footer
@@ -450,11 +451,11 @@ func (m *model) normalizeCursor() {
 	}
 }
 
-func (m model) pageStep() int {
+func (m *model) pageStep() int {
 	return max(1, m.contentHeight())
 }
 
-func (m model) halfPageStep() int {
+func (m *model) halfPageStep() int {
 	return max(1, m.contentHeight()/2)
 }
 
@@ -598,7 +599,7 @@ func (m *model) recordJump() {
 	m.recordLocation(m.currentLocation())
 }
 
-func (m model) currentLocation() location {
+func (m *model) currentLocation() location {
 	return location{
 		selected:  m.selected,
 		offset:    m.offset,
@@ -695,7 +696,7 @@ func (m *model) selectNode(id int) {
 	}
 }
 
-func (m model) findNode(id int) *xmltree.Node {
+func (m *model) findNode(id int) *xmltree.Node {
 	var found *xmltree.Node
 	xmltree.Walk(m.doc, func(n *xmltree.Node) {
 		if n.ID == id {
@@ -705,7 +706,7 @@ func (m model) findNode(id int) *xmltree.Node {
 	return found
 }
 
-func (m model) status() string {
+func (m *model) status() string {
 	left := m.filePath
 	if left == "" {
 		left = "xray"
