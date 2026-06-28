@@ -143,6 +143,8 @@ type model struct {
 	jumps        []location
 	jumpIndex    int
 	searchOrigin *location
+	cachedRows   []view.Row
+	rowsValid    bool
 }
 
 func newModel(doc *xmltree.Document, filePath string) model {
@@ -156,6 +158,9 @@ func (m model) Init() tea.Cmd { return nil }
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
+		if m.width != msg.Width {
+			m.invalidateRows()
+		}
 		m.width = msg.Width
 		m.height = msg.Height
 	case tea.KeyMsg:
@@ -270,6 +275,7 @@ func (m *model) applySearch() {
 	}
 	m.matches = xmltree.Search(m.doc, q)
 	m.matchIDs = xmltree.MatchIDs(m.matches)
+	m.invalidateRows()
 	if len(m.matchIDs) == 0 {
 		m.lastError = "No matches"
 		m.selected = 0
@@ -300,6 +306,7 @@ func (m *model) clearSearch() {
 	m.offset = 0
 	m.lastError = ""
 	m.searchOrigin = nil
+	m.invalidateRows()
 }
 
 func (m model) hasSearch() bool {
@@ -387,8 +394,11 @@ func splitLines(s string) []string {
 	return strings.Split(strings.TrimRight(s, "\n"), "\n")
 }
 
-func (m model) rows() []view.Row {
-	return view.Flatten(m.doc, view.Options{
+func (m *model) rows() []view.Row {
+	if m.rowsValid {
+		return m.cachedRows
+	}
+	m.cachedRows = view.Flatten(m.doc, view.Options{
 		Expanded:        m.expanded,
 		Matches:         m.matches,
 		InlineTextLimit: xmltree.DefaultInlineTextLimit,
@@ -396,9 +406,16 @@ func (m model) rows() []view.Row {
 		TextExpanded:    m.textExpanded,
 		WrapWidth:       m.width,
 	})
+	m.rowsValid = true
+	return m.cachedRows
 }
 
-func (m model) selectedRow() (view.Row, bool) {
+func (m *model) invalidateRows() {
+	m.cachedRows = nil
+	m.rowsValid = false
+}
+
+func (m *model) selectedRow() (view.Row, bool) {
 	rows := m.rows()
 	if m.selected < 0 || m.selected >= len(rows) {
 		return view.Row{}, false
@@ -481,6 +498,7 @@ func (m *model) goBottom() {
 func (m *model) toggleSelected() {
 	if id := m.selectedNodeID(); id != 0 {
 		m.expanded[id] = !m.expanded[id]
+		m.invalidateRows()
 	}
 }
 
@@ -493,6 +511,7 @@ func (m *model) toggleFold(row view.Row) {
 	} else if row.LongText {
 		m.textExpanded[row.NodeID] = !row.Expanded
 	}
+	m.invalidateRows()
 }
 
 func (m *model) foldAll() {
@@ -501,6 +520,7 @@ func (m *model) foldAll() {
 	xmltree.Walk(m.doc, func(n *xmltree.Node) {
 		m.expanded[n.ID] = false
 	})
+	m.invalidateRows()
 }
 
 func (m *model) unfoldAll() {
@@ -520,6 +540,7 @@ func (m *model) unfoldAll() {
 			m.textExpanded[n.ID] = true
 		}
 	})
+	m.invalidateRows()
 }
 
 func (m *model) collapseOrParent() {
@@ -529,6 +550,7 @@ func (m *model) collapseOrParent() {
 	}
 	if m.expanded[id] {
 		m.expanded[id] = false
+		m.invalidateRows()
 		return
 	}
 	n := m.findNode(id)
@@ -544,6 +566,7 @@ func (m *model) expandOrChild() {
 	}
 	if !m.expanded[id] {
 		m.expanded[id] = true
+		m.invalidateRows()
 		return
 	}
 	n := m.findNode(id)
@@ -632,6 +655,7 @@ func (m *model) goLocation(loc location) {
 	m.matchIDs = append([]int(nil), loc.matchIDs...)
 	m.lastError = loc.lastError
 	m.searchOrigin = nil
+	m.invalidateRows()
 	rows := m.rows()
 	m.selected = clamp(loc.selected, 0, len(rows)-1)
 	m.offset = clamp(loc.offset, 0, max(0, len(rows)-m.contentHeight()))
@@ -652,7 +676,7 @@ func sameLocation(a, b location) bool {
 	return a.selected == b.selected && a.offset == b.offset && a.query == b.query && a.lastError == b.lastError
 }
 
-func (m model) selectedNodeID() int {
+func (m *model) selectedNodeID() int {
 	rows := m.rows()
 	if m.selected >= 0 && m.selected < len(rows) {
 		return rows[m.selected].NodeID

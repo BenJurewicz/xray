@@ -450,6 +450,7 @@ func TestCursorClampsWhenRenderedRowsShrink(t *testing.T) {
 
 	parent := doc.Roots[0].Children[0]
 	m.expanded[parent.ID] = false
+	m.invalidateRows()
 	updated, _ := m.Update(teaKey("j"))
 	m = updated.(model)
 
@@ -459,6 +460,34 @@ func TestCursorClampsWhenRenderedRowsShrink(t *testing.T) {
 	}
 	if m.offset > max(0, len(m.rows())-m.contentHeight()) {
 		t.Fatalf("offset not clamped after rows shrink: offset=%d rows=%d", m.offset, len(m.rows()))
+	}
+}
+
+func TestRowsCacheReusesAndInvalidates(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root><parent><child>value</child></parent></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 8
+
+	first := m.rows()
+	second := m.rows()
+	if !m.rowsValid {
+		t.Fatalf("rows cache was not marked valid")
+	}
+	if len(first) == 0 || len(second) == 0 || &first[0] != &second[0] {
+		t.Fatalf("rows cache did not reuse cached slice")
+	}
+
+	m.toggleSelected()
+	if m.rowsValid {
+		t.Fatalf("toggleSelected did not invalidate rows cache")
+	}
+	collapsed := m.rows()
+	if len(collapsed) >= len(first) {
+		t.Fatalf("collapsed rows=%d want fewer than %d", len(collapsed), len(first))
 	}
 }
 
