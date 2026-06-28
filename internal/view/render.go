@@ -4,8 +4,16 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"unicode"
+	"unicode/utf8"
 
 	"xray/internal/xmltree"
+)
+
+const (
+	foldedPreviewRunes       = 40
+	foldedPreviewEdgeRunes   = 20
+	foldedPreviewWindowBytes = 256
 )
 
 // Row is one rendered tree line.
@@ -104,7 +112,7 @@ func flattenNode(rows *[]Row, n *xmltree.Node, prefix string, last bool, opts Op
 			conn = "└─ "
 		}
 		// Compute wrapping width for this child item.
-		childDepth := len([]rune(childPrefix)) // rune count of child prefix = columns
+		childDepth := len([]rune(childPrefix))       // rune count of child prefix = columns
 		availWidth := wrapWidth - childDepth - 3 - 2 // -3 for conn, -2 for 2-rune glyph
 		if availWidth < 5 {
 			availWidth = 5
@@ -269,11 +277,86 @@ func formatAttr(a xmltree.Attr, expanded bool, limit int) string {
 }
 
 func truncateWithEllipsis(s string) string {
-	r := []rune(s)
-	if len(r) <= 40 {
+	if !runeCountExceeds(s, foldedPreviewRunes) {
+		return sanitizeFoldPreview(s)
+	}
+
+	prefix := firstRunes(sanitizeFoldPreview(previewPrefix(s)), foldedPreviewEdgeRunes)
+	suffix := lastRunes(sanitizeFoldPreview(previewSuffix(s)), foldedPreviewEdgeRunes)
+	return prefix + ".." + suffix
+}
+
+func sanitizeFoldPreview(s string) string {
+	s = strings.Map(func(r rune) rune {
+		if unicode.IsControl(r) {
+			return ' '
+		}
+		return r
+	}, s)
+	return strings.Join(strings.Fields(s), " ")
+}
+
+func runeCountExceeds(s string, limit int) bool {
+	count := 0
+	for range s {
+		count++
+		if count > limit {
+			return true
+		}
+	}
+	return false
+}
+
+func previewPrefix(s string) string {
+	if len(s) <= foldedPreviewWindowBytes {
 		return s
 	}
-	return string(r[:20]) + ".." + string(r[len(r)-20:])
+	return s[:validUTF8PrefixLen(s, foldedPreviewWindowBytes)]
+}
+
+func previewSuffix(s string) string {
+	if len(s) <= foldedPreviewWindowBytes {
+		return s
+	}
+	start := validUTF8SuffixStart(s, len(s)-foldedPreviewWindowBytes)
+	return s[start:]
+}
+
+func validUTF8PrefixLen(s string, limit int) int {
+	for limit > 0 && !utf8.ValidString(s[:limit]) {
+		limit--
+	}
+	return limit
+}
+
+func validUTF8SuffixStart(s string, start int) int {
+	for start < len(s) && !utf8.RuneStart(s[start]) {
+		start++
+	}
+	return start
+}
+
+func firstRunes(s string, limit int) string {
+	for i := range s {
+		if limit == 0 {
+			return s[:i]
+		}
+		limit--
+	}
+	return s
+}
+
+func lastRunes(s string, limit int) string {
+	start := len(s)
+	for start > 0 && limit > 0 {
+		r, size := utf8.DecodeLastRuneInString(s[:start])
+		if r == utf8.RuneError && size == 0 {
+			break
+		}
+		start -= size
+		limit--
+	}
+	return s[start:]
 }
 
 func hasLongAttr(n *xmltree.Node, limit int) bool {

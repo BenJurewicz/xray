@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"unicode/utf8"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
@@ -23,6 +24,7 @@ Usage:
 Keys:
   ↑/k ↓/j      move
   ←/h →/l      collapse / expand
+  H / L        fold all / unfold all
   d/u          half-page down / up
   f/b          page down / up
   e/y          scroll down / up
@@ -77,7 +79,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	p := tea.NewProgram(newModel(doc, displayPath), tea.WithAltScreen())
+	m := newModel(doc, displayPath)
+	p := tea.NewProgram(&m, tea.WithAltScreen())
 	if _, err := p.Run(); err != nil {
 		fmt.Fprintln(os.Stderr, "xray:", err)
 		os.Exit(1)
@@ -141,6 +144,8 @@ type model struct {
 	jumps        []location
 	jumpIndex    int
 	searchOrigin *location
+	cachedRows   []view.Row
+	rowsValid    bool
 }
 
 func newModel(doc *xmltree.Document, filePath string) model {
@@ -149,16 +154,20 @@ func newModel(doc *xmltree.Document, filePath string) model {
 	return model{doc: doc, expanded: exp, attrExpanded: map[int]map[int]bool{}, textExpanded: map[int]bool{}, filePath: filePath, jumpIndex: -1}
 }
 
-func (m model) Init() tea.Cmd { return nil }
+func (m *model) Init() tea.Cmd { return nil }
 
-func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.WindowSizeMsg:
+		if m.width != msg.Width {
+			m.invalidateRows()
+		}
 		m.width = msg.Width
 		m.height = msg.Height
 	case tea.KeyMsg:
 		if m.mode == modeSearch {
-			return m.updateSearch(msg), nil
+			m.updateSearch(msg)
+			return m, nil
 		}
 		switch msg.String() {
 		case "q", "ctrl+c":
@@ -196,6 +205,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			} else {
 				m.expandOrChild()
 			}
+		case "L":
+			m.unfoldAll()
 		case "left", "h":
 			row, ok := m.selectedRow()
 			if ok && row.Foldable && row.Expanded {
@@ -203,6 +214,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			} else {
 				m.collapseOrParent()
 			}
+		case "H":
+			m.foldAll()
 		case "enter":
 			row, ok := m.selectedRow()
 			if ok && row.Foldable {
@@ -229,10 +242,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			m.nextMatch(-1)
 		}
 	}
+	m.normalizeCursor()
 	return m, nil
 }
 
-func (m model) updateSearch(k tea.KeyMsg) model {
+func (m *model) updateSearch(k tea.KeyMsg) {
 	switch k.String() {
 	case "esc":
 		if m.hasSearch() && strings.TrimSpace(m.query) == "" {
@@ -251,7 +265,7 @@ func (m model) updateSearch(k tea.KeyMsg) model {
 			m.query += s
 		}
 	}
-	return m
+	m.normalizeCursor()
 }
 
 func (m *model) applySearch() {
@@ -262,6 +276,7 @@ func (m *model) applySearch() {
 	}
 	m.matches = xmltree.Search(m.doc, q)
 	m.matchIDs = xmltree.MatchIDs(m.matches)
+	m.invalidateRows()
 	if len(m.matchIDs) == 0 {
 		m.lastError = "No matches"
 		m.selected = 0
@@ -292,13 +307,14 @@ func (m *model) clearSearch() {
 	m.offset = 0
 	m.lastError = ""
 	m.searchOrigin = nil
+	m.invalidateRows()
 }
 
-func (m model) hasSearch() bool {
+func (m *model) hasSearch() bool {
 	return m.query != "" || m.matches != nil || len(m.matchIDs) > 0 || m.lastError == "No matches"
 }
 
-func (m model) View() string {
+func (m *model) View() string {
 	if m.showHelp {
 		return m.fullHeight(renderHelp(helpText), m.status())
 	}
@@ -326,14 +342,14 @@ func (m model) View() string {
 	return m.fullHeight(strings.Join(lines, "\n"), m.status())
 }
 
-func (m model) contentHeight() int {
+func (m *model) contentHeight() int {
 	if m.height <= 0 {
 		return 20
 	}
 	return max(1, m.height-1)
 }
 
-func (m model) fullHeight(content, footer string) string {
+func (m *model) fullHeight(content, footer string) string {
 	if m.height <= 0 {
 		if content == "" {
 			return footer
@@ -379,8 +395,11 @@ func splitLines(s string) []string {
 	return strings.Split(strings.TrimRight(s, "\n"), "\n")
 }
 
-func (m model) rows() []view.Row {
-	return view.Flatten(m.doc, view.Options{
+func (m *model) rows() []view.Row {
+	if m.rowsValid {
+		return m.cachedRows
+	}
+	m.cachedRows = view.Flatten(m.doc, view.Options{
 		Expanded:        m.expanded,
 		Matches:         m.matches,
 		InlineTextLimit: xmltree.DefaultInlineTextLimit,
@@ -388,9 +407,16 @@ func (m model) rows() []view.Row {
 		TextExpanded:    m.textExpanded,
 		WrapWidth:       m.width,
 	})
+	m.rowsValid = true
+	return m.cachedRows
 }
 
-func (m model) selectedRow() (view.Row, bool) {
+func (m *model) invalidateRows() {
+	m.cachedRows = nil
+	m.rowsValid = false
+}
+
+func (m *model) selectedRow() (view.Row, bool) {
 	rows := m.rows()
 	if m.selected < 0 || m.selected >= len(rows) {
 		return view.Row{}, false
@@ -400,15 +426,36 @@ func (m model) selectedRow() (view.Row, bool) {
 
 func (m *model) move(delta int) {
 	rows := m.rows()
+	if len(rows) == 0 {
+		m.selected = 0
+		m.offset = 0
+		return
+	}
 	m.selected = clamp(m.selected+delta, 0, len(rows)-1)
 	m.ensureVisible(len(rows), m.contentHeight())
 }
 
-func (m model) pageStep() int {
+func (m *model) normalizeCursor() {
+	rows := m.rows()
+	if len(rows) == 0 {
+		m.selected = 0
+		m.offset = 0
+		return
+	}
+	selected := m.selected
+	offset := m.offset
+	m.selected = clamp(m.selected, 0, len(rows)-1)
+	m.offset = clamp(m.offset, 0, max(0, len(rows)-m.contentHeight()))
+	if m.selected != selected || m.offset != offset {
+		m.ensureVisible(len(rows), m.contentHeight())
+	}
+}
+
+func (m *model) pageStep() int {
 	return max(1, m.contentHeight())
 }
 
-func (m model) halfPageStep() int {
+func (m *model) halfPageStep() int {
 	return max(1, m.contentHeight()/2)
 }
 
@@ -452,6 +499,7 @@ func (m *model) goBottom() {
 func (m *model) toggleSelected() {
 	if id := m.selectedNodeID(); id != 0 {
 		m.expanded[id] = !m.expanded[id]
+		m.invalidateRows()
 	}
 }
 
@@ -464,6 +512,36 @@ func (m *model) toggleFold(row view.Row) {
 	} else if row.LongText {
 		m.textExpanded[row.NodeID] = !row.Expanded
 	}
+	m.invalidateRows()
+}
+
+func (m *model) foldAll() {
+	m.attrExpanded = map[int]map[int]bool{}
+	m.textExpanded = map[int]bool{}
+	xmltree.Walk(m.doc, func(n *xmltree.Node) {
+		m.expanded[n.ID] = false
+	})
+	m.invalidateRows()
+}
+
+func (m *model) unfoldAll() {
+	m.attrExpanded = map[int]map[int]bool{}
+	m.textExpanded = map[int]bool{}
+	xmltree.Walk(m.doc, func(n *xmltree.Node) {
+		m.expanded[n.ID] = true
+		for i, attr := range n.Attrs {
+			if utf8.RuneCountInString(attr.Value) > xmltree.DefaultInlineTextLimit {
+				if m.attrExpanded[n.ID] == nil {
+					m.attrExpanded[n.ID] = map[int]bool{}
+				}
+				m.attrExpanded[n.ID][i] = true
+			}
+		}
+		if utf8.RuneCountInString(n.Text) > xmltree.DefaultInlineTextLimit {
+			m.textExpanded[n.ID] = true
+		}
+	})
+	m.invalidateRows()
 }
 
 func (m *model) collapseOrParent() {
@@ -473,6 +551,7 @@ func (m *model) collapseOrParent() {
 	}
 	if m.expanded[id] {
 		m.expanded[id] = false
+		m.invalidateRows()
 		return
 	}
 	n := m.findNode(id)
@@ -488,6 +567,7 @@ func (m *model) expandOrChild() {
 	}
 	if !m.expanded[id] {
 		m.expanded[id] = true
+		m.invalidateRows()
 		return
 	}
 	n := m.findNode(id)
@@ -519,7 +599,7 @@ func (m *model) recordJump() {
 	m.recordLocation(m.currentLocation())
 }
 
-func (m model) currentLocation() location {
+func (m *model) currentLocation() location {
 	return location{
 		selected:  m.selected,
 		offset:    m.offset,
@@ -576,6 +656,7 @@ func (m *model) goLocation(loc location) {
 	m.matchIDs = append([]int(nil), loc.matchIDs...)
 	m.lastError = loc.lastError
 	m.searchOrigin = nil
+	m.invalidateRows()
 	rows := m.rows()
 	m.selected = clamp(loc.selected, 0, len(rows)-1)
 	m.offset = clamp(loc.offset, 0, max(0, len(rows)-m.contentHeight()))
@@ -596,7 +677,7 @@ func sameLocation(a, b location) bool {
 	return a.selected == b.selected && a.offset == b.offset && a.query == b.query && a.lastError == b.lastError
 }
 
-func (m model) selectedNodeID() int {
+func (m *model) selectedNodeID() int {
 	rows := m.rows()
 	if m.selected >= 0 && m.selected < len(rows) {
 		return rows[m.selected].NodeID
@@ -615,7 +696,7 @@ func (m *model) selectNode(id int) {
 	}
 }
 
-func (m model) findNode(id int) *xmltree.Node {
+func (m *model) findNode(id int) *xmltree.Node {
 	var found *xmltree.Node
 	xmltree.Walk(m.doc, func(n *xmltree.Node) {
 		if n.ID == id {
@@ -625,7 +706,7 @@ func (m model) findNode(id int) *xmltree.Node {
 	return found
 }
 
-func (m model) status() string {
+func (m *model) status() string {
 	left := m.filePath
 	if left == "" {
 		left = "xray"

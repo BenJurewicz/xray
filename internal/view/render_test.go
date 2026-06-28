@@ -115,6 +115,63 @@ func TestFlattenRendersMultilineTextAsSeparateRows(t *testing.T) {
 	}
 }
 
+func TestFoldedTextPreviewRemovesControlCharacters(t *testing.T) {
+	text := "beginning of text\n" + strings.Repeat("middle\t", 12) + "\rend of text"
+	doc, err := xmltree.Parse(strings.NewReader(`<root><description>` + text + `</description></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	rows := Flatten(doc, Options{InlineTextLimit: 10})
+
+	idx := -1
+	for i, row := range rows {
+		if row.LongText && row.Foldable && !row.Expanded {
+			idx = i
+			break
+		}
+	}
+	if idx < 0 {
+		t.Fatalf("folded long text row not found: %#v", rows)
+	}
+	if strings.ContainsAny(rows[idx].Text, "\n\r\t") {
+		t.Fatalf("folded preview contains control characters: %q", rows[idx].Text)
+	}
+	if !strings.Contains(rows[idx].Text, "..") {
+		t.Fatalf("folded preview missing ellipsis marker: %q", rows[idx].Text)
+	}
+}
+
+func TestFoldedTextPreviewUsesBoundedEdges(t *testing.T) {
+	text := "prefix " + strings.Repeat("middle ", 10000) + "suffix"
+	got := truncateWithEllipsis(text)
+	if !strings.HasPrefix(got, "prefix ") {
+		t.Fatalf("preview missing prefix: %q", got)
+	}
+	if !strings.HasSuffix(got, "suffix") {
+		t.Fatalf("preview missing suffix: %q", got)
+	}
+	if strings.Contains(got, "middle middle middle middle middle") {
+		t.Fatalf("preview included too much middle content: %q", got)
+	}
+	if strings.ContainsAny(got, "\n\r\t") {
+		t.Fatalf("preview contains control characters: %q", got)
+	}
+}
+
+func TestFoldedTextPreviewKeepsUTF8EdgesValid(t *testing.T) {
+	text := strings.Repeat("🙂", 80) + strings.Repeat("middle", 1000) + strings.Repeat("🚀", 80)
+	got := truncateWithEllipsis(text)
+	if !strings.HasPrefix(got, strings.Repeat("🙂", 20)) {
+		t.Fatalf("preview prefix split UTF-8 runes: %q", got)
+	}
+	if !strings.HasSuffix(got, strings.Repeat("🚀", 20)) {
+		t.Fatalf("preview suffix split UTF-8 runes: %q", got)
+	}
+	if strings.ContainsRune(got, '\uFFFD') {
+		t.Fatalf("preview contains replacement rune: %q", got)
+	}
+}
+
 func TestLongAttrsMoveAllAttrsToChildrenAndFoldIndividually(t *testing.T) {
 	longValue := strings.Repeat("abcdef ", 20)
 	doc, err := xmltree.Parse(strings.NewReader(`<root><item short="ok" token="` + longValue + `">Text</item></root>`))
@@ -131,7 +188,7 @@ func TestLongAttrsMoveAllAttrsToChildrenAndFoldIndividually(t *testing.T) {
 	if !strings.Contains(collapsedJoined, `@short="ok"`) {
 		t.Fatalf("short attr child row missing:\n%s", collapsedJoined)
 	}
-	if !strings.Contains(collapsedJoined, `▸ @token="abcdef abcdef abcdef..bcdef abcdef abcdef "`) {
+	if !strings.Contains(collapsedJoined, `▸ @token="abcdef abcdef abcdef..abcdef abcdef abcdef"`) {
 		t.Fatalf("long attr folded child row missing:\n%s", collapsedJoined)
 	}
 	if strings.Contains(collapsedJoined, longValue) {

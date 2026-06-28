@@ -97,7 +97,7 @@ func TestClearSearchKeyOnlyShowsAfterSearch(t *testing.T) {
 	}
 
 	updated, _ := m.Update(teaKey("c"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.matches != nil || m.query != "" || len(m.matchIDs) != 0 {
 		t.Fatalf("search not cleared: query=%q matches=%v matchIDs=%v", m.query, m.matches, m.matchIDs)
 	}
@@ -118,7 +118,7 @@ func TestEscClearsActiveSearchFilter(t *testing.T) {
 	m.applySearch()
 
 	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyEsc})
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.matches != nil || m.query != "" || len(m.matchIDs) != 0 {
 		t.Fatalf("search not cleared by esc: query=%q matches=%v matchIDs=%v", m.query, m.matches, m.matchIDs)
 	}
@@ -134,48 +134,48 @@ func TestVimNavigationKeys(t *testing.T) {
 	m.height = 10
 
 	updated, _ := m.Update(teaKey("d"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.offset != 4 || m.selected != 4 {
 		t.Fatalf("d selected=%d offset=%d want 4/4", m.selected, m.offset)
 	}
 
 	updated, _ = m.Update(teaKey("u"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.offset != 0 || m.selected != 0 {
 		t.Fatalf("u selected=%d offset=%d want 0/0", m.selected, m.offset)
 	}
 
 	updated, _ = m.Update(teaKey("f"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.offset != 9 || m.selected != 9 {
 		t.Fatalf("f selected=%d offset=%d want 9/9", m.selected, m.offset)
 	}
 
 	updated, _ = m.Update(teaKey("b"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.offset != 0 || m.selected != 0 {
 		t.Fatalf("b selected=%d offset=%d want 0/0", m.selected, m.offset)
 	}
 
 	updated, _ = m.Update(teaKey("G"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.selected != len(m.rows())-1 {
 		t.Fatalf("G selected=%d want bottom %d", m.selected, len(m.rows())-1)
 	}
 
 	updated, _ = m.Update(teaKey("g"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.selected != 0 || m.offset != 0 {
 		t.Fatalf("g selected=%d offset=%d want top", m.selected, m.offset)
 	}
 
 	updated, _ = m.Update(teaKey("e"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.offset != 1 {
 		t.Fatalf("e offset=%d want 1", m.offset)
 	}
 	updated, _ = m.Update(teaKey("y"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.offset != 0 {
 		t.Fatalf("y offset=%d want 0", m.offset)
 	}
@@ -191,12 +191,12 @@ func TestControlNavigationAliasesStillWork(t *testing.T) {
 	m.height = 10
 
 	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyCtrlD})
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.offset != 4 || m.selected != 4 {
 		t.Fatalf("ctrl-d selected=%d offset=%d want 4/4", m.selected, m.offset)
 	}
 	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyCtrlU})
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.offset != 0 || m.selected != 0 {
 		t.Fatalf("ctrl-u selected=%d offset=%d want 0/0", m.selected, m.offset)
 	}
@@ -219,12 +219,12 @@ func TestFoldableAttrAndTextKeysToggleIndependently(t *testing.T) {
 	}
 	m.selected = attrRow
 	updated, _ := m.Update(teaKey("l"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if !m.attrExpanded[doc.Roots[0].Children[0].ID][1] {
 		t.Fatalf("l did not expand selected attr")
 	}
 	updated, _ = m.Update(teaKey("h"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.attrExpanded[doc.Roots[0].Children[0].ID][1] {
 		t.Fatalf("h did not fold selected attr")
 	}
@@ -235,9 +235,50 @@ func TestFoldableAttrAndTextKeysToggleIndependently(t *testing.T) {
 	}
 	m.selected = textRow
 	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyEnter})
-	m = updated.(model)
+	m = *updated.(*model)
 	if !m.textExpanded[doc.Roots[0].Children[0].ID] {
 		t.Fatalf("enter did not expand selected text")
+	}
+}
+
+func TestFoldAndUnfoldAllKeys(t *testing.T) {
+	longAttr := strings.Repeat("abcdef ", 12)
+	longText := strings.Repeat("word ", 30)
+	doc, err := xmltree.Parse(strings.NewReader(`<root><item token="` + longAttr + `">` + longText + `</item><other><child>ok</child></other></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 160
+	m.height = 20
+
+	updated, _ := m.Update(teaKey("L"))
+	m = *updated.(*model)
+	for _, row := range m.rows() {
+		if row.Foldable && !row.Expanded {
+			t.Fatalf("L left a folded row: %#v", row)
+		}
+	}
+	item := doc.Roots[0].Children[0]
+	if !m.attrExpanded[item.ID][0] {
+		t.Fatalf("L did not unfold long attr")
+	}
+	if !m.textExpanded[item.ID] {
+		t.Fatalf("L did not unfold long text")
+	}
+
+	updated, _ = m.Update(teaKey("H"))
+	m = *updated.(*model)
+	for id, expanded := range m.expanded {
+		if expanded {
+			t.Fatalf("H left node %d expanded", id)
+		}
+	}
+	if len(m.attrExpanded) != 0 || len(m.textExpanded) != 0 {
+		t.Fatalf("H did not clear fold expansion maps: attrs=%v text=%v", m.attrExpanded, m.textExpanded)
+	}
+	if got := len(m.rows()); got != 1 {
+		t.Fatalf("H should collapse to root row, got %d rows", got)
 	}
 }
 
@@ -251,21 +292,21 @@ func TestJumpListBackAndForward(t *testing.T) {
 	m.height = 10
 
 	updated, _ := m.Update(teaKey("G"))
-	m = updated.(model)
+	m = *updated.(*model)
 	bottom := m.selected
 	updated, _ = m.Update(teaKey("g"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.selected != 0 {
 		t.Fatalf("g selected=%d want top", m.selected)
 	}
 
 	updated, _ = m.Update(teaKey("o"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.selected != bottom {
 		t.Fatalf("o selected=%d want previous bottom %d", m.selected, bottom)
 	}
 	updated, _ = m.Update(teaKey("i"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.selected != 0 {
 		t.Fatalf("i selected=%d want forward top", m.selected)
 	}
@@ -280,23 +321,23 @@ func TestSearchRecordsJumpAndOBackRestoresPreviousView(t *testing.T) {
 	m.width = 100
 	m.height = 8
 	updated, _ := m.Update(teaKey("G"))
-	m = updated.(model)
+	m = *updated.(*model)
 	previous := m.selected
 
 	updated, _ = m.Update(teaKey("/"))
-	m = updated.(model)
+	m = *updated.(*model)
 	for _, r := range "tag:target" {
 		updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune{r}})
-		m = updated.(model)
+		m = *updated.(*model)
 	}
 	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyEnter})
-	m = updated.(model)
+	m = *updated.(*model)
 	if !m.hasSearch() || m.query != "tag:target" {
 		t.Fatalf("expected active target search, query=%q", m.query)
 	}
 
 	updated, _ = m.Update(teaKey("o"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.hasSearch() || m.query != "" {
 		t.Fatalf("o should restore pre-search unfiltered view, query=%q", m.query)
 	}
@@ -337,34 +378,150 @@ func TestJKScrollsOnlyAtViewportEdges(t *testing.T) {
 
 	for range 3 {
 		updated, _ := m.Update(teaKey("j"))
-		m = updated.(model)
+		m = *updated.(*model)
 	}
 	if m.selected != 3 || m.offset != 0 {
 		t.Fatalf("j moved viewport before bottom edge: selected=%d offset=%d", m.selected, m.offset)
 	}
 
 	updated, _ := m.Update(teaKey("j"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.selected != 4 || m.offset != 0 {
 		t.Fatalf("j should reach bottom edge before scrolling: selected=%d offset=%d", m.selected, m.offset)
 	}
 
 	updated, _ = m.Update(teaKey("j"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.selected != 5 || m.offset != 1 {
 		t.Fatalf("j should scroll one line after bottom edge: selected=%d offset=%d", m.selected, m.offset)
 	}
 
 	updated, _ = m.Update(teaKey("k"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.selected != 4 || m.offset != 1 {
 		t.Fatalf("k moved viewport before top edge: selected=%d offset=%d", m.selected, m.offset)
 	}
 
 	updated, _ = m.Update(teaKey("k"))
-	m = updated.(model)
+	m = *updated.(*model)
 	if m.selected != 3 || m.offset != 1 {
 		t.Fatalf("k should move selection within viewport: selected=%d offset=%d", m.selected, m.offset)
+	}
+}
+
+func TestJStopsAtLastRenderedRow(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<item>value</item>`, 12) + `</root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 6
+
+	for range 100 {
+		updated, _ := m.Update(teaKey("j"))
+		m = *updated.(*model)
+	}
+
+	last := len(m.rows()) - 1
+	if m.selected != last {
+		t.Fatalf("j should stop at last row: selected=%d want %d", m.selected, last)
+	}
+	if m.offset > last {
+		t.Fatalf("offset moved past last row: offset=%d last=%d", m.offset, last)
+	}
+
+	updated, _ := m.Update(teaKey("j"))
+	m = *updated.(*model)
+	if m.selected != last {
+		t.Fatalf("extra j moved past last row: selected=%d want %d", m.selected, last)
+	}
+}
+
+func TestCursorClampsWhenRenderedRowsShrink(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root><parent>` + strings.Repeat(`<item>value</item>`, 12) + `</parent></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 6
+	m.selected = len(m.rows()) - 1
+
+	parent := doc.Roots[0].Children[0]
+	m.expanded[parent.ID] = false
+	m.invalidateRows()
+	updated, _ := m.Update(teaKey("j"))
+	m = *updated.(*model)
+
+	last := len(m.rows()) - 1
+	if m.selected != last {
+		t.Fatalf("selected not clamped after rows shrink: selected=%d want %d", m.selected, last)
+	}
+	if m.offset > max(0, len(m.rows())-m.contentHeight()) {
+		t.Fatalf("offset not clamped after rows shrink: offset=%d rows=%d", m.offset, len(m.rows()))
+	}
+}
+
+func TestRowsCacheReusesAndInvalidates(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root><parent><child>value</child></parent></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 8
+
+	first := m.rows()
+	second := m.rows()
+	if !m.rowsValid {
+		t.Fatalf("rows cache was not marked valid")
+	}
+	if len(first) == 0 || len(second) == 0 || &first[0] != &second[0] {
+		t.Fatalf("rows cache did not reuse cached slice")
+	}
+
+	m.toggleSelected()
+	if m.rowsValid {
+		t.Fatalf("toggleSelected did not invalidate rows cache")
+	}
+	collapsed := m.rows()
+	if len(collapsed) >= len(first) {
+		t.Fatalf("collapsed rows=%d want fewer than %d", len(collapsed), len(first))
+	}
+}
+
+func TestViewPopulatesRowsCacheOnModel(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root><child>value</child></root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 8
+
+	_ = m.View()
+
+	if !m.rowsValid || len(m.cachedRows) == 0 {
+		t.Fatalf("View did not populate rows cache on model")
+	}
+}
+
+func TestNormalizeCursorKeepsSelectionVisible(t *testing.T) {
+	doc, err := xmltree.Parse(strings.NewReader(`<root>` + strings.Repeat(`<item>value</item>`, 30) + `</root>`))
+	if err != nil {
+		t.Fatal(err)
+	}
+	m := newModel(doc, "testdata/sample.xml")
+	m.width = 100
+	m.height = 6
+	m.selected = 2
+	m.offset = len(m.rows())
+
+	m.normalizeCursor()
+
+	if m.selected < m.offset || m.selected >= m.offset+m.contentHeight() {
+		t.Fatalf("selection not visible after normalize: selected=%d offset=%d height=%d", m.selected, m.offset, m.contentHeight())
 	}
 }
 

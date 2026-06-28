@@ -152,6 +152,7 @@ After a search is active:
 | `↓` / `j` | Move down |
 | `←` / `h` | Collapse node / fold attr or text block |
 | `→` / `l` | Expand node / unfold attr or text block |
+| `H` / `L` | Fold all / unfold all |
 | `enter` | Toggle node / attr / text block expand |
 | `d` / `u` | Half-page down / up |
 | `ctrl-d` / `ctrl-u` | Half-page down / up |
